@@ -1,4 +1,4 @@
-// const workoutTypeSelect = document.querySelector("#type");
+const workoutTypeSelect = document.querySelector("#type");
 // const cardioForm = document.querySelector(".cardio-form");
 // const resistanceForm = document.querySelector(".resistance-form");
 // const cardioNameInput = document.querySelector("#cardio-name");
@@ -9,8 +9,8 @@
 // const durationInput = document.querySelector("#duration");
 // const resistanceDurationInput = document.querySelector("#resistance-duration");
 // const distanceInput = document.querySelector("#distance");
-// const completeButton = document.querySelector("button.complete");
-// const addButton = document.querySelector("button.add-another");
+const completeButton = document.querySelector("button.complete");
+const addButton = document.querySelector("button.add-another");
 // const toast = document.querySelector("#toast");
 // const newWorkout = document.querySelector(".new-workout");
 
@@ -150,11 +150,14 @@ var deviceSpeed =
   ", " +
   sampleResponse.data.device_spec.speed[2];
 
-var attScore=100;
+var attScore= 90;
 var tmobileScore=25;
 var overallScore=97;
 var remarks1="sample remarks....";
+var remarks2="sample remarks....";
 var score1Class="dudu";
+var score2Class="dudu";
+var score3Class="dudu";
 
 
 function assignCompatibilityClass() {
@@ -165,14 +168,15 @@ function assignCompatibilityClass() {
         // var tmobileScore=95;
         // var overallScore=97;
 
-console.log("fired");
+// console.log("fired");
+overallScore=(attScore+tmobileScore)/2;
 
       
 
 if (attScore >74 ) {
   score1Class = "green-score";
 remarks1=" expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier"
-console.log("fired1");
+// console.log("fired1");
 } else if ((attScore <75) && (attScore >45) ){
 score1Class = "yellow-score"
 remarks1=" expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier"
@@ -181,14 +185,13 @@ else if ((attScore <45) && (attScore >0) ){
 score1Class = "orange-score";
 remarks1=" expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier"
 }
-else if (attScore =0 ){
+else if (attScore == 0 ){
 score1Class = "red-score";
-remarks1=" unless a miracle happens or some major changes to the network not taken into account here,   expecting your phone to not have connection with this carrier's network"
-}
+remarks1=" unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network"}
 if (tmobileScore >74 ) {
   score2Class = "green-score";
 remarks2=" expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier"
-console.log("fired1");
+
 } else if ((tmobileScore <75) && (tmobileScore >45) ){
 score2Class = "yellow-score"
 remarks2=" expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier"
@@ -197,9 +200,29 @@ else if ((tmobileScore <45) && (tmobileScore >0) ){
 score2Class = "orange-score";
 remarks2=" expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier"
 }
-else if (tmobileScore =0 ){
+else if (tmobileScore ==0 ){
 score2Class = "red-score";
-remarks2=" unless a miracle happens or some major changes to the network not taken into account here,   expecting your phone to not have connection with this carrier's network"
+remarks2=" unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network"
+}
+if (overallScore >74 ) {
+  score3Class = "green-score";
+  remarks3=" expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier"
+
+
+} else if ((overallScore <75) && (overallScore >45) ){
+score3Class = "yellow-score"
+remarks3=" expecting your phone to have intermittent connection in most areas of USA"
+
+}
+else if ((overallScore <45) && (overallScore >0) ){
+score3Class = "orange-score";
+remarks3=" expecting your phone to have difficulties keeping the connection in most areas of USA"
+}
+
+else if (overallScore ==0 ){
+score3Class = "red-score";
+remarks3=" unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network"
+
 }
         // if (workoutType === "cardio") {
         //   cardioForm.classList.remove("d-none");
@@ -214,7 +237,6 @@ remarks2=" unless a miracle happens or some major changes to the network not tak
       
         // validateInputs();
 
-       
         var scoreDump= `
         <div class="text-center"  >  
         <h2>Results</h2>
@@ -223,19 +245,24 @@ remarks2=" unless a miracle happens or some major changes to the network not tak
         
         
         <tr>
-        <th>AT&T 4G score</th>
+        <th class="${score3Class}">Scores_for_IMEI</th>
+        <td   class="${score3Class}">${deviceImei}</td>
+        </tr>
+        
+        <tr>
+        <th class="${score1Class}">AT&T 4G</th>
         <td id="score1" class="${score1Class}">${attScore} % - ${remarks1}</td>
         </tr>
         
         <tr>
-        <th>T-mobile Score</th>
+        <th class="${score2Class}">T-mobile 4G</th>
         <td id="score2" class="${score2Class}">${tmobileScore} %  - ${remarks2}</td>
         </tr>
         
         
         <tr>
-        <th>Overall Score</th>
-        <td id="score3">${overallScore} %</td>
+        <th class="${score3Class}">Overall Score</th>
+        <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
         </tr>
       
         

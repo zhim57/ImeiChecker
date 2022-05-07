@@ -155,6 +155,7 @@ header
 .yellow-score{
    font-weight: 600;
    color: rgb(240, 237, 50);
+   background-color: #343a40;
 }
 .orange-score{
    font-weight: 600;
