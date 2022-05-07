@@ -290,10 +290,10 @@ style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%)
 
 
   function imeiSearch(stop2, imei1) {
-    //https://imeidb.xyz/api/imei/353283075129556?token=hLXML4jCI-ekWSoSBq4F&format=json
+    //https://imeidb.xyz/api/imei/353283075129556?token={token}&format=json
 
     var imei = imei1;
-    var APIKey = "hLXML4jCI-ekWSoSBq4F";
+    var APIKey = process.env.IMEI_API_TOKEN;
 stop1=stop2;
 
     var queryURL =

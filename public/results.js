@@ -1,20 +1,20 @@
-const workoutTypeSelect = document.querySelector("#type");
-const cardioForm = document.querySelector(".cardio-form");
-const resistanceForm = document.querySelector(".resistance-form");
-const cardioNameInput = document.querySelector("#cardio-name");
-const nameInput = document.querySelector("#name");
-const weightInput = document.querySelector("#weight");
-const setsInput = document.querySelector("#sets");
-const repsInput = document.querySelector("#reps");
-const durationInput = document.querySelector("#duration");
-const resistanceDurationInput = document.querySelector("#resistance-duration");
-const distanceInput = document.querySelector("#distance");
-const completeButton = document.querySelector("button.complete");
-const addButton = document.querySelector("button.add-another");
-const toast = document.querySelector("#toast");
-const newWorkout = document.querySelector(".new-workout");
+// const workoutTypeSelect = document.querySelector("#type");
+// const cardioForm = document.querySelector(".cardio-form");
+// const resistanceForm = document.querySelector(".resistance-form");
+// const cardioNameInput = document.querySelector("#cardio-name");
+// const nameInput = document.querySelector("#name");
+// const weightInput = document.querySelector("#weight");
+// const setsInput = document.querySelector("#sets");
+// const repsInput = document.querySelector("#reps");
+// const durationInput = document.querySelector("#duration");
+// const resistanceDurationInput = document.querySelector("#resistance-duration");
+// const distanceInput = document.querySelector("#distance");
+// const completeButton = document.querySelector("button.complete");
+// const addButton = document.querySelector("button.add-another");
+// const toast = document.querySelector("#toast");
+// const newWorkout = document.querySelector(".new-workout");
 
-let workoutType = null;
+// let workoutType = null;
 let shouldNavigateAway = false;
 
 var sampleResponse = {
@@ -92,6 +92,10 @@ var sampleResponse = {
 };
 
 // development test variables
+var attLteArray =[2,4,5,17,30]
+var tmobileLteArray =[2,4,5,12]
+var verizonLteArray =[2,4,5,13]
+var sprintLteArray =[25,30,41]
 var deviceModel = sampleResponse.data.model ;
 var frequencyArray2g="GSM Bands: ";
 var frequencyArrayLte="LTE Bands: ";
