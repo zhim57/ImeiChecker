@@ -1,0 +1,30 @@
+{
+  "name": "mongoose_skeleton",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeders/seed.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9",
+    "morgan": "^1.10.0",
+    "seeder": "^0.2.4"
+  },
+  "keywords": [],
+  "devDependencies": {},
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhim57/fitnes-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhim57/fitnes-tracker/issues"
+  },
+  "homepage": "https://github.com/zhim57/fitnes-tracker#readme"
+}

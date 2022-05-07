@@ -1,0 +1,166 @@
+.container
+{
+   margin-left: 10%;
+   margin-right: 10%;
+   padding: 0;
+}
+.cities-view{
+   padding-top: 5%;
+   padding-left: 8% ;
+   background: lightskyblue;
+   font-size: 20px;
+   font-weight: 700;
+   height: 71px ;
+   max-width: 450px;
+   margin-bottom: 3%;
+}
+.device{
+   padding-top: 5%;
+   padding-left: 8% ;
+   background: lightskyblue;
+   font-size: 12px;
+   font-weight: 600;
+
+   margin-bottom: 3%;
+}
+.imgD{
+   background: rgb(246, 247, 248);
+   max-height: 131px ;
+   max-width: 120px;
+}
+.city-btn{
+   background-color: lightskyblue;
+   margin-left: 12%  ;
+   margin-bottom: 10px;
+   width: 120px;
+   padding: 5px;
+   list-style-type: none;
+   border-radius: 5px;
+   text-align: center;
+}
+
+.city-btn:hover{
+   background: darkcyan;
+   cursor: pointer;
+}
+.citiesUL{
+   margin: 5px;
+}
+#add-city
+{
+   width: 80px;
+   height: 35px;
+   margin-left: 1%;
+   background: lightskyblue;
+   font-size: 14px;
+   font-weight: 600;
+   border: 0px;
+   border-radius: 10px;
+   
+ }
+.current-view{
+   margin-top: 0.5%;
+   line-height: 2.2;
+   margin-left: 8% ;
+   background: rgb(214, 218, 223);
+   font-size: 14px;
+   width: 220px;
+   height:208px;
+   padding:10px;
+}
+header
+{
+   text-align: center;
+   color: #fbfdfe;
+   background-color: #343a40;
+   font-size: 26px;
+   line-height: 15px;
+   padding: 5% 5%;
+   margin-bottom: 0;
+   
+}
+.center
+{
+   text-align: center;
+  
+
+   padding: 5% 10%;
+   margin-bottom: 0;
+   
+}
+.no-show{
+   display:none;
+}
+
+.uvSafe{
+   background-color: springgreen;
+   color:white;
+}
+.uvModerate{
+   background-color: yellow;
+   color: navy;
+}
+.uvSevere
+{
+   background-color:orangered;
+   color:white;
+}
+.uvSevere1{
+   background-color: red;
+   color:white;
+}
+.uvInsane{
+   background-color:purple;
+   color:white;
+}
+#uv{
+   padding:9px;
+   border-radius: 5px;
+  
+}
+#city-form{
+   margin:10px 20px; 
+}
+.prognosis{
+   margin-right:1%;
+   background-color: lightskyblue;
+   font-size: 14px;
+   max-width: 200px;
+   
+   line-height: 1.4;
+}
+.prognosis p{
+   text-align: center;
+   margin: 0;
+   /* font-size: 14px; */
+}
+.prognosis img{
+  max-height: 80px;
+  max-width: 90px;
+  margin: 0;
+   /* font-size: 14px; */
+}
+
+@media (min-width: 576px)
+{
+   header
+   {
+      padding: 3%;
+   }
+}
+.green-score{
+   font-weight: 600;
+   color: green;
+}
+.yellow-score{
+   font-weight: 600;
+   color: rgb(240, 237, 50);
+}
+.orange-score{
+   font-weight: 600;
+   color: rgb(192, 97, 42);
+}
+.red-score{
+   font-weight: 600;
+   color: rgb(233, 16, 16);
+}
