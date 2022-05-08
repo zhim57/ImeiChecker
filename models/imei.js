@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -7,41 +8,40 @@ const imeiSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  exercises:[
+  requests:[
     {
+  // Imei: {
+  //   type: String,
+  //   trim: true,
+  //   required: "Enter Imei"
+  // },
+  country: {
+    type: String,
+    trim: true,
+    required: "Enter country"
+  },
   type: {
     type: String,
     trim: true,
-    required: "Enter a name for exercise"
+    required: "Enter Imei"
   },
-  name: {
+  value: {
     type: String,
     trim: true,
-    required: "Enter a name for workout"
+    required: "Enter a response object"
   },
-
-  distance: {
-    type: Number,
+  username: {
+    type: String,
     trim: true,
-    
+    required: "Enter a response object"
   },
-  duration: {
-    type: Number,
+  response: {
+    type: String,
     trim: true,
-    required: "Enter the duration"
-  },
-  weight: {
-    type: Number,
-    
-  },
-  sets: {
-    type: Number,
-   
-  },
-  reps: {
-    type: Number,
-  
+    // required: "Enter a response object"
   }
+
+ 
 }
   ]
 
@@ -53,3 +53,58 @@ const imeiSchema = new Schema({
 const Imei = mongoose.model("Imei", imeiSchema);
 
 module.exports = Imei;
+// const mongoose = require("mongoose");
+
+// const Schema = mongoose.Schema;
+
+// const imeiSchema = new Schema({
+//   day: {
+//     type: Date,
+//     default: Date.now
+//   },
+//   exercises:[
+//     {
+//   type: {
+//     type: String,
+//     trim: true,
+//     required: "Enter a name for exercise"
+//   },
+//   name: {
+//     type: String,
+//     trim: true,
+//     required: "Enter a name for workout"
+//   },
+
+//   distance: {
+//     type: Number,
+//     trim: true,
+    
+//   },
+//   duration: {
+//     type: Number,
+//     trim: true,
+//     required: "Enter the duration"
+//   },
+//   weight: {
+//     type: Number,
+    
+//   },
+//   sets: {
+//     type: Number,
+   
+//   },
+//   reps: {
+//     type: Number,
+  
+//   }
+// }
+//   ]
+
+// });
+
+ 
+
+
+// const Imei = mongoose.model("Imei", imeiSchema);
+
+// module.exports = Imei;

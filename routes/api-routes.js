@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Imei = require("../models/imei.js");
 
-router.post("/api/imeis",  ({ body}, res) => {
+router.post("/api/requests1",  ({ body}, res) => {
+  console.log("idiot1")
   Imei.create(body)
     .then(dbImei => {
       res.json(dbImei);
@@ -10,13 +11,13 @@ router.post("/api/imeis",  ({ body}, res) => {
       res.status(400).json(err);
     });
 });
-router.put("/api/imeis/:id", ({ body, params }, res) => {
+router.put("/api/requests/:id", ({ body, params }, res) => {
   console.log(params.id);
   console.log(body);
   
   Imei.findByIdAndUpdate(
     params.id,
-    {$push: {exercises: body}},
+    {$push: {results: body}},
     {new: true, runValidators: true}
   )
     .then(dbImei => {
@@ -38,7 +39,7 @@ router.get("/api/imeis/range", (req, res) => {
     });
 });
 
-router.get("/api/workouts", (req, res) => {
+router.get("/api/requests", (req, res) => {
   Imei.find()
     .sort({ date: -1 })
     .then(dbImei => {
@@ -48,7 +49,7 @@ router.get("/api/workouts", (req, res) => {
       res.status(400).json(err);
     });
 });
-router.delete("/api/imeis", ({ body }, res) => {
+router.delete("/api/requests", ({ body }, res) => {
   Imei.findByIdAndDelete(body.id)
     .then(() => {
       res.json(true);
