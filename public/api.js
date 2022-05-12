@@ -1,5 +1,5 @@
 const API = {
-  async getLastWorkout() {
+  async getLastImei() {
     let res;
     try {
       res = await fetch("/api/imeis");
@@ -10,6 +10,20 @@ const API = {
     }
     const json = await res.json();
 
+    return json[json.length - 1];
+  },
+  async getImei(imei, result) {
+    let res;
+
+    try {
+      res = await fetch("/result1/" + imei,);
+      
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
+    result(JSON.stringify(json));
+ 
     return json[json.length - 1];
   },
   async addRequest(data) {
@@ -28,23 +42,25 @@ const API = {
 
     return json;
   },
-  // async addExercise(data) {
-  //   const id = location.search.split("=")[1];
-  //   // const id = 3;
+  async addRequests(data,id1) {
+    // const id = location.search.split("=")[1];
+   let id = id1;
+// console.log(data);
+console.log("add requests");
+// console.log(id);
+    const res = await fetch("/api/imeis/" + id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-  //   const res = await fetch("/api/workouts/" + id, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(data)
-  //   });
+    const json = await res.json();
 
-  //   const json = await res.json();
-
-  //   return json;
-  // },
+    return json;
+  },
   async createImei(data={}) {
-    console.log("idiot0");
-    console.log(data);
+    // console.log("idiot0");
+    console.log("create imei");
     const res = await fetch("/api/requests1", {
       method: "POST",
       body: JSON.stringify(data),

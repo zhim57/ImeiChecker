@@ -165,3 +165,7 @@ header
    font-weight: 600;
    color: rgb(233, 16, 16);
 }
+.d-none {
+   display:none
+   
+}
