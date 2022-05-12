@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Imei = require("../models/imei.js");
 const request = require("request");
+require('dotenv').config();
 
 router.post("/api/requests1", ({ body }, res) => {
   // create new imei record=====
@@ -63,7 +64,7 @@ router.get("/result1/:imei", (req, res) => {
   let imei = req.params.imei;
   console.log("imei");
   console.log(imei);
-  // let imei= "353283075129556";
+ 
   request('https://imeidb.xyz/api/imei/' + imei + '?token='+process.env.IMEI_API_TOKEN +'&format=json', (error, response, body) => {
 
     if (error) {
