@@ -6,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
-  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
   <title>IMEI DJAJA</title>
 </head>
 
 <body>
   <nav>
     <a href="/">imei djaja</a>
-    <a href="/stats">Dashboard</a>
+    <a href="/imei_stats">Dashboard</a>
   </nav>
   <div class="wrapper workout">
-    <header>
+    <!-- <header>
       <h1>The Djaja</h1>
-    </header>
+    </header> -->
     
 
 
@@ -53,12 +53,13 @@
                 <div id="form-imei" class="workout-type">
                   <!-- <label for="type">Imei:</label> -->
                   <input name="imei-name" id="imei-name" placeholder="Enter the Imei here">
+                  <input name="email-name" id="email-name" placeholder="Enter your email address here">
       
                   </input>
       
       
                   <button disabled class=" complete ui  blue button">
-                    Check Imei
+                    Check
                   </button>
       
       
@@ -75,7 +76,7 @@
               </form>
             </div>
           </div>
-           <div id="toast"> Imei Checked !
+           <div id="toast"> ...
           </div>
           <!-- </transplant> -->
 
@@ -103,9 +104,10 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/api.js"></script>
+  <script type= "module"  src="/api.js"></script>
   <!-- <script src="/imei.js"></script> -->
-  <script src="/index.js"></script>
+  <script type= "module" src="/index.js"></script>
+  <script type="module" src="/funk.js"></script>
 
 </body>
 

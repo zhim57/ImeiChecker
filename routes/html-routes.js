@@ -18,11 +18,11 @@ const request = require("request");
   router.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
-  router.get("", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
-  });
+  // router.get("", (req, res) => {
+  //   res.sendFile(path.join(__dirname, "../public/index.html"));
+  // });
   router.get("/dudu", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views/test1.ejs"));
+    res.sendFile(path.join(__dirname, "../public/index.html"));
   });
   
   

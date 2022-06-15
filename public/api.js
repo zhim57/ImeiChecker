@@ -1,14 +1,23 @@
-const API = {
+
+
+  import  { processImeiActual} from "/funk.js";
+export const API = {
+  
+
+
+
   async getLastImei() {
     let res;
     try {
       res = await fetch("/api/imeis");
-      console.log("res: "+ JSON.stringify(res));
- 
+      // console.log("res: "+ JSON.stringify(res));
+      // console.log("res: "+ JSON.stringify(res));
+      
     } catch (err) {
       console.log(err)
     }
     const json = await res.json();
+    // console.log("res: "+ JSON.stringify(res));
 
     return json[json.length - 1];
   },
@@ -26,21 +35,40 @@ const API = {
  
     return json[json.length - 1];
   },
-  async addRequest(data) {
-   var id = location.search.split("=")[1];
-    console.log(id)
-    // const    
-     id = 3;
-     console.log(id)
-    const res = await fetch("/api/requests/" + id, {
+  async addRequest(data,id1) {
+    if (location.search.split("=")[1] === undefined) {
+     let id= id1;
+     const res = await fetch("/api/imeis/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
     const json = await res.json();
+    
 
     return json;
+      
+    }
+    else  {
+      let id2 = location.search.split("=")[1];
+      console.log(id2)
+   
+      const res = await fetch("/api/imeis/" + id2, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+
+
+  
+      return json;
+
+    }
+
+   
   },
   async addRequests(data,id1) {
     // const id = location.search.split("=")[1];

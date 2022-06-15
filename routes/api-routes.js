@@ -40,6 +40,7 @@ router.put("/api/imeis/:id", ({ body, params }, res) => {
 // });
 
 router.get("/api/imeis", (req, res) => {
+  console.log("111")
   Imei.find()
     .sort({ date: -1 })
     .then(dbImei => {
@@ -61,6 +62,8 @@ router.delete("/api/requests", ({ body }, res) => {
 
 
 router.get("/result1/:imei", (req, res) => {
+  console.log("222")
+
   let imei = req.params.imei;
   console.log("imei");
   console.log(imei);
