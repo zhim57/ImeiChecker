@@ -115,7 +115,7 @@ if (completeButton) {
     // console.log(username);
     // location.reload();
     API.getImei(imei, (result) => {
-      console.log(result);
+      // console.log(result);
       saveImei(result);
       // clearInputs();
     });
