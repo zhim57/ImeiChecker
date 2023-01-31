@@ -7,12 +7,10 @@ const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const formImei = document.querySelector("#form-imei");
-import { processImeiActual } from "/funk.js";
+import { processImeiActual , displayResult } from "/funk.js";
 import { API } from "/api.js";
 
 var username = "dummy string";
-var scoreDump;
-var sampleDump;
 var lastImei;
 
 let workoutType = null; // to be reviewed by 5-19-22
@@ -115,9 +113,17 @@ if (completeButton) {
     // console.log(username);
     // location.reload();
     API.getImei(imei, (result) => {
-      // console.log(result);
-      saveImei(result);
-      // clearInputs();
+      let result1= JSON.parse(result);
+      console.log("result : ");
+      console.log(result1);
+
+      // new function - direct show 1-31-23
+
+      displayResult(result1);
+      processImeiActual(result1);
+      clearInputs();
+
+      // saveImei(result); - old path disabled
     });
   });
 }
@@ -245,4 +251,6 @@ function renderNoImeiText() {
   container.appendChild(p);
 }
 
-initImei();
+// old path disabled
+// initImei();
+

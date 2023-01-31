@@ -364,3 +364,10 @@ let sampleDump_nill =
     $("#main-dump").append(sampleDump_nill);
   }
   }
+
+  export function    displayResult(result) {
+
+    console.log( " displayresult activated");
+    
+    
+      }
