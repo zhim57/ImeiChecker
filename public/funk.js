@@ -369,14 +369,13 @@ export function processImeiActual(response1) {
     // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
     // </tr>
 
-    let sampleDump_nill = 
-    `
+    let sampleDump_nill =     `
      <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
      <div class=" device">
      <div class="text-center"  >  
-     <img src= ${deviceImage} alt=""     > 
+     <img src= ${deviceImage} alt=""> 
      </div>
-     <h1 class="text-center" style="color: #fff;">${deviceName}</h1>
+     <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
      </div>
      <table id="w1" class="table table-striped table-bordered detail-view">
      <tbody>  <tr>
@@ -391,7 +390,8 @@ export function processImeiActual(response1) {
      <th>Connection Speed</th>
      <td>${deviceSpeed}</td>
      </tr>
-     `;
+     </table>`
+     ;
     $("#score-dump").html("");
     $("#main-dump").html("");
     $("#score-dump").append(scoreDump_nill);
