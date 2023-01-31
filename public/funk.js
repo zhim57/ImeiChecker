@@ -27,9 +27,10 @@ export function processImeiActual(response1) {
   if (sampleResponse.message != undefined) {
     console.log(sampleResponse.message);
 
-    scoreDump_nill = `
+    let scoreDump_nill = `
    
     
+      <h1 class="text-center" style="color: #fff;"> ${sampleResponse.message}</h1>
       <h1 class="text-center" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
      
      
