@@ -582,6 +582,10 @@ body {
  .resistance-form {
    padding: 10px;
  }
+ .red1{
+  font-weight: 600;
+  color: rgb(233, 16, 16);
+}
  
  @keyframes toast {
    50% {
