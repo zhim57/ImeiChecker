@@ -30,8 +30,8 @@ export function processImeiActual(response1) {
     let scoreDump_nill = `
    
     
-      <h1 class="text-center red1" style="color: #fff;"> ${sampleResponse.message}</h1>
-      <h1 class="text-center red1" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+      <h1 class="text-center red1" ;"> ${sampleResponse.message}</h1>
+      <h1 class="text-center red1" ;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
      
      
      `;
@@ -42,7 +42,7 @@ export function processImeiActual(response1) {
     // </tr>
 
     let sampleDump_nill = `
-      <h1 class="text-center red1" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`;
+      <h1 class="text-center red1" ;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`;
     $("#score-dump").html("");
     $("#main-dump").html("");
     $("#score-dump").append(scoreDump_nill);
