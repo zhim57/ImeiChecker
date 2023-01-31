@@ -356,10 +356,10 @@ export function processImeiActual(response1) {
 
     // formImei.classList.add("d-none");
   } else {
-    scoreDump_nill = `
+    let scoreDump_nill = `
    
     
-     <h1 class="text-center" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+     <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
     
     
     `;
@@ -370,7 +370,7 @@ export function processImeiActual(response1) {
     // </tr>
 
     let sampleDump_nill = `
-     <h1 class="text-center" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`;
+     <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`;
     $("#score-dump").html("");
     $("#main-dump").html("");
     $("#score-dump").append(scoreDump_nill);
