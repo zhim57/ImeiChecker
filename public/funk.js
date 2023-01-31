@@ -22,7 +22,7 @@
     
     //===============
     var sampleResponse = response1;
-    if (sampleResponse.data.model){
+    if (sampleResponse.data.model!= undefined){
       var deviceModel = sampleResponse.data.model;
     }
     else if (sampleResponse.message){
