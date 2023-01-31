@@ -41,12 +41,17 @@
   var frequencyArrayRaw = sampleResponse.data.frequency;
   
   for (i = 0; i < frequencyArrayRaw.length; i++) {
-      if (frequencyArrayRaw[i].includes("LTE FDD BAND")) {
+      if (frequencyArrayRaw[i].toUpperCase().includes("LTE FDD BAND")) {
         let band = frequencyArrayRaw[i].slice(13);
         frequencyArrayLte = frequencyArrayLte + ", " + band;
-      } else if (frequencyArrayRaw[i].includes("WCDMA FDD Band")) {
+      } else if       (frequencyArrayRaw[i].toUpperCase().includes("WCDMA FDD BAND")) {
         let band1 = frequencyArrayRaw[i].slice(15);
         frequencyArrayWcdma = frequencyArrayWcdma + ", " + band1;
+    
+      } else if (frequencyArrayRaw[i].toUpperCase().includes("LTE TDD BAND")) {
+        let band3 = frequencyArrayRaw[i].slice(13);
+        frequencyArrayLte = frequencyArrayLte + ", " + band3;
+      
       } else if (frequencyArrayRaw[i].includes("GSM")) {
         let band2 = frequencyArrayRaw[i];
         frequencyArray2g = frequencyArray2g + ", " + band2;
@@ -76,7 +81,7 @@ for(y=0; y < tmobileLteArray.length; y++){
 }
 };
 for(z=0; z < verizonLteArray.length; z++){
-  if (frequencyArrayLte.includes(verizonLteArray[z])){
+  if (frequencyArrayWcdma.includes(verizonLteArray[z])){
     verizonScoreNumber++
  
 }
