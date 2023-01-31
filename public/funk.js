@@ -24,9 +24,9 @@
     var sampleResponse = response1;
     var deviceModel = sampleResponse.data.model;
     // var bluetooth  = sampleResponse.data.device_spec.blootooth;
-    var frequencyArray2g = "";
-    var frequencyArrayLte = "";
-    var frequencyArrayWcdma = "";
+    var frequencyArray2g = [];
+    var frequencyArrayLte = [];
+    var frequencyArrayWcdma = [];
     let i=0;
     let u=0;
     let y=0;
