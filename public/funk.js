@@ -22,6 +22,34 @@
     
     //===============
     var sampleResponse = response1;
+    if (sampleResponse.data.model){
+      var deviceModel = sampleResponse.data.model;
+    }
+    else if (sampleResponse.message){
+      console.log ( sampleResponse.message);
+
+      scoreDump_nill = `
+   
+    
+      <h1 class="text-center" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+     
+     
+     `;
+ 
+          // <tr>
+     // <th class="${score3Class}">Overall Score</th>
+     // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+     // </tr>
+ 
+ let sampleDump_nill =
+ `
+      <h1 class="text-center" style="color: #fff;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>` 
+     $("#score-dump").html("");
+     $("#main-dump").html("");
+     $("#score-dump").append(scoreDump_nill);
+     $("#main-dump").append(sampleDump_nill);
+
+    }
     var deviceModel = sampleResponse.data.model;
     // var bluetooth  = sampleResponse.data.device_spec.blootooth;
     var frequencyArray2g = [];
