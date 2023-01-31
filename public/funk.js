@@ -147,9 +147,11 @@ console.log(overallScore);
     var remarks1 = "sample remarks....";
     var remarks2 = "sample remarks....";
     var remarks3 = "sample remarks....";
+    var remarks4 = "sample remarks....";
     var score1Class = "dudu";
     var score2Class = "dudu";
     var score3Class = "dudu";
+    var score4Class = "dudu";
   
     //===============
     // console.log("fired");
