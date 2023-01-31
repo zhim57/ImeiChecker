@@ -113,17 +113,23 @@ if (completeButton) {
     event.preventDefault();
     // shouldNavigateAway = true;
     let imei = imeiNameInput.value.trim();
-    username = emailInput.value.trim() ||"safety-net";
-    currentImei = imei;
-    console.log("imei -line 519");
-    console.log(imei);
-    console.log(username);
-    // location.reload();
-    API.getImei(imei, (result) => {
-      console.log(result);
-      saveImei(result);
-      // clearInputs();
-    });
+    if (imei.length === 15){
+
+      username = emailInput.value.trim() ||"safety-net";
+      currentImei = imei;
+      console.log("imei -line 519");
+      console.log(imei);
+      // console.log(username);
+      // location.reload();
+      API.getImei(imei, (result) => {
+        console.log(result);
+        saveImei(result);
+        // clearInputs();
+      });
+    }
+    else{
+      console.log("imei is not correct length, please recheck");
+    }
   });
 }
 
@@ -238,7 +244,7 @@ function renderImeiSummary(summary) {
     const p = document.createElement("p");
     const strong = document.createElement("strong");
 
-    strong.textContent = workoutKeyMap[key];
+    strong.textContent = workoutKeyMap[key];processImeiActual
     const textNode = document.createTextNode(`: ${summary[key]}`);
 
     p.appendChild(strong);
