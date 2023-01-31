@@ -73,6 +73,8 @@
   // };
   for(u=0; u <attLteArray.length; u++){
     if (frequencyArrayLte.includes(attLteArray[u])){
+
+      console.log(" attLteArray[u] : " + attLteArray[u]);
       attScoreNumber++
     }
    
@@ -80,11 +82,13 @@
   for(y=0; y < tmobileLteArray.length; y++){
     if (frequencyArrayLte.includes(tmobileLteArray[y])){
       tmobileScoreNumber++
+      console.log(" tmobileLteArray[y] : " + tmobileLteArray[y]);
    
   }
   };
   for(z=0; z < verizonLteArray.length; z++){
     if (frequencyArrayWcdma.includes(verizonLteArray[z])){
+      console.log("verizonLteArray[z]: " + verizonLteArray[z]);
       verizonScoreNumber++
    
   }
