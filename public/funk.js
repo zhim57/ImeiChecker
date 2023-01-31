@@ -22,10 +22,10 @@
     
     //===============
     var sampleResponse = response1;
-    if (sampleResponse.data.model!= undefined){
-      var deviceModel = sampleResponse.data.model;
-    }
-    else if (sampleResponse.message){
+
+
+    
+   if (sampleResponse.message){
       console.log ( sampleResponse.message);
 
       scoreDump_nill = `
@@ -50,7 +50,14 @@
      $("#main-dump").append(sampleDump_nill);
 
     }
-    var deviceModel = sampleResponse.data.model;
+
+    else if (sampleResponse.data.model!= undefined){
+      var deviceModel = sampleResponse.data.model;
+    
+    
+    
+    }
+    // var deviceModel = sampleResponse.data.model;
     // var bluetooth  = sampleResponse.data.device_spec.blootooth;
     var frequencyArray2g = [];
     var frequencyArrayLte = [];
