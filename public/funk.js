@@ -200,7 +200,7 @@ console.log(overallScore);
     }
     if (verizonScore > 74) {
       score4Class = "green-score";
-      remarks2 =
+      remarks4 =
         " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
     } else if (verizonScore < 75 && verizonScore > 45) {
       score4Class = "yellow-score";
