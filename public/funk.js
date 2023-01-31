@@ -46,18 +46,18 @@
     for (i = 0; i < frequencyArrayRaw.length; i++) {
         if (frequencyArrayRaw[i].toUpperCase().includes("LTE FDD BAND")) {
           let band = frequencyArrayRaw[i].slice(13);
-          frequencyArrayLte = frequencyArrayLte.push(band);
+          frequencyArrayLte.push(band);
         } else if       (frequencyArrayRaw[i].toUpperCase().includes("WCDMA FDD BAND")) {
           let band1 = frequencyArrayRaw[i].slice(15);
-          frequencyArrayWcdma = frequencyArrayWcdma.push(band1);
+          frequencyArrayWcdma.push(band1);
       
         } else if (frequencyArrayRaw[i].toUpperCase().includes("LTE TDD BAND")) {
           let band3 = frequencyArrayRaw[i].slice(13);
-          frequencyArrayLte = frequencyArrayLte.push(band3);
+       frequencyArrayLte.push(band3);
         
         } else if (frequencyArrayRaw[i].includes("GSM")) {
           let band2 = frequencyArrayRaw[i];
-          frequencyArray2g = frequencyArray2g.push(band2);
+         frequencyArray2g.push(band2);
         } else {
           console.log("frequency error : read : "+ frequencyArrayRaw[i]);
           
