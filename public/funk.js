@@ -369,8 +369,30 @@ export function processImeiActual(response1) {
     // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
     // </tr>
 
-    let sampleDump_nill = `
-     <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`;
+    let sampleDump_nill = 
+    `
+     <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`
+     `<div class=" device">
+     <div class="text-center"  >  
+     <img src= ${deviceImage} alt="" 
+     > 
+     </div>
+     <h1 class="text-center" style="color: #fff;">${deviceName}</h1>` +
+//  <h3 class="text-center" style="color: #fff;">For back to the previous page click <a href="/device">here</a></h3>
+
+`</div><table id="w1" class="table table-striped table-bordered detail-view"><tbody>  <tr>
+     
+     
+     <tr>
+     <th>Net tech</th>
+     <td>${deviceNettech}</td>
+     </tr>
+     
+     <tr>
+     <th>Connection Speed</th>
+     <td>${deviceSpeed}</td>
+     </tr>
+     `;
     $("#score-dump").html("");
     $("#main-dump").html("");
     $("#score-dump").append(scoreDump_nill);
