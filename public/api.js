@@ -4,13 +4,11 @@ export const API = {
     let res;
     try {
       res = await fetch("/api/imeis");
-      // console.log("res: "+ JSON.stringify(res));
-      // console.log("res: "+ JSON.stringify(res));
     } catch (err) {
       console.log(err);
     }
     const json = await res.json();
-    // console.log("res: "+ JSON.stringify(res));
+
 
     return json[json.length - 1];
   },
@@ -55,24 +53,18 @@ export const API = {
     }
   },
   async addRequests(data, id1) {
-    // const id = location.search.split("=")[1];
     let id = id1;
-    // console.log(data);
     console.log("add requests");
-    // console.log(id);
     const res = await fetch("/api/imeis/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
     const json = await res.json();
-
     return json;
   },
   async createImei(data = {}) {
-    // console.log("idiot0");
-    console.log("create imei");
+       console.log("create imei");
     const res = await fetch("/api/requests1", {
       method: "POST",
       body: JSON.stringify(data),

@@ -16,15 +16,9 @@
   
   // development test variables for  country USA
   
-  
-  
-  
-  
-  // workoutType = event.target.value;
   export function processImeiActual(response1) {
-    console.log("process Imei Actual triggered");
-    
-    console.log(response1);
+    // console.log("process Imei Actual triggered");
+    //     console.log(response1);
     
     //===============
     var sampleResponse = response1;
@@ -36,10 +30,14 @@
     let i=0;
     let u=0;
     let y=0;
+    let z=0;
     var attLteArray = ["12", "17"];
     var tmobileLteArray = ["2", "4", "12","71"];
+    var verizonLteArray = ["2", "4", "13","66"];
+
   var attScoreNumber =0;
   var tmobileScoreNumber =0;
+  var verizonScoreNumber =0;
   var frequencyArrayRaw = sampleResponse.data.frequency;
   
   for (i = 0; i < frequencyArrayRaw.length; i++) {
@@ -52,7 +50,10 @@
       } else if (frequencyArrayRaw[i].includes("GSM")) {
         let band2 = frequencyArrayRaw[i];
         frequencyArray2g = frequencyArray2g + ", " + band2;
-      } else console.log("frequency error");
+      } else {
+        console.log("frequency error : read : "+ frequencyArrayRaw[i]);
+        
+      }
     }
 // for(u=0; u < frequencyArrayLte.length; u++){
 //   if (attLteArray.includes(frequencyArrayLte[u])){
@@ -74,13 +75,22 @@ for(y=0; y < tmobileLteArray.length; y++){
  
 }
 };
+for(z=0; z < verizonLteArray.length; z++){
+  if (frequencyArrayLte.includes(verizonLteArray[z])){
+    verizonScoreNumber++
+ 
+}
+};
 console.log(attScoreNumber);
 console.log(tmobileScoreNumber);
+console.log(verizonScoreNumber);
 var attScore = ((attScoreNumber /attLteArray.length)*100) ;
 var tmobileScore =((tmobileScoreNumber /tmobileLteArray.length)*100);
-var overallScore = (attScore + tmobileScore)/2;
+var verizonScore =((verizonScoreNumber /verizonLteArray.length)*100);
+var overallScore = (attScore + tmobileScore+verizonScore)/3;
 console.log(attScore);
 console.log(tmobileScore);
+console.log(verizonScore);
 console.log(overallScore);
 
     var deviceName = sampleResponse.data.name;
@@ -163,6 +173,7 @@ console.log(overallScore);
       remarks1 =
         " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
     }
+
     if (tmobileScore > 74) {
       score2Class = "green-score";
       remarks2 =
@@ -180,6 +191,24 @@ console.log(overallScore);
       remarks2 =
         " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
     }
+    if (verizonScore > 74) {
+      score4Class = "green-score";
+      remarks2 =
+        " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
+    } else if (verizonScore < 75 && verizonScore > 45) {
+      score4Class = "yellow-score";
+      remarks4 =
+        " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
+    } else if (verizonScore < 45 && verizonScore > 0) {
+      score4Class = "orange-score";
+      remarks4 =
+        " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
+    } else if (verizonScore == 0) {
+      score4Class = "red-score";
+      remarks4 =
+        " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
+    }
+    
     if (overallScore > 74) {
       score3Class = "green-score";
       remarks3 =
@@ -218,6 +247,11 @@ console.log(overallScore);
           <tr>
           <th class="${score2Class}">T-mobile 4G</th>
           <td id="score2" class="${score2Class}">${tmobileScore} %  - ${remarks2}</td>
+          </tr>
+          
+          <tr>
+          <th class="${score4Class}">Verizon Wireless 4G</th>
+          <td id="score2" class="${score4Class}">${verizonScore} %  - ${remarks2}</td>
           </tr>
           
           
