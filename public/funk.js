@@ -68,6 +68,26 @@ export function processImeiActual(response1) {
   var verizonScoreNumber = 0;
   var frequencyArrayRaw = sampleResponse.data.frequency;
 
+  var deviceName = sampleResponse.data.name;
+  var deviceImage = sampleResponse.data.device_image;
+  var simSlots = sampleResponse.data.device_spec.sim_slots;
+  var deviceUsb = sampleResponse.data.device_spec.usb;
+  var deviceWlan = sampleResponse.data.device_spec.wlan;
+  var deviceSerial = sampleResponse.data.serial;
+  var deviceTac = sampleResponse.data.tac;
+  var deviceImei = sampleResponse.query;
+  var deviceBluetooth1 = sampleResponse.data.device_spec.bluetooth;
+  var deviceBluetooth;
+  var deviceNettech1 = sampleResponse.data.device_spec.nettech;
+  var deviceNettech;
+  var deviceSpeed;
+  var deviceSpeed1 = sampleResponse.data.device_spec.speed;
+
+
+
+
+
+
   if (frequencyArrayRaw != "" && frequencyArrayRaw != null) {
     for (i = 0; i < frequencyArrayRaw.length; i++) {
       if (frequencyArrayRaw[i].toUpperCase().includes("LTE FDD BAND")) {
@@ -132,20 +152,7 @@ export function processImeiActual(response1) {
     // console.log(verizonScore);
     // console.log(overallScore);
 
-    var deviceName = sampleResponse.data.name;
-    var deviceImage = sampleResponse.data.device_image;
-    var simSlots = sampleResponse.data.device_spec.sim_slots;
-    var deviceUsb = sampleResponse.data.device_spec.usb;
-    var deviceWlan = sampleResponse.data.device_spec.wlan;
-    var deviceSerial = sampleResponse.data.serial;
-    var deviceTac = sampleResponse.data.tac;
-    var deviceImei = sampleResponse.query;
-    var deviceBluetooth1 = sampleResponse.data.device_spec.bluetooth;
-    var deviceBluetooth;
-    var deviceNettech1 = sampleResponse.data.device_spec.nettech;
-    var deviceNettech;
-    var deviceSpeed;
-    var deviceSpeed1 = sampleResponse.data.device_spec.speed;
+
 
     if (deviceBluetooth1 !== null) {
       deviceBluetooth =
