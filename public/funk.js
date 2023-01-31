@@ -74,28 +74,28 @@
   for(u=0; u <attLteArray.length; u++){
     if (frequencyArrayLte.includes(attLteArray[u])){
 
-      console.log("attLteArray:  "+ attLteArray);
-      console.log(frequencyArrayLte);
-      console.log(" attLteArray[u] : " + attLteArray[u]);
+      // console.log("attLteArray:  "+ attLteArray);
+      // console.log(frequencyArrayLte);
+      // console.log(" attLteArray[u] : " + attLteArray[u]);
       attScoreNumber++
     }
     
   };
   for(y=0; y < tmobileLteArray.length; y++){
     if (frequencyArrayLte.includes(tmobileLteArray[y])){
-      console.log("tmobileLteArray:  "+ tmobileLteArray);
-      console.log(frequencyArrayLte);
+      // console.log("tmobileLteArray:  "+ tmobileLteArray);
+      // console.log(frequencyArrayLte);
       tmobileScoreNumber++
-      console.log(" tmobileLteArray[y] : " + tmobileLteArray[y]);
+      // console.log(" tmobileLteArray[y] : " + tmobileLteArray[y]);
       
     }
   };
   for(z=0; z < verizonLteArray.length; z++){
     
     if (frequencyArrayWcdma.includes(verizonLteArray[z])){
-      console.log("verizonLteArray :  "+ verizonLteArray);
-      console.log(frequencyArrayWcdma);
-      console.log("verizonLteArray[z]: " + verizonLteArray[z]);
+      // console.log("verizonLteArray :  "+ verizonLteArray);
+      // console.log(frequencyArrayWcdma);
+      // console.log("verizonLteArray[z]: " + verizonLteArray[z]);
       verizonScoreNumber++
    
   }
