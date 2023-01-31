@@ -258,18 +258,20 @@ console.log(overallScore);
           
           <tr>
           <th class="${score4Class}">Verizon Wireless 4G</th>
-          <td id="score2" class="${score4Class}">${verizonScore} %  - ${remarks2}</td>
+          <td id="score2" class="${score4Class}">${verizonScore} %  - ${remarks4}</td>
           </tr>
           
           
-          <tr>
-          <th class="${score3Class}">Overall Score</th>
-          <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-          </tr>
+     
         
           
             </tbody>
           </table>`;
+
+               // <tr>
+          // <th class="${score3Class}">Overall Score</th>
+          // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+          // </tr>
   
     sampleDump =
       `<div class=" device">
