@@ -24,9 +24,9 @@
     var sampleResponse = response1;
     var deviceModel = sampleResponse.data.model;
     // var bluetooth  = sampleResponse.data.device_spec.blootooth;
-    var frequencyArray2g = "GSM Bands: ";
-    var frequencyArrayLte = "LTE Bands: ";
-    var frequencyArrayWcdma = "WCDMA Bands: ";
+    var frequencyArray2g = "";
+    var frequencyArrayLte = "";
+    var frequencyArrayWcdma = "";
     let i=0;
     let u=0;
     let y=0;
@@ -46,18 +46,18 @@
     for (i = 0; i < frequencyArrayRaw.length; i++) {
         if (frequencyArrayRaw[i].toUpperCase().includes("LTE FDD BAND")) {
           let band = frequencyArrayRaw[i].slice(13);
-          frequencyArrayLte = frequencyArrayLte + ", " + band;
+          frequencyArrayLte = frequencyArrayLte.push(band);
         } else if       (frequencyArrayRaw[i].toUpperCase().includes("WCDMA FDD BAND")) {
           let band1 = frequencyArrayRaw[i].slice(15);
-          frequencyArrayWcdma = frequencyArrayWcdma + ", " + band1;
+          frequencyArrayWcdma = frequencyArrayWcdma.push(band1);
       
         } else if (frequencyArrayRaw[i].toUpperCase().includes("LTE TDD BAND")) {
           let band3 = frequencyArrayRaw[i].slice(13);
-          frequencyArrayLte = frequencyArrayLte + ", " + band3;
+          frequencyArrayLte = frequencyArrayLte.push(band3);
         
         } else if (frequencyArrayRaw[i].includes("GSM")) {
           let band2 = frequencyArrayRaw[i];
-          frequencyArray2g = frequencyArray2g + ", " + band2;
+          frequencyArray2g = frequencyArray2g.push(band2);
         } else {
           console.log("frequency error : read : "+ frequencyArrayRaw[i]);
           
