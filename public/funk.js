@@ -54,6 +54,7 @@ export function processImeiActual(response1) {
   // var bluetooth  = sampleResponse.data.device_spec.blootooth;
   var frequencyArray2g = [];
   var frequencyArrayLte = [];
+  var frequencyArrayTdd = [];
   var frequencyArrayWcdma = [];
   let i = 0;
   let u = 0;
@@ -62,6 +63,11 @@ export function processImeiActual(response1) {
   var attLteArray = ["2", "4", "12", "17"];
   var tmobileLteArray = ["2", "4", "12", "71"];
   var verizonLteArray = ["2", "4", "13", "66"];
+
+  var ukLteArray = ["2", "4", "12", "17"];
+  var europeLteArray = ["2", "4", "12", "71"];
+  var chinaLteArray = ["2", "4", "13", "66"];
+  var indiaLteArray = ["2", "4", "13", "66"];
 
   var attScoreNumber = 0;
   var tmobileScoreNumber = 0;
@@ -100,7 +106,7 @@ export function processImeiActual(response1) {
         frequencyArrayWcdma.push(band1);
       } else if (frequencyArrayRaw[i].toUpperCase().includes("LTE TDD BAND")) {
         let band3 = frequencyArrayRaw[i].slice(13);
-        frequencyArrayLte.push(band3);
+        frequencyArrayTdd.push(band3);
       } else if (frequencyArrayRaw[i].includes("GSM")) {
         let band2 = frequencyArrayRaw[i];
         frequencyArray2g.push(band2);
