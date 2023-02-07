@@ -34,6 +34,10 @@ async function initialFillDatabase () {
   let allImei = await API.getAllImei();
   console.log ("allImei :");
   console.log (allImei[0].requests[0]);
+  console.log ("allImei[0].requests[0]");
+  console.log (allImei[0].requests[0].value);
+  console.log ("allImei[0].requests[0]");
+  console.log (allImei[0].requests[0].response);
 
 }
 
