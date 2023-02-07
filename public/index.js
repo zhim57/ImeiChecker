@@ -41,6 +41,9 @@ async function initialFillDatabase () {
   let response1= JSON.parse(allImei[0].requests[0].response);
   console.log(JSON.parse(response1));
 
+  console.log("response1.data");
+  console.log(JSON.parse(response1.data));
+
 }
 
 async function initRequest(imeiDataSave) {
