@@ -8,7 +8,7 @@ const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const formImei = document.querySelector("#form-imei");
-import { processImeiActual , displayResult } from "/funk.js";
+import { processImeiActual, displayResult } from "/funk.js";
 import { API } from "/api.js";
 
 var username = "dummy string";
@@ -30,20 +30,19 @@ function processImei(response) {
   processImeiActual(response1);
 }
 
-async function initialFillDatabase () {
+async function initialFillDatabase() {
   let allImei = await API.getAllImei();
-  console.log ("allImei :");
-  console.log (allImei[0].requests[0]);
-  console.log ("allImei[0].requests[0]");
-  console.log (allImei[0].requests[0].value);
-  console.log ("allImei[0].requests[0]");
+  console.log("allImei :");
+  console.log(allImei[0].requests[0]);
+  console.log("allImei[0].requests[0]");
+  console.log(allImei[0].requests[0].value);
+  console.log("allImei[0].requests[0]");
   // console.log (JSON.parse(allImei[0].requests[0].response));
-  let response1= JSON.parse(allImei[0].requests[0].response);
-  console.log(JSON.parse(response1));
+  let response1 = JSON.parse(allImei[0].requests[0].response);
+  let response2 = JSON.parse(response1);
 
   console.log("response1.data");
-  console.log(JSON.parse(response1.data));
-
+  console.log(response2.data);
 }
 
 async function initRequest(imeiDataSave) {
@@ -120,10 +119,8 @@ function clearInputs() {
 fillButton.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("initial fill data base clicked");
-  initialFillDatabase ();
+  initialFillDatabase();
 });
-
-
 
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
@@ -138,7 +135,7 @@ if (completeButton) {
     // console.log(username);
     // location.reload();
     API.getImei(imei, (result) => {
-      let result1= JSON.parse(result);
+      let result1 = JSON.parse(result);
       console.log("result : ");
       console.log(result1);
 
@@ -198,7 +195,6 @@ async function initImei() {
       // console.log(lastImei);
       // console.log(currentImei);
       // console.log("lastImei != currentImei");
-
       // location.reload();
     }
     // renderNoImeiText();
@@ -278,4 +274,3 @@ function renderNoImeiText() {
 
 // old path disabled
 // initImei();
-
