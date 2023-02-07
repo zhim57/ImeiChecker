@@ -37,7 +37,9 @@ async function initialFillDatabase () {
   console.log ("allImei[0].requests[0]");
   console.log (allImei[0].requests[0].value);
   console.log ("allImei[0].requests[0]");
-  console.log (JSON.parse(allImei[0].requests[0].response));
+  // console.log (JSON.parse(allImei[0].requests[0].response));
+  response1= JSON.parse(allImei[0].requests[0].response);
+  console.log(response1);
 
 }
 
