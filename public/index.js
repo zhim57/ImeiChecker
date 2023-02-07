@@ -3,6 +3,7 @@ const imeiNameInput = document.querySelector("#imei-name");
 const emailInput = document.querySelector("#email-name");
 var currentImei = "";
 const completeButton = document.querySelector("button.complete");
+const fillButton = document.querySelector("button.fillDatabase");
 const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
@@ -27,6 +28,13 @@ function processImei(response) {
   console.log("process Imei triggered");
 
   processImeiActual(response1);
+}
+
+async function initialFillDatabase () {
+  let allImei = await API.getAllImei();
+  console.log ("allImei :");
+  console.log (allImei);
+
 }
 
 async function initRequest(imeiDataSave) {
@@ -99,6 +107,14 @@ function clearInputs() {
   imeiNameInput.value = "";
   countryInput.value = "";
 }
+
+fillButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  console.log("initial fill data base clicked");
+  initialFillDatabase ();
+});
+
+
 
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {

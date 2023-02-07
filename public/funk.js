@@ -64,10 +64,10 @@ export function processImeiActual(response1) {
   var tmobileLteArray = ["2", "4", "12", "71"];
   var verizonLteArray = ["2", "4", "13", "66"];
 
-  var ukLteArray = ["2", "4", "12", "17"];
-  var europeLteArray = ["2", "4", "12", "71"];
-  var chinaLteArray = ["2", "4", "13", "66"];
-  var indiaLteArray = ["2", "4", "13", "66"];
+  var ukLteArray = ["1", "3", "7", "20","40"];
+  var europeLteArray = ["1", "3", "7", "20"];
+  var chinaLteArray = ["40", "41"];
+  var indiaLteArray = ["1", "3", "5", "8", "40", "41"];
 
   var attScoreNumber = 0;
   var tmobileScoreNumber = 0;

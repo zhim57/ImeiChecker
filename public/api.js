@@ -25,6 +25,21 @@ export const API = {
 
     return json[json.length - 1];
   },
+ 
+  async getAllImei(imei, result) {
+    let res;
+    try {
+      res = await fetch("/api/imeis");
+    } catch (err) {
+      console.log(err);
+    }
+    const json = await res.json();
+    // result(JSON.stringify(json));
+
+    return json;
+  },
+
+
   async addRequest(data, id1) {
     if (location.search.split("=")[1] === undefined) {
       let id = id1;
