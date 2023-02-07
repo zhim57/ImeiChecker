@@ -33,7 +33,7 @@ function processImei(response) {
 async function initialFillDatabase () {
   let allImei = await API.getAllImei();
   console.log ("allImei :");
-  console.log (allImei);
+  console.log (allImei[0].requests[0]);
 
 }
 
