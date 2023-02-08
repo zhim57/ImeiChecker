@@ -213,7 +213,8 @@ export function processImeiActual(response1, type) {
     }
   } else {
     console.log("no info");
-    displayNoInfo();
+    
+    // displayNoInfo();
   }
 }
 
