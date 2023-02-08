@@ -172,6 +172,7 @@ export function processImeiActual(response1, type) {
       frequencyArrayLte: frequencyArrayLte,
       frequencyArrayTdd: frequencyArrayTdd,
       frequencyArrayWcdma: frequencyArrayWcdma,
+      overallScore:overallScore
     };
 
     if (type === "api_result") {
@@ -206,6 +207,7 @@ function renderResults(passObject) {
   let frequencyArrayLte = passObject.frequencyArrayLte;
   // let frequencyArrayTdd = passObject.frequencyArrayTdd;
   let frequencyArrayWcdma = passObject.frequencyArrayWcdma;
+  let overallScore = passObject.overallScore;
 
   if (attScore > 74) {
     score1Class = "green-score";
