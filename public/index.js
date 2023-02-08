@@ -39,10 +39,10 @@ async function initialFillDatabase() {
   console.log("allImei[0].requests[0]");
   // console.log (JSON.parse(allImei[0].requests[0].response));
   let response1 = JSON.parse(allImei[0].requests[0].response);
-"  let response2 = JSON.parse(response1);"
+ let response2 = JSON.parse(response1)
 
   console.log("response1.data");
-  console.log(response1);
+  console.log(response2.data);
 }
 
 async function initRequest(imeiDataSave) {
