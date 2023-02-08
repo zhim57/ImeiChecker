@@ -34,6 +34,7 @@ async function initialFillDatabase() {
 
   let response1 = JSON.parse(allImei[0].requests[0].response);
   let response2 = JSON.parse(response1);
+  console.log(allImei);
 let allImei1 = allImei;
   console.log("response1.data");
   console.log(response2.data);
