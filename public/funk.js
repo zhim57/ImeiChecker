@@ -42,6 +42,9 @@ export function processImeiActual(response1, type) {
     $("#main-dump").html("");
     $("#score-dump").append(scoreDump_nill);
     $("#main-dump").append(sampleDump_nill);
+
+    console.log("sampleResponse.data : ");
+    console.log(sampleResponse.data);
   } else if (sampleResponse.data.model != undefined) {
     deviceModel = sampleResponse.data.model;
   }
