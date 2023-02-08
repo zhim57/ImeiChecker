@@ -235,6 +235,9 @@ function renderResults(passObject) {
   let deviceImei = passObject.deviceImei;
   let deviceName = passObject.deviceName;
   let deviceImage = passObject.deviceImag || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
+  if (deviceImage=== null || deviceImage===""){
+    deviceImage = "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
+  }
 
   if (attScore > 74) {
     score1Class = "green-score";
