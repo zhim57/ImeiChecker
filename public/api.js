@@ -38,6 +38,18 @@ export const API = {
 
     return json;
   },
+  async getAllImei1(imei, result) {
+    let res;
+    try {
+      res = await fetch("/api/imei1");
+    } catch (err) {
+      console.log(err);
+    }
+    const json = await res.json();
+    // result(JSON.stringify(json));
+
+    return json;
+  },
 
 
   async addRequest(data, id1) {

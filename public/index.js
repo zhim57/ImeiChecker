@@ -25,39 +25,39 @@ function processImei(response) {
 }
 
 async function initialFillDatabase() {
-  let allImei = await API.getAllImei();
-  console.log("allImei :");
-  console.log(allImei[0].requests[0]);
-  console.log("allImei[0].requests[0]");
-  console.log(allImei[0].requests[0].value);
-  console.log("allImei[0].requests[0]");
+  let allImei = await API.getAllImei1();
+  // console.log("allImei :");
+  // console.log(allImei[0].requests[0]);
+  // console.log("allImei[0].requests[0]");
+  // console.log(allImei[0].requests[0].value);
+  // console.log("allImei[0].requests[0]");
 
-  let response1 = JSON.parse(allImei[0].requests[0].response);
-  let response2 = JSON.parse(response1);
+  // let response1 = JSON.parse(allImei[0].requests[0].response);
+  // let response2 = JSON.parse(response1);
   console.log(allImei);
-let allImei1 = allImei;
-  console.log("response1.data");
+// let allImei1 = allImei;
+  // console.log("response1.data");
   // console.log(response2.data);
   let type = "save_request";
 
- for ( let i=1000; i<1289; i++) {
+//  for ( let i=1000; i<1289; i++) {
 
 
-  if (allImei1[i].requests.length != 0) {
+//   if (allImei1[i].requests.length != 0) {
 
 
-    let data1 = allImei1[i].requests[0].response;
-    let data2 = JSON.parse(data1);
-    let data =JSON.parse(data2)
-    // console.log(JSON.parse(data2));
-    processImeiActual(data, type);
-    console.log(i);
+//     let data1 = allImei1[i].requests[0].response;
+//     let data2 = JSON.parse(data1);
+//     let data =JSON.parse(data2)
+//     // console.log(JSON.parse(data2));
+//     processImeiActual(data, type);
+//     console.log(i);
 
-  }
-  else {
-    console.log ("bad record : "+ i )
-  }
- }
+//   }
+//   else {
+//     console.log ("bad record : "+ i )
+//   }
+//  }
 
 
 }
