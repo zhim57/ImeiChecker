@@ -40,12 +40,12 @@ let allImei1 = allImei;
   // console.log(response2.data);
   let type = "save_request";
 
- for ( let i=0; i<5; i++) {
+ for ( let i=5; i<25; i++) {
 let data1 = allImei1[i].requests[0].response;
-console.log(data1);
+// console.log(data1);
 let data2 = JSON.parse(data1);
 let data =JSON.parse(data2)
-console.log(JSON.parse(data2));
+// console.log(JSON.parse(data2));
 processImeiActual(data, type);
  }
 
