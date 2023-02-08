@@ -142,7 +142,8 @@ if (completeButton) {
       // new function - direct show 1-31-23
 
       displayResult(result1);
-      processImeiActual(result1);
+      let type = "api_result";
+      processImeiActual(result1, type);
       clearInputs();
 
       // saveImei(result); - old path disabled

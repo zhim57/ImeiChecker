@@ -16,10 +16,7 @@ let shouldNavigateAway = false;
 
 // development test variables for  country USA
 
-export function processImeiActual(response1) {
-  // console.log("process Imei Actual triggered");
-  //     console.log(response1);
-
+export function processImeiActual(response1, type) {
   //===============
   var sampleResponse = response1;
   console.log(sampleResponse.message + "dodu!");
@@ -28,12 +25,8 @@ export function processImeiActual(response1) {
     console.log(sampleResponse.message);
 
     let scoreDump_nill = `
-   
-    
-      <h1 class="text-center red1" ;"> ${sampleResponse.message}</h1>
-      <h1 class="text-center red1" ;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
-     
-     
+          <h1 class="text-center red1" ;"> ${sampleResponse.message}</h1>
+      <h1 class="text-center red1" ;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>        
      `;
 
     // <tr>
@@ -64,7 +57,7 @@ export function processImeiActual(response1) {
   var tmobileLteArray = ["2", "4", "12", "71"];
   var verizonLteArray = ["2", "4", "13", "66"];
 
-  var ukLteArray = ["1", "3", "7", "20","40"];
+  var ukLteArray = ["1", "3", "7", "20", "40"];
   var europeLteArray = ["1", "3", "7", "20"];
   var chinaLteArray = ["40", "41"];
   var indiaLteArray = ["1", "3", "5", "8", "40", "41"];
@@ -89,11 +82,6 @@ export function processImeiActual(response1) {
   var deviceSpeed;
   var deviceSpeed1 = sampleResponse.data.device_spec.speed;
 
-
-
-
-
-
   if (frequencyArrayRaw != "" && frequencyArrayRaw != null) {
     for (i = 0; i < frequencyArrayRaw.length; i++) {
       if (frequencyArrayRaw[i].toUpperCase().includes("LTE FDD BAND")) {
@@ -114,51 +102,27 @@ export function processImeiActual(response1) {
         console.log("frequency error : read : " + frequencyArrayRaw[i]);
       }
     }
-    // for(u=0; u < frequencyArrayLte.length; u++){
-    //   if (attLteArray.includes(frequencyArrayLte[u])){
-    //     attScoreNumber++
-    //   }
-    //   if (tmobileLteArray.includes(frequencyArrayLte[u])){
-    //     tmobileScoreNumber++
-    //   }
-    // };
+
     for (u = 0; u < attLteArray.length; u++) {
       if (frequencyArrayLte.includes(attLteArray[u])) {
-        // console.log("attLteArray:  "+ attLteArray);
-        // console.log(frequencyArrayLte);
-        // console.log(" attLteArray[u] : " + attLteArray[u]);
         attScoreNumber++;
       }
     }
     for (y = 0; y < tmobileLteArray.length; y++) {
       if (frequencyArrayLte.includes(tmobileLteArray[y])) {
-        // console.log("tmobileLteArray:  "+ tmobileLteArray);
-        // console.log(frequencyArrayLte);
         tmobileScoreNumber++;
-        // console.log(" tmobileLteArray[y] : " + tmobileLteArray[y]);
       }
     }
     for (z = 0; z < verizonLteArray.length; z++) {
       if (frequencyArrayWcdma.includes(verizonLteArray[z])) {
-        // console.log("verizonLteArray :  "+ verizonLteArray);
-        // console.log(frequencyArrayWcdma);
-        // console.log("verizonLteArray[z]: " + verizonLteArray[z]);
         verizonScoreNumber++;
       }
     }
-    // console.log(attScoreNumber);
-    // console.log(tmobileScoreNumber);
-    // console.log(verizonScoreNumber);
+
     var attScore = (attScoreNumber / attLteArray.length) * 100;
     var tmobileScore = (tmobileScoreNumber / tmobileLteArray.length) * 100;
     var verizonScore = (verizonScoreNumber / verizonLteArray.length) * 100;
     var overallScore = (attScore + tmobileScore + verizonScore) / 3;
-    // console.log(attScore);
-    // console.log(tmobileScore);
-    // console.log(verizonScore);
-    // console.log(overallScore);
-
-
 
     if (deviceBluetooth1 !== null) {
       deviceBluetooth =
@@ -195,92 +159,123 @@ export function processImeiActual(response1) {
       deviceSpeed = null;
     }
 
-    var remarks1 = "sample remarks....";
-    var remarks2 = "sample remarks....";
-    var remarks3 = "sample remarks....";
-    var remarks4 = "sample remarks....";
-    var score1Class = "dudu";
-    var score2Class = "dudu";
-    var score3Class = "dudu";
-    var score4Class = "dudu";
-
-    //===============
-    // console.log("fired");
     overallScore = (attScore + tmobileScore) / 2;
 
-    if (attScore > 74) {
-      score1Class = "green-score";
-      remarks1 =
-        " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
-      // console.log("fired1");
-    } else if (attScore < 75 && attScore > 45) {
-      score1Class = "yellow-score";
-      remarks1 =
-        " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
-    } else if (attScore < 45 && attScore > 0) {
-      score1Class = "orange-score";
-      remarks1 =
-        " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
-    } else if (attScore == 0) {
-      score1Class = "red-score";
-      remarks1 =
-        " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
-    }
+    let passObject = {
+      deviceSpeed: deviceSpeed,
+      deviceBluetooth: deviceBluetooth,
+      deviceNettech: deviceNettech,
+      tmobileScore: tmobileScore,
+      verizonScore: verizonScore,
+      attScore: attScore,
+      frequencyArray2g: frequencyArray2g,
+      frequencyArrayLte: frequencyArrayLte,
+      frequencyArrayTdd: frequencyArrayTdd,
+      frequencyArrayWcdma: frequencyArrayWcdma,
+    };
 
-    if (tmobileScore > 74) {
-      score2Class = "green-score";
-      remarks2 =
-        " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
-    } else if (tmobileScore < 75 && tmobileScore > 45) {
-      score2Class = "yellow-score";
-      remarks2 =
-        " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
-    } else if (tmobileScore < 45 && tmobileScore > 0) {
-      score2Class = "orange-score";
-      remarks2 =
-        " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
-    } else if (tmobileScore == 0) {
-      score2Class = "red-score";
-      remarks2 =
-        " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
+    if (type === "api_result") {
+      renderResults(passObject);
     }
-    if (verizonScore > 74) {
-      score4Class = "green-score";
-      remarks4 =
-        " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
-    } else if (verizonScore < 75 && verizonScore > 45) {
-      score4Class = "yellow-score";
-      remarks4 =
-        " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
-    } else if (verizonScore < 45 && verizonScore > 0) {
-      score4Class = "orange-score";
-      remarks4 =
-        " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
-    } else if (verizonScore == 0) {
-      score4Class = "red-score";
-      remarks4 =
-        " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
-    }
+  } else {
+    console.log("no info");
+    displayNoInfo();
+  }
+}
 
-    if (overallScore > 74) {
-      score3Class = "green-score";
-      remarks3 =
-        " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
-    } else if (overallScore < 75 && overallScore > 45) {
-      score3Class = "yellow-score";
-      remarks3 =
-        " expecting your phone to have intermittent connection in most areas of USA";
-    } else if (overallScore < 45 && overallScore > 0) {
-      score3Class = "orange-score";
-      remarks3 =
-        " expecting your phone to have difficulties keeping the connection in most areas of USA";
-    } else if (overallScore == 0) {
-      score3Class = "red-score";
-      remarks3 =
-        " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
-    }
+function renderResults(passObject) {
+  var remarks1 = "sample remarks....";
+  var remarks2 = "sample remarks....";
+  var remarks3 = "sample remarks....";
+  var remarks4 = "sample remarks....";
+  var score1Class = "dudu";
+  var score2Class = "dudu";
+  var score3Class = "dudu";
+  var score4Class = "dudu";
+  let deviceSpeed = passObject.deviceSpeed;
+  // let deviceBluetooth = passObject.deviceBluetooth;
+  let deviceNettech = passObject.deviceNettech;
+  let tmobileScore = passObject.tmobileScore;
+  let verizonScore = passObject.verizonScore;
+  let attScore = passObject.attScore;
+  let frequencyArray2g = frequencyArray2g;
+  let frequencyArrayLte = frequencyArrayLte;
+  let frequencyArrayTdd = frequencyArrayTdd;
+  let frequencyArrayWcdma = frequencyArrayWcdma;
 
-    scoreDump = `
+  if (attScore > 74) {
+    score1Class = "green-score";
+    remarks1 =
+      " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
+    // console.log("fired1");
+  } else if (attScore < 75 && attScore > 45) {
+    score1Class = "yellow-score";
+    remarks1 =
+      " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
+  } else if (attScore < 45 && attScore > 0) {
+    score1Class = "orange-score";
+    remarks1 =
+      " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
+  } else if (attScore == 0) {
+    score1Class = "red-score";
+    remarks1 =
+      " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
+  }
+
+  if (tmobileScore > 74) {
+    score2Class = "green-score";
+    remarks2 =
+      " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
+  } else if (tmobileScore < 75 && tmobileScore > 45) {
+    score2Class = "yellow-score";
+    remarks2 =
+      " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
+  } else if (tmobileScore < 45 && tmobileScore > 0) {
+    score2Class = "orange-score";
+    remarks2 =
+      " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
+  } else if (tmobileScore == 0) {
+    score2Class = "red-score";
+    remarks2 =
+      " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
+  }
+  if (verizonScore > 74) {
+    score4Class = "green-score";
+    remarks4 =
+      " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
+  } else if (verizonScore < 75 && verizonScore > 45) {
+    score4Class = "yellow-score";
+    remarks4 =
+      " expecting your phone to have intermittent connection in most areas where there is cell phone reception of this carrier";
+  } else if (verizonScore < 45 && verizonScore > 0) {
+    score4Class = "orange-score";
+    remarks4 =
+      " expecting your phone to have difficulties keeping the connection in most areas where there is cell phone reception of this carrier";
+  } else if (verizonScore == 0) {
+    score4Class = "red-score";
+    remarks4 =
+      " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
+  }
+
+  if (overallScore > 74) {
+    score3Class = "green-score";
+    remarks3 =
+      " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
+  } else if (overallScore < 75 && overallScore > 45) {
+    score3Class = "yellow-score";
+    remarks3 =
+      " expecting your phone to have intermittent connection in most areas of USA";
+  } else if (overallScore < 45 && overallScore > 0) {
+    score3Class = "orange-score";
+    remarks3 =
+      " expecting your phone to have difficulties keeping the connection in most areas of USA";
+  } else if (overallScore == 0) {
+    score3Class = "red-score";
+    remarks3 =
+      " unless some unforseen change to the network, expecting your phone to not have connection with this carrier's network";
+  }
+
+  scoreDump = `
             <div class="text-center"  >  
             <h2>Results</h2>
             </div><table id="w1" class="table table-striped table-bordered detail-view">
@@ -314,21 +309,21 @@ export function processImeiActual(response1) {
               </tbody>
             </table>`;
 
-    // <tr>
-    // <th class="${score3Class}">Overall Score</th>
-    // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-    // </tr>
+  // <tr>
+  // <th class="${score3Class}">Overall Score</th>
+  // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+  // </tr>
 
-    sampleDump =
-      `<div class=" device">
+  sampleDump =
+    `<div class=" device">
              <div class="text-center"  >  
              <img src= ${deviceImage} alt="" 
              > 
              </div>
              <h1 class="text-center" style="color: #fff;">${deviceName}</h1>` +
-      //  <h3 class="text-center" style="color: #fff;">For back to the previous page click <a href="/device">here</a></h3>
+    //  <h3 class="text-center" style="color: #fff;">For back to the previous page click <a href="/device">here</a></h3>
 
-      `</div><table id="w1" class="table table-striped table-bordered detail-view"><tbody>  <tr>
+    `</div><table id="w1" class="table table-striped table-bordered detail-view"><tbody>  <tr>
              
              
              <tr>
@@ -360,56 +355,56 @@ export function processImeiActual(response1) {
                  </tr>
               
                  </table>`;
-    //=========================
+  //=========================
 
-    $("#score-dump").html("");
-    $("#main-dump").html("");
-    $("#score-dump").append(scoreDump);
-    $("#main-dump").append(sampleDump);
+  $("#score-dump").html("");
+  $("#main-dump").html("");
+  $("#score-dump").append(scoreDump);
+  $("#main-dump").append(sampleDump);
 
-    // formImei.classList.add("d-none");
-  } else {
-    let scoreDump_nill = `
-   
-    
-     <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
-    
-    
-    `;
+  // formImei.classList.add("d-none");
+}
 
-    // <tr>
-    // <th class="${score3Class}">Overall Score</th>
-    // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-    // </tr>
+function displayNoInfo() {
+  let scoreDump_nill = `
 
-    let sampleDump_nill =     `
-     <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
-     <div class=" device">
-     <div class="text-center"  >  
-     <img src= ${deviceImage} alt=""> 
-     </div>
-     <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
-     </div>
-     <table id="w1" class="table table-striped table-bordered detail-view">
-     <tbody>  <tr>
-     
-     
-     <tr>
-     <th>Net tech</th>
-     <td>${deviceNettech}</td>
-     </tr>
-     
-     <tr>
-     <th>Connection Speed</th>
-     <td>${deviceSpeed}</td>
-     </tr>
-     </table>`
-     ;
-    $("#score-dump").html("");
-    $("#main-dump").html("");
-    $("#score-dump").append(scoreDump_nill);
-    $("#main-dump").append(sampleDump_nill);
-  }
+
+ <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+
+
+`;
+
+  // <tr>
+  // <th class="${score3Class}">Overall Score</th>
+  // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+  // </tr>
+
+  let sampleDump_nill = `
+ <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+ <div class=" device">
+ <div class="text-center"  >  
+ <img src= ${deviceImage} alt=""> 
+ </div>
+ <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
+ </div>
+ <table id="w1" class="table table-striped table-bordered detail-view">
+ <tbody>  <tr>
+ 
+ 
+ <tr>
+ <th>Net tech</th>
+ <td>${deviceNettech}</td>
+ </tr>
+ 
+ <tr>
+ <th>Connection Speed</th>
+ <td>${deviceSpeed}</td>
+ </tr>
+ </table>`;
+  $("#score-dump").html("");
+  $("#main-dump").html("");
+  $("#score-dump").append(scoreDump_nill);
+  $("#main-dump").append(sampleDump_nill);
 }
 
 export function displayResult(result) {
