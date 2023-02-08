@@ -10,6 +10,7 @@ var username = "tester1: ";
 var scoreDump;
 var sampleDump;
 var lastImei;
+var deviceModel= "";
 
 let workoutType = null; // to be reviewed by 5-19-22
 let shouldNavigateAway = false;
@@ -41,7 +42,7 @@ export function processImeiActual(response1, type) {
     $("#score-dump").append(scoreDump_nill);
     $("#main-dump").append(sampleDump_nill);
   } else if (sampleResponse.data.model != undefined) {
-    var deviceModel = sampleResponse.data.model;
+    deviceModel = sampleResponse.data.model;
   }
   // var deviceModel = sampleResponse.data.model;
   // var bluetooth  = sampleResponse.data.device_spec.blootooth;
@@ -173,7 +174,10 @@ export function processImeiActual(response1, type) {
       frequencyArrayTdd: frequencyArrayTdd,
       frequencyArrayWcdma: frequencyArrayWcdma,
       overallScore:overallScore,
-      deviceImei:deviceImei
+      deviceImei:deviceImei,
+      deviceName: deviceName,
+      deviceImage:deviceImage
+
     };
 
     if (type === "api_result") {
@@ -210,6 +214,8 @@ function renderResults(passObject) {
   let frequencyArrayWcdma = passObject.frequencyArrayWcdma;
   let overallScore = passObject.overallScore;
   let deviceImei = passObject.deviceImei;
+  let deviceName = passObject.deviceName;
+  let deviceImage = passObject.deviceImage;
   
 
   if (attScore > 74) {
