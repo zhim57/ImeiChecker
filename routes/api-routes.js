@@ -25,6 +25,49 @@ router.post("/api/createmodel", (req, res) => {
       res.status(400).json(err);
     });
 });
+router.post("/api/createmodel2", async (req, res) => {
+
+//====
+
+  try {
+    let imei2 = await Imei1.findOne({ deviceImei: req.body.requests.deviceImei });
+
+    if (imei2) {
+      return res.status(400).send("a record already exists with that imei");
+    }
+
+    const result = await Imei1.create(req.body);
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.errors);
+    }
+    res.status(500).send("Something went wrong");
+  }
+});
+
+//=====
+
+
+  
+  // console.log(req.body);
+  // Imei1.create(req.body)
+  //   .then(dbImei1 => {
+  //     res.json(dbImei1);
+  //   })
+  //   .catch(err => {
+  //     res.status(400).json(err);
+  //   });
+
+
+
+
+
+
+
+
 router.put("/api/imeis/:id", ({ body, params }, res) => {
   // push the requests array into the last  imei record=====
   Imei.findByIdAndUpdate(

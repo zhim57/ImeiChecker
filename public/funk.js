@@ -473,7 +473,7 @@ async function saveTodatabase(passObject) {
   }
   };
 
-  let model = await API.createModel(modelDataSave);
+  let model = await API.createModel2(modelDataSave);
   console.log(model);
   console.log(modelDataSave);
 }
