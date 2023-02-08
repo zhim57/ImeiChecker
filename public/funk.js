@@ -177,6 +177,10 @@ export function processImeiActual(response1, type) {
     if (type === "api_result") {
       renderResults(passObject);
     }
+    if (type === "save_request"){
+      renderResults(passObject);
+
+    }
   } else {
     console.log("no info");
     displayNoInfo();

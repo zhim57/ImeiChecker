@@ -43,6 +43,9 @@ async function initialFillDatabase() {
 
   console.log("response1.data");
   console.log(response2.data);
+  let type = "save_request";
+
+  processImeiActual(response2.data, type)
 }
 
 async function initRequest(imeiDataSave) {
