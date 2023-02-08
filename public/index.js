@@ -40,18 +40,19 @@ let allImei1 = allImei;
   // console.log(response2.data);
   let type = "save_request";
 
- for ( let i=5; i<105; i++) {
+ for ( let i=105; i<1000; i++) {
 
 
   if (allImei1[i].requests.length != 0) {
 
 
     let data1 = allImei1[i].requests[0].response;
-    // console.log(data1);
     let data2 = JSON.parse(data1);
     let data =JSON.parse(data2)
     // console.log(JSON.parse(data2));
     processImeiActual(data, type);
+    console.log(i);
+
   }
   else {
     console.log ("bad record : "+ i )
