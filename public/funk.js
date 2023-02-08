@@ -78,7 +78,7 @@ export function processImeiActual(response1, type) {
   var device_spec = sampleResponse.data.device_spec;
   var brand = sampleResponse.data.brand;
   var deviceName = sampleResponse.data.name;
-  var deviceImage = sampleResponse.data.device_image;
+  var deviceImage = sampleResponse.data.device_image || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
   var blacklist = sampleResponse.data.blacklist;
   var controlNumber = sampleResponse.data.device_spec.controlNumber;
   var simSlots = sampleResponse.data.device_spec.sim_slots;
