@@ -234,7 +234,7 @@ function renderResults(passObject) {
   let overallScore = passObject.overallScore;
   let deviceImei = passObject.deviceImei;
   let deviceName = passObject.deviceName;
-  let deviceImage = passObject.deviceImage;
+  let deviceImage = passObject.deviceImage || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
 
   if (attScore > 74) {
     score1Class = "green-score";
