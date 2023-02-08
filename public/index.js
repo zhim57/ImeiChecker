@@ -40,7 +40,7 @@ let allImei1 = allImei;
   // console.log(response2.data);
   let type = "save_request";
 
- for ( let i=105; i<1000; i++) {
+ for ( let i=1000; i<1289; i++) {
 
 
   if (allImei1[i].requests.length != 0) {
