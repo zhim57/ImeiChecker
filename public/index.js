@@ -36,7 +36,7 @@ async function initialFillDatabase() {
   // let response2 = JSON.parse(allImei);
 
   console.log("response1.data");
-  console.log(response1);
+  console.log(response1.data);
   let type = "save_request";
 
  for ( let i=0; i<5; i++) {

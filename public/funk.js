@@ -42,7 +42,7 @@ export function processImeiActual(response1, type) {
     $("#main-dump").html("");
     $("#score-dump").append(scoreDump_nill);
     $("#main-dump").append(sampleDump_nill);
-  } else if (sampleResponse.data.model ) {
+  } else if (sampleResponse.data.model != undefined) {
     deviceModel = sampleResponse.data.model;
   }
   // var deviceModel = sampleResponse.data.model;
