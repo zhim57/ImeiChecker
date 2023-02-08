@@ -234,7 +234,7 @@ function renderResults(passObject) {
   let overallScore = passObject.overallScore;
   let deviceImei = passObject.deviceImei;
   let deviceName = passObject.deviceName;
-  let deviceImage = passObject.deviceImag || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
+  let deviceImage = passObject.deviceImage || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
   if (deviceImage=== null || deviceImage===""){
     deviceImage = "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
   }
