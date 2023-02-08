@@ -202,10 +202,10 @@ function renderResults(passObject) {
   let tmobileScore = passObject.tmobileScore;
   let verizonScore = passObject.verizonScore;
   let attScore = passObject.attScore;
-  let frequencyArray2g = frequencyArray2g;
-  let frequencyArrayLte = frequencyArrayLte;
-  let frequencyArrayTdd = frequencyArrayTdd;
-  let frequencyArrayWcdma = frequencyArrayWcdma;
+  let frequencyArray2g = passObject.frequencyArray2g;
+  let frequencyArrayLte = passObject.frequencyArrayLte;
+  // let frequencyArrayTdd = passObject.frequencyArrayTdd;
+  let frequencyArrayWcdma = passObject.frequencyArrayWcdma;
 
   if (attScore > 74) {
     score1Class = "green-score";
