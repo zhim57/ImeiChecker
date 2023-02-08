@@ -35,7 +35,7 @@ router.post("/api/createmodel2", async (req, res) => {
 console.log (req.body.requests.deviceImei );
 console.log(imei2);
     if (imei2) {
-      return res.status(400).send("a record already exists with that imei");
+      return res.status(400).send({"error":'a record already exists with that imei'});
     }
 
     const result = await Imei1.create(req.body);
