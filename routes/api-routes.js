@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Imei = require("../models/imei.js");
+const Imei1 = require("../models/imei1.js");
 const request = require("request");
 require('dotenv').config();
 
@@ -8,6 +9,17 @@ router.post("/api/requests1", ({ body }, res) => {
   Imei.create(body)
     .then(dbImei => {
       res.json(dbImei);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+router.post("/api/createmodel", (req, res) => {
+  // create new model record=====
+  console.log(req.body);
+  Imei1.create(req.body)
+    .then(dbImei1 => {
+      res.json(dbImei1);
     })
     .catch(err => {
       res.status(400).json(err);

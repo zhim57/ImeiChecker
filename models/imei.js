@@ -10,11 +10,7 @@ const imeiSchema = new Schema({
   },
   requests:[
     {
-  // Imei: {
-  //   type: String,
-  //   trim: true,
-  //   required: "Enter Imei"
-  // },
+
   country: {
     type: String,
     trim: true,

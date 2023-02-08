@@ -17,12 +17,6 @@ var lastImei;
 let workoutType = null; // to be reviewed by 5-19-22
 let shouldNavigateAway = false;
 
-// development test variables
-var attLteArray = [2, 4, 5, 17, 30];
-var tmobileLteArray = [2, 4, 5, 12];
-// var verizonLteArray =[2,4,5,13]
-// var sprintLteArray =[25,30,41]
-
 function processImei(response) {
   let response1 = JSON.parse(response);
   console.log("process Imei triggered");
@@ -37,24 +31,19 @@ async function initialFillDatabase() {
   console.log("allImei[0].requests[0]");
   console.log(allImei[0].requests[0].value);
   console.log("allImei[0].requests[0]");
-  // console.log (JSON.parse(allImei[0].requests[0].response));
+
   let response1 = JSON.parse(allImei[0].requests[0].response);
- let response2 = JSON.parse(response1)
+  // let response2 = JSON.parse(response1);
 
   console.log("response1.data");
-  console.log(response2.data);
+  console.log(response1.data);
   let type = "save_request";
 
-  processImeiActual(response2, type)
+  processImeiActual(response1, type);
 }
 
 async function initRequest(imeiDataSave) {
-  // work on the location search
   let imei;
-  // console.log("imei.....");
-  // console.log(imeiDataSave.value);
-  // console.log("imeidatasave.....");
-  // console.log(imeiDataSave);
 
   if (location.search.split("=")[1] === undefined) {
     console.log("1 going to : http://localhost:3000/?id=" + currentImei);
@@ -65,16 +54,10 @@ async function initRequest(imeiDataSave) {
   if (imei) {
     console.log("id=" + imei._id);
     location.search = "?id=" + imei._id;
-    // console.log(imeiDataSave);
-    // console.log("eimei data save above");
     await API.addRequest(imeiDataSave, imei._id);
     // initImei();
   }
-  // console.log("imeiDataSave.response");
-  // let response2 = JSON.parse(imeiDataSave.response);
-  // processImeiActual(JSON.parse(response2));
-  // initImei();
-  // formImei.classList.add("d-none");
+
   console.log("2 going to : http://localhost:3000/?id=" + currentImei);
 }
 
@@ -90,17 +73,13 @@ function validateInputs() {
 }
 
 async function saveImei(data) {
-  let imeiData = JSON.parse(data);
+  let imeiData = data;
   let imeiDataSave = {};
-  // console.log("imeiData");
-  // console.log(imeiData);
   imeiDataSave.type = "imei";
   imeiDataSave.value = imeiData.query;
-  imeiDataSave.country = countryInput.value.trim();
+  imeiDataSave.country = "USA";
   imeiDataSave.username = username.trim();
   imeiDataSave.response = JSON.stringify(data);
-  // console.log(imeiDataSave.value); // works fine
-  // console.log("imeiDataSave.value"); // works fine
 
   initRequest(imeiDataSave);
 }
@@ -128,15 +107,14 @@ fillButton.addEventListener("click", function (event) {
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     event.preventDefault();
-    // shouldNavigateAway = true;
+
     let imei = imeiNameInput.value.trim();
 
     username = emailInput.value.trim() || "safety-net";
     currentImei = imei;
-    // console.log("imei -line 519");
+
     console.log(imei);
-    // console.log(username);
-    // location.reload();
+
     API.getImei(imei, (result) => {
       let result1 = JSON.parse(result);
       console.log("result : ");
@@ -144,12 +122,14 @@ if (completeButton) {
 
       // new function - direct show 1-31-23
 
-      displayResult(result1);
+      // displayResult(result1);
+
       let type = "api_result";
       processImeiActual(result1, type);
+      
       clearInputs();
 
-      // saveImei(result); - old path disabled
+      saveImei(result1); //- old path disabled
     });
   });
 }
@@ -162,11 +142,8 @@ async function initImei() {
   if (location.search.split("=")[1] === undefined) {
     lastImei = await API.getLastImei();
     console.log(lastImei);
-
-    // parseLastImei(lastImei),
-    // console.log("parsing last imei");
   }
-  // console.log("Last imei:", JSON.stringify(lastImei));
+
   if (lastImei) {
     // have to review this by 5-17-22
     document
@@ -179,31 +156,19 @@ async function initImei() {
       numRequests: lastImei.requests.length,
     };
     parseLastImei(lastImei), console.log("imeiSummary.numRequests");
-    // console.log(imeiSummary.numRequests);
-    // console.log("first option on the init Imei function triggered ");
+
     renderImeiSummary(imeiSummary);
   } else {
     lastImei = await API.getLastImei();
 
-    // console.log(lastImei._id);
     let currentImei = location.search.split("=")[1].trim();
     if (lastImei._id === undefined) {
-      // console.log(lastImei);
-      // parseLastImei(lastImei),
-      // console.log("parsing last imei");
     } else if (lastImei._id === currentImei) {
-      // console.log("lastImei === currentImei");
-      //"parseLastImei(lastImei)"
       location.search = "/";
     } else if (lastImei._id != currentImei) {
-      // console.log(lastImei);
-      // console.log(currentImei);
-      // console.log("lastImei != currentImei");
-      // location.reload();
     }
-    // renderNoImeiText();
   }
-  //location.search = "?id=" + lastImei._id;
+
   if (shouldNavigateAway === true) {
     location.href = "/test ";
   }
@@ -221,17 +186,10 @@ function formatDate(date) {
 }
 
 function parseLastImei(lastImei) {
-  // const tallied = results.reduce((acc, curr) => {
-  // console.log("lastImei.requests[0]");
-  // console.log(lastImei.requests[0]);
-
   if (lastImei.requests[0].type === "imei") {
-    // console.log("type is imei");
-    // console.log(lastImei.requests[0]);
     let response = JSON.parse(lastImei.requests[0].response);
     let sampleResponse = JSON.parse(response);
-    // location.href = "?id=" + lastImei._id;
-    // console.log(sampleResponse);
+
     processImeiActual(sampleResponse);
   } else if (lastImei.requests[0].type != "imei") {
     console.log("type is NOT imei");

@@ -5,12 +5,13 @@ const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const formImei = document.querySelector("#form-imei");
+import { API } from "/api.js";
 
 var username = "tester1: ";
 var scoreDump;
 var sampleDump;
 var lastImei;
-var deviceModel= "";
+var deviceModel = "";
 
 let workoutType = null; // to be reviewed by 5-19-22
 let shouldNavigateAway = false;
@@ -68,8 +69,15 @@ export function processImeiActual(response1, type) {
   var verizonScoreNumber = 0;
   var frequencyArrayRaw = sampleResponse.data.frequency;
 
+  var models = sampleResponse.data.models;
+  var frequency = sampleResponse.data.frequency;
+  var device_id = sampleResponse.data.device_id;
+  var device_spec = sampleResponse.data.device_spec;
+  var brand = sampleResponse.data.brand;
   var deviceName = sampleResponse.data.name;
   var deviceImage = sampleResponse.data.device_image;
+  var blacklist = sampleResponse.data.blacklist;
+  var controlNumber = sampleResponse.data.device_spec.controlNumber;
   var simSlots = sampleResponse.data.device_spec.sim_slots;
   var deviceUsb = sampleResponse.data.device_spec.usb;
   var deviceWlan = sampleResponse.data.device_spec.wlan;
@@ -173,19 +181,27 @@ export function processImeiActual(response1, type) {
       frequencyArrayLte: frequencyArrayLte,
       frequencyArrayTdd: frequencyArrayTdd,
       frequencyArrayWcdma: frequencyArrayWcdma,
-      overallScore:overallScore,
-      deviceImei:deviceImei,
+      overallScore: overallScore,
+      deviceImei: deviceImei,
       deviceName: deviceName,
-      deviceImage:deviceImage
-
+      deviceImage: deviceImage,
+      deviceTac: deviceTac,
+      deviceSerial: deviceSerial,
+      blacklist: blacklist,
+      brand: brand,
+      device_id: device_id,
+      controlNumber: controlNumber,
+      device_spec:device_spec,
+      frequency:frequency,
+      models:models,
     };
 
     if (type === "api_result") {
       renderResults(passObject);
     }
-    if (type === "save_request"){
+    if (type === "save_request") {
       renderResults(passObject);
-
+      saveTodatabase(passObject);
     }
   } else {
     console.log("no info");
@@ -216,7 +232,6 @@ function renderResults(passObject) {
   let deviceImei = passObject.deviceImei;
   let deviceName = passObject.deviceName;
   let deviceImage = passObject.deviceImage;
-  
 
   if (attScore > 74) {
     score1Class = "green-score";
@@ -424,4 +439,41 @@ function displayNoInfo() {
 
 export function displayResult(result) {
   console.log(" displayresult activated");
+}
+
+async function saveTodatabase(passObject) {
+  let modelDataSave = {
+    requests:{
+    deviceImei: passObject.deviceImei,
+    blacklist: passObject.blacklist,
+  
+    brand: passObject.brand,
+    controlNumber: passObject.controlNumber,
+    device_id: passObject.device_id,
+    deviceImage: passObject.deviceImage,
+    device_spec: passObject.device_spec,
+    deviceName: passObject.deviceName,
+    deviceSerial: passObject.deviceSerial,
+    type: "imei1",
+    deviceSpeed: passObject.deviceSpeed,
+    frequency: passObject.frequency,
+    models: passObject.models,
+    frequencyArray2g: passObject.frequencyArray2g,
+    frequencyArrayLte: passObject.frequencyArrayLte,
+    frequencyArrayTdd: passObject.frequencyArrayTdd,
+    frequencyArrayWcdma: passObject.frequencyArrayWcdma,
+    deviceTac: passObject.deviceTac,
+    tmobileScore: passObject.tmobileScore,
+    verizonScore: passObject.verizonScore,
+    attScore: passObject.attScore,
+    overallScore: passObject.overallScore,
+
+
+
+  }
+  };
+
+  let model = await API.createModel(modelDataSave);
+  console.log(model);
+  console.log(modelDataSave);
 }

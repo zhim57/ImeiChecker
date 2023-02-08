@@ -2,5 +2,5 @@
 
 module.exports = {
   Imei: require("./imei"),
-  phone_models: require("./phone_models"),
+  Imei1: require("./imei1"),
 };

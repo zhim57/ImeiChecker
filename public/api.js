@@ -97,4 +97,21 @@ export const API = {
 
     return json;
   },
+
+  async createModel(data ) {
+    console.log("create imei1");
+    
+    const res = await fetch("/api/createmodel", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+  
+
+ const json = await res.json();
+
+ return json;
+},
+
+
 };
