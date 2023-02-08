@@ -42,7 +42,7 @@ async function initialFillDatabase() {
 "  let response2 = JSON.parse(response1);"
 
   console.log("response1.data");
-  console.log(response1.data);
+  console.log(response1);
 }
 
 async function initRequest(imeiDataSave) {
