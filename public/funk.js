@@ -482,10 +482,10 @@ async function saveTodatabase(passObject) {
 
  <h1 class="text-center" style="color: #000;">Savingg to  DATABASE</h1>
 
- ${modelDataSave.request.deviceImei} <br>
- ${modelDataSave.request.deviceName} <br>
- ${modelDataSave.request.deviceSerial} <br>
- ${modelDataSave.request.deviceSpeed} <br>
+ ${modelDataSave.requests.deviceImei} <br>
+ ${modelDataSave.requests.deviceName} <br>
+ ${modelDataSave.requests.deviceSerial} <br>
+ ${modelDataSave.requests.deviceSpeed} <br>
 
 
 
