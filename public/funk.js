@@ -523,7 +523,7 @@ async function saveTodatabase(passObject) {
   // $("#main-dump").html("");
   $("#score-dump").append(scoreDump_nill);
   // $("#main-dump").append(sampleDump_nill);
-}
+// }
 
 
 
