@@ -33,13 +33,19 @@ async function initialFillDatabase() {
   console.log("allImei[0].requests[0]");
 
   let response1 = JSON.parse(allImei[0].requests[0].response);
-  let response2 = JSON.parse(response1);
+  let response2 = JSON.parse(allImei);
 
   console.log("response1.data");
   console.log(response1.data);
   let type = "save_request";
 
-  processImeiActual(response2, type);
+ for ( let i=0; i<5; i++) {
+let data = JSON.parse(allImei[i].requests[0].response)
+processImeiActual(data, type);
+console.log(data.data);
+ }
+
+
 }
 
 async function initRequest(imeiDataSave) {
