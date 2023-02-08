@@ -200,7 +200,7 @@ export function processImeiActual(response1, type) {
       renderResults(passObject);
     }
     if (type === "save_request") {
-      renderResults(passObject);
+      // renderResults(passObject);
       saveTodatabase(passObject);
     }
   } else {
@@ -476,4 +476,55 @@ async function saveTodatabase(passObject) {
   let model = await API.createModel2(modelDataSave);
   console.log(model);
   console.log(modelDataSave);
+
+  let scoreDump_nill = `
+
+
+ <h1 class="text-center" style="color: #000;">Savingg to  DATABASE</h1>
+
+ ${modelDataSave.request.deviceImei} <br>
+ ${modelDataSave.request.deviceName} <br>
+ ${modelDataSave.request.deviceSerial} <br>
+ ${modelDataSave.request.deviceSpeed} <br>
+
+
+
+
+`;
+
+  // <tr>
+  // <th class="${score3Class}">Overall Score</th>
+  // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+  // </tr>
+
+//   let sampleDump_nill = `
+//  <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+//  <div class=" device">
+//  <div class="text-center"  >  
+//  <img src= ${deviceImage} alt=""> 
+//  </div>
+//  <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
+//  </div>
+//  <table id="w1" class="table table-striped table-bordered detail-view">
+//  <tbody>  <tr>
+ 
+ 
+//  <tr>
+//  <th>Net tech</th>
+//  <td>${deviceNettech}</td>
+//  </tr>
+ 
+//  <tr>
+//  <th>Connection Speed</th>
+//  <td>${deviceSpeed}</td>
+//  </tr>
+//  </table>`;
+  $("#score-dump").html("");
+  // $("#main-dump").html("");
+  $("#score-dump").append(scoreDump_nill);
+  // $("#main-dump").append(sampleDump_nill);
+}
+
+
+
 }
