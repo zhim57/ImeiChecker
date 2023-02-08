@@ -41,9 +41,9 @@ let allImei1 = allImei;
   let type = "save_request";
 
  for ( let i=0; i<5; i++) {
-let data = allImei1[i].requests[0].response;
+let data = JSON.parse(allImei1[i].requests[0].response);
 console.log(data.data);
-processImeiActual(JSON.parse(data), type);
+processImeiActual(data, type);
  }
 
 
