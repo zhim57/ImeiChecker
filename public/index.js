@@ -34,14 +34,14 @@ async function initialFillDatabase() {
 
   let response1 = JSON.parse(allImei[0].requests[0].response);
   let response2 = JSON.parse(response1);
-
+let allImei1 = JSON.parse(allImei);
   console.log("response1.data");
   console.log(response2.data);
   let type = "save_request";
 
  for ( let i=0; i<5; i++) {
-let data = JSON.parse(allImei[i].requests[0].response)
-processImeiActual(data, type);
+let data = JSON.parse(allImei1[i].requests[0].response)
+processImeiActual(JSON.parse(data), type);
 console.log(data.data);
  }
 
