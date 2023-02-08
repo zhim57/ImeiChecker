@@ -44,7 +44,7 @@ let allImei1 = allImei;
 let data1 = allImei1[i].requests[0].response;
 console.log(data1);
 let data = JSON.parse(data1);
-console.log(data.data);
+console.log(data);
 processImeiActual(data, type);
  }
 
