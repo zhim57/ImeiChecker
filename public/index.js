@@ -37,11 +37,13 @@ async function initialFillDatabase() {
   console.log(allImei);
 let allImei1 = allImei;
   console.log("response1.data");
-  console.log(response2.data);
+  // console.log(response2.data);
   let type = "save_request";
 
  for ( let i=0; i<5; i++) {
-let data = JSON.parse(allImei1[i].requests[0].response);
+let data1 = allImei1[i].requests[0].response;
+console.log(data1);
+let data = JSON.parse(data1);
 console.log(data.data);
 processImeiActual(data, type);
  }
