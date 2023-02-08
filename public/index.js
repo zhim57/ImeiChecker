@@ -43,7 +43,7 @@ let allImei1 = allImei;
  for ( let i=5; i<105; i++) {
 
 
-  if (allImei1[i].requests[0] != []) {
+  if (allImei1[i].requests[0].length != 0) {
 
 
     let data1 = allImei1[i].requests[0].response;
