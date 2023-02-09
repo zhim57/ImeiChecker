@@ -81,7 +81,7 @@ export function processImeiActual(response1, type) {
   var device_spec = sampleResponse.data.device_spec;
   var brand = sampleResponse.data.brand;
   var deviceName = sampleResponse.data.name || sampleResponse.data.deviceName;
-  var deviceImage = sampleResponse.data.device_image || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
+  var deviceImage = sampleResponse.data.device_image || sampleResponse.data.deviceImage|| "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
 
   if (deviceImage== null || deviceImage=="" ||deviceImage == undefined){
     deviceImage = "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
