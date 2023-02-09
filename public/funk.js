@@ -80,7 +80,7 @@ export function processImeiActual(response1, type) {
   var device_id = sampleResponse.data.device_id;
   var device_spec = sampleResponse.data.device_spec;
   var brand = sampleResponse.data.brand;
-  var deviceName = sampleResponse.data.name;
+  var deviceName = sampleResponse.data.name || ampleResponse.data.deviceName;
   var deviceImage = sampleResponse.data.device_image || "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
 
   if (deviceImage== null || deviceImage=="" ||deviceImage == undefined){
@@ -366,7 +366,7 @@ function renderResults(passObject) {
              <img src= ${deviceImage} alt="" 
              > 
              </div>
-             <h1 class="text-center" style="color: #fff;">${deviceName}</h1>` +
+             <h1 class="text-center" style="color: #fff;">${brand}  ${deviceName}</h1>` +
     //  <h3 class="text-center" style="color: #fff;">For back to the previous page click <a href="/device">here</a></h3>
 
     `</div><table id="w1" class="table table-striped table-bordered detail-view"><tbody>  <tr>
