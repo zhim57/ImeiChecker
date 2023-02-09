@@ -236,6 +236,7 @@ function renderResults(passObject) {
   let deviceNettech = passObject.deviceNettech;
   let tmobileScore = passObject.tmobileScore;
   let verizonScore = passObject.verizonScore;
+  let brand = passObject.brand;
   let attScore = passObject.attScore;
   let frequencyArray2g = passObject.frequencyArray2g;
   let frequencyArrayLte = passObject.frequencyArrayLte;
