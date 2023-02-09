@@ -25,7 +25,7 @@ function processImei(response) {
 }
 
 async function initialFillDatabase() {
-  let allImei = await API.getAllImei1();
+  // let allImei = await API.getAllImei1();
   // console.log("allImei :");
   // console.log(allImei[0].requests[0]);
   // console.log("allImei[0].requests[0]");
@@ -34,11 +34,11 @@ async function initialFillDatabase() {
 
   // let response1 = JSON.parse(allImei[0].requests[0].response);
   // let response2 = JSON.parse(response1);
-  console.log(allImei);
+  // console.log(allImei);
 // let allImei1 = allImei;
-  // console.log("response1.data");
+  console.log("this function is disabled");
   // console.log(response2.data);
-  let type = "save_request";
+  // let type = "save_request";
 
 //  for ( let i=1000; i<1289; i++) {
 
