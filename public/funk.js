@@ -494,20 +494,20 @@ async function saveTodatabase(passObject) {
   console.log(model);
   console.log(modelDataSave);
 
-  let scoreDump_nill = `
+//   let scoreDump_nill = `
 
 
- <h3 class="text-center" style="color: #000;">Saving   to the  Database</h3>
+//  <h3 class="text-center" style="color: #000;">Saving   to the  Database</h3>
 
- ${modelDataSave.requests.deviceImei} <br>
- ${modelDataSave.requests.deviceName} <br>
- ${modelDataSave.requests.deviceSerial} <br>
- ${modelDataSave.requests.deviceSpeed} <br>
-
-
+//  ${modelDataSave.requests.deviceImei} <br>
+//  ${modelDataSave.requests.deviceName} <br>
+//  ${modelDataSave.requests.deviceSerial} <br>
+//  ${modelDataSave.requests.deviceSpeed} <br>
 
 
-`;
+
+
+// `;
 
   // <tr>
   // <th class="${score3Class}">Overall Score</th>
@@ -536,9 +536,9 @@ async function saveTodatabase(passObject) {
 //  <td>${deviceSpeed}</td>
 //  </tr>
 //  </table>`;
-  $("#score-dump").html("");
-  // $("#main-dump").html("");
-  $("#score-dump").append(scoreDump_nill);
+  // $("#score-dump").html("");
+  // // $("#main-dump").html("");
+  // $("#score-dump").append(scoreDump_nill);
   // $("#main-dump").append(sampleDump_nill);
 // }
 
