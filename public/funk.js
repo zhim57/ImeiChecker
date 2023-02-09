@@ -497,7 +497,7 @@ async function saveTodatabase(passObject) {
   let scoreDump_nill = `
 
 
- <h1 class="text-center" style="color: #000;">Savingg to  DATABASE</h1>
+ <h3 class="text-center" style="color: #000;">Saving   to the  Database</h3>
 
  ${modelDataSave.requests.deviceImei} <br>
  ${modelDataSave.requests.deviceName} <br>
