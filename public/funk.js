@@ -45,8 +45,11 @@ export function processImeiActual(response1, type) {
 
     console.log("sampleResponse.data : ");
     console.log(sampleResponse.data);
-  } else if (sampleResponse.data.model != undefined) {
-    deviceModel = sampleResponse.data.model;
+  } else if (sampleResponse.data.models != undefined) {
+    deviceModel = sampleResponse.data.models[0]  ;
+  }
+  else if ( sampleResponse.data.model != undefined &&  sampleResponse.data.model !=null ){
+    deviceModel = sampleResponse.data.model  ;
   }
   // var deviceModel = sampleResponse.data.model;
   // var bluetooth  = sampleResponse.data.device_spec.blootooth;
@@ -205,11 +208,12 @@ export function processImeiActual(response1, type) {
     };
 
     if (type === "api_result") {
+      saveTodatabase(passObject);
       renderResults(passObject);
     }
-    if (type === "save_request") {
-      // renderResults(passObject);
-      saveTodatabase(passObject);
+    if (type === "api_result1") {
+      renderResults(passObject);
+      // saveTodatabase(passObject);
     }
   } else {
     console.log("no info");

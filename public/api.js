@@ -1,5 +1,21 @@
 import { processImeiActual } from "/funk.js";
+
 export const API = {
+  async oneImeiDb(imei, result) {
+    let res;
+    try {
+      res = await fetch("/api/imei1F/" + imei);
+    } catch (err) {
+      console.log(err);
+    }
+    // const json = await res.json();
+    // return json;
+    const json = await res.json();
+    result(json.requests);
+   
+
+  },
+
   async getLastImei() {
     let res;
     try {
@@ -8,7 +24,6 @@ export const API = {
       console.log(err);
     }
     const json = await res.json();
-
 
     return json[json.length - 1];
   },
@@ -25,7 +40,7 @@ export const API = {
 
     return json[json.length - 1];
   },
- 
+
   async getAllImei(imei, result) {
     let res;
     try {
@@ -50,7 +65,6 @@ export const API = {
 
     return json;
   },
-
 
   async addRequest(data, id1) {
     if (location.search.split("=")[1] === undefined) {
@@ -91,7 +105,7 @@ export const API = {
     return json;
   },
   async createImei(data = {}) {
-       console.log("create imei");
+    console.log("create imei");
     const res = await fetch("/api/requests1", {
       method: "POST",
       body: JSON.stringify(data),
@@ -110,35 +124,30 @@ export const API = {
     return json;
   },
 
-  async createModel(data ) {
+  async createModel(data) {
     console.log("create imei1");
-    
+
     const res = await fetch("/api/createmodel", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
     });
-  
 
- const json = await res.json();
+    const json = await res.json();
 
- return json;
-},
-  async createModel2(data ) {
+    return json;
+  },
+  async createModel2(data) {
     console.log("create imei1");
-    
+
     const res = await fetch("/api/createmodel2", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
     });
-  
 
- const json = await res.json();
+    const json = await res.json();
 
- return json;
-},
-
-
-
+    return json;
+  },
 };

@@ -4,6 +4,61 @@ const Imei1 = require("../models/imei1.js");
 const request = require("request");
 require('dotenv').config();
 
+
+router.get("/api/imei1F/:imei", async (req, res) => {
+
+  let imei = parseInt(req.params.imei);
+  console.log("imei");
+  console.log(imei);
+  
+  try {
+    let imei1 = await Imei1.findOne({ "requests.deviceImei": imei });
+    // console.log("find one")
+    // let imei2 = await Imei1.findOne({ deviceImei:353283075129556 });
+    // console.log (req.body );
+    // console.log(imei1);
+    //
+    if (imei1 != null) {
+
+      // to return the full document
+     return res.json(imei1);
+      // return imei1;
+      // return res.status(400).send({"message":"a record already exists with that imei"});
+    }
+
+    else if (imei1 === null){
+      console.log("need to make api request - no record in localdatabase");
+      
+    }
+      // if document not in our database to execute the api to get the info
+    // const result = await Imei1.create(req.body);
+    // res.send(imei1);
+  } catch (err) {
+    console.log("err");
+    console.log(err);
+
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.errors);
+    }
+    res.status(500).send({"message":"Something went wrong"});
+  }
+
+
+
+  Imei.find()
+    .sort({ date: -1 })
+    .then(dbImei => {
+      res.json(dbImei);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
+
+
+
+
 router.post("/api/requests1", ({ body }, res) => {
   // create new imei record=====
   Imei.create(body)

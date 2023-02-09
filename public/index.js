@@ -3,7 +3,7 @@ const imeiNameInput = document.querySelector("#imei-name");
 const emailInput = document.querySelector("#email-name");
 var currentImei = "";
 const completeButton = document.querySelector("button.complete");
-const fillButton = document.querySelector("button.fillDatabase");
+// const fillButton = document.querySelector("button.fillDatabase");
 const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
@@ -118,39 +118,60 @@ function clearInputs() {
   countryInput.value = "";
 }
 
-fillButton.addEventListener("click", function (event) {
-  event.preventDefault();
-  console.log("initial fill data base clicked");
-  initialFillDatabase();
-});
+// fillButton.addEventListener("click", function (event) {
+//   event.preventDefault();
+//   console.log("initial fill data base clicked");
+//   initialFillDatabase();
+// });
 
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     event.preventDefault();
 
     let imei = imeiNameInput.value.trim();
-
     username = emailInput.value.trim() || "safety-net";
     currentImei = imei;
-
     console.log(imei);
 
-    API.getImei(imei, (result) => {
-      let result1 = JSON.parse(result);
-      console.log("result : ");
+    API.oneImeiDb(imei, function (result1){
       console.log(result1);
+      console.log("result1");
 
-      // new function - direct show 1-31-23
+      if (result1 !=undefined) {
 
-      // displayResult(result1);
 
-      let type = "api_result";
-      processImeiActual(result1, type);
-      
-      clearInputs();
+        let type = "api_result1";
+        
+        let data=  { data:result1};
+        
+        console.log(data);
+              processImeiActual(data, type);
+      }
 
-      saveImei(result1); //- old path disabled
+      else{
+        API.getImei(imei, (result) => {
+          let result1 = JSON.parse(result);
+          console.log("result : ");
+          console.log(result1);
+    
+             let type = "api_result";
+          processImeiActual(result1, type);
+          
+          clearInputs();
+    
+          saveImei(result1); //- old path disabled
+        });
+
+
+
+
+      }
     });
+
+//================good working function - testing
+ 
+
+    //=================================================
   });
 }
 
