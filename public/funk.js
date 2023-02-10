@@ -22,6 +22,7 @@ export function processImeiActual(response1, type) {
   //===============
   var sampleResponse = response1;
   console.log(sampleResponse.message + "dodu!");
+  console.log(sampleResponse);
 
   if (sampleResponse.message != undefined) {
     console.log(sampleResponse.message);
