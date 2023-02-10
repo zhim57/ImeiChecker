@@ -331,7 +331,7 @@ function renderResults(passObject) {
             
             <tr>
             <th class="${score3Class}">Scores_for_IMEI</th>
-            <td   class="${score3Class}">${deviceImei}</td>
+            <td   class="${score3Class}">${deviceImei} croco </td>
             </tr>
             
             <tr>
