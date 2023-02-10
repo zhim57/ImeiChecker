@@ -137,7 +137,7 @@ if (completeButton) {
       console.log(result1);
       console.log("result1");
 
-      if (result1 !=undefined) {
+      if (result1 != undefined) {
 
 
         let type = "api_result1";
@@ -150,16 +150,16 @@ if (completeButton) {
 
       else{
         API.getImei(imei, (result) => {
-          let result1 = JSON.parse(result);
+          let result2 = JSON.parse(result);
           console.log("result : ");
-          console.log(result1);
+          console.log(result2);
     
              let type = "api_result";
-          processImeiActual(result1, type);
+          processImeiActual(result2, type);
           
           clearInputs();
     
-          saveImei(result1); //- old path disabled
+          saveImei(result2); //- old path disabled
         });
 
 
