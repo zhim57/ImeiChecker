@@ -47,10 +47,12 @@ export function processImeiActual(response1, type) {
     console.log("sampleResponse.data : ");
     console.log(sampleResponse.data);
   } else if (sampleResponse.data.models != undefined) {
-    deviceModel = sampleResponse.data.models[0]  ;
-  }
-  else if ( sampleResponse.data.model != undefined &&  sampleResponse.data.model !=null ){
-    deviceModel = sampleResponse.data.model  ;
+    deviceModel = sampleResponse.data.models[0];
+  } else if (
+    sampleResponse.data.model != undefined &&
+    sampleResponse.data.model != null
+  ) {
+    deviceModel = sampleResponse.data.model;
   }
   // var deviceModel = sampleResponse.data.model;
   // var bluetooth  = sampleResponse.data.device_spec.blootooth;
@@ -82,10 +84,14 @@ export function processImeiActual(response1, type) {
   var device_spec = sampleResponse.data.device_spec;
   var brand = sampleResponse.data.brand;
   var deviceName = sampleResponse.data.name || sampleResponse.data.deviceName;
-  var deviceImage = sampleResponse.data.device_image || sampleResponse.data.deviceImage|| "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
+  var deviceImage =
+    sampleResponse.data.device_image ||
+    sampleResponse.data.deviceImage ||
+    "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
 
-  if (deviceImage== null || deviceImage=="" ||deviceImage == undefined){
-    deviceImage = "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
+  if (deviceImage == null || deviceImage == "" || deviceImage == undefined) {
+    deviceImage =
+      "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-6s-plus.jpg";
   }
 
   var blacklist = sampleResponse.data.blacklist;
@@ -203,9 +209,9 @@ export function processImeiActual(response1, type) {
       brand: brand,
       device_id: device_id,
       controlNumber: controlNumber,
-      device_spec:device_spec,
-      frequency:frequency,
-      models:models,
+      device_spec: device_spec,
+      frequency: frequency,
+      models: models,
     };
 
     if (type === "api_result") {
@@ -218,7 +224,48 @@ export function processImeiActual(response1, type) {
     }
   } else {
     console.log("no info");
+
+    let scoreDump_nill = `
+
+
+    <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+    <h1 class="text-center" style="color: #000;">Need to check manually : model : ${deviceModel}</h1>
+   
+   
+   `;
+   
+     // <tr>
+     // <th class="${score3Class}">Overall Score</th>
+     // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+     // </tr>
+   
+     let sampleDump_nill = `
+    <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+    <div class=" device">
+    <div class="text-center"  >  
+    <img src= ${deviceImage} alt=""> 
+    </div>
+    <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
+    </div>
+    <table id="w1" class="table table-striped table-bordered detail-view">
+    <tbody>  <tr>
     
+    
+    <tr>
+    <th>Net tech</th>
+    <td>${deviceNettech}</td>
+    </tr>
+    
+    <tr>
+    <th>Connection Speed</th>
+    <td>${deviceSpeed}</td>
+    </tr>
+    </table>`;
+     $("#score-dump").html("");
+     $("#main-dump").html("");
+     $("#score-dump").append(scoreDump_nill);
+     $("#main-dump").append(sampleDump_nill);
+
     // displayNoInfo();
   }
 }
@@ -246,8 +293,10 @@ function renderResults(passObject) {
   let overallScore = passObject.overallScore;
   let deviceImei = passObject.deviceImei;
   let deviceName = passObject.deviceName;
-  let deviceImage = passObject.deviceImage || "https://amicusshippingllc.com/assets/images/ps4.jpg";
-  if (deviceImage=== null || deviceImage==="" ||deviceImage == undefined){
+  let deviceImage =
+    passObject.deviceImage ||
+    "https://amicusshippingllc.com/assets/images/ps4.jpg";
+  if (deviceImage === null || deviceImage === "" || deviceImage == undefined) {
     deviceImage = "https://amicusshippingllc.com/assets/images/ps4.jpg";
   }
 
@@ -332,7 +381,7 @@ function renderResults(passObject) {
             
             <tr>
             <th class="${score3Class}">Scores_for_IMEI</th>
-            <td   class="${score3Class}">${deviceImei} croco </td>
+            <td   class="${score3Class}">${deviceImei}  </td>
             </tr>
             
             <tr>
@@ -461,88 +510,77 @@ export function displayResult(result) {
 
 async function saveTodatabase(passObject) {
   let modelDataSave = {
-    requests:{
-    deviceImei: passObject.deviceImei,
-    blacklist: passObject.blacklist,
-  
-    brand: passObject.brand,
-    controlNumber: passObject.controlNumber,
-    device_id: passObject.device_id,
-    deviceImage: passObject.deviceImage,
-    device_spec: passObject.device_spec,
-    deviceName: passObject.deviceName,
-    deviceSerial: passObject.deviceSerial,
-    type: "imei1",
-    deviceSpeed: passObject.deviceSpeed,
-    frequency: passObject.frequency,
-    models: passObject.models,
-    frequencyArray2g: passObject.frequencyArray2g,
-    frequencyArrayLte: passObject.frequencyArrayLte,
-    frequencyArrayTdd: passObject.frequencyArrayTdd,
-    frequencyArrayWcdma: passObject.frequencyArrayWcdma,
-    deviceTac: passObject.deviceTac,
-    tmobileScore: passObject.tmobileScore,
-    verizonScore: passObject.verizonScore,
-    attScore: passObject.attScore,
-    overallScore: passObject.overallScore,
+    requests: {
+      deviceImei: passObject.deviceImei,
+      blacklist: passObject.blacklist,
 
-
-
-  }
+      brand: passObject.brand,
+      controlNumber: passObject.controlNumber,
+      device_id: passObject.device_id,
+      deviceImage: passObject.deviceImage,
+      device_spec: passObject.device_spec,
+      deviceName: passObject.deviceName,
+      deviceSerial: passObject.deviceSerial,
+      type: "imei1",
+      deviceSpeed: passObject.deviceSpeed,
+      frequency: passObject.frequency,
+      models: passObject.models,
+      frequencyArray2g: passObject.frequencyArray2g,
+      frequencyArrayLte: passObject.frequencyArrayLte,
+      frequencyArrayTdd: passObject.frequencyArrayTdd,
+      frequencyArrayWcdma: passObject.frequencyArrayWcdma,
+      deviceTac: passObject.deviceTac,
+      tmobileScore: passObject.tmobileScore,
+      verizonScore: passObject.verizonScore,
+      attScore: passObject.attScore,
+      overallScore: passObject.overallScore,
+    },
   };
 
   let model = await API.createModel2(modelDataSave);
   console.log(model);
   console.log(modelDataSave);
 
-//   let scoreDump_nill = `
+  //   let scoreDump_nill = `
 
+  //  <h3 class="text-center" style="color: #000;">Saving   to the  Database</h3>
 
-//  <h3 class="text-center" style="color: #000;">Saving   to the  Database</h3>
+  //  ${modelDataSave.requests.deviceImei} <br>
+  //  ${modelDataSave.requests.deviceName} <br>
+  //  ${modelDataSave.requests.deviceSerial} <br>
+  //  ${modelDataSave.requests.deviceSpeed} <br>
 
-//  ${modelDataSave.requests.deviceImei} <br>
-//  ${modelDataSave.requests.deviceName} <br>
-//  ${modelDataSave.requests.deviceSerial} <br>
-//  ${modelDataSave.requests.deviceSpeed} <br>
-
-
-
-
-// `;
+  // `;
 
   // <tr>
   // <th class="${score3Class}">Overall Score</th>
   // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
   // </tr>
 
-//   let sampleDump_nill = `
-//  <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
-//  <div class=" device">
-//  <div class="text-center"  >  
-//  <img src= ${deviceImage} alt=""> 
-//  </div>
-//  <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
-//  </div>
-//  <table id="w1" class="table table-striped table-bordered detail-view">
-//  <tbody>  <tr>
- 
- 
-//  <tr>
-//  <th>Net tech</th>
-//  <td>${deviceNettech}</td>
-//  </tr>
- 
-//  <tr>
-//  <th>Connection Speed</th>
-//  <td>${deviceSpeed}</td>
-//  </tr>
-//  </table>`;
+  //   let sampleDump_nill = `
+  //  <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+  //  <div class=" device">
+  //  <div class="text-center"  >
+  //  <img src= ${deviceImage} alt="">
+  //  </div>
+  //  <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
+  //  </div>
+  //  <table id="w1" class="table table-striped table-bordered detail-view">
+  //  <tbody>  <tr>
+
+  //  <tr>
+  //  <th>Net tech</th>
+  //  <td>${deviceNettech}</td>
+  //  </tr>
+
+  //  <tr>
+  //  <th>Connection Speed</th>
+  //  <td>${deviceSpeed}</td>
+  //  </tr>
+  //  </table>`;
   // $("#score-dump").html("");
   // // $("#main-dump").html("");
   // $("#score-dump").append(scoreDump_nill);
   // $("#main-dump").append(sampleDump_nill);
-// }
-
-
-
+  // }
 }
