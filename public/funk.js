@@ -94,7 +94,7 @@ export function processImeiActual(response1, type) {
   var deviceWlan = sampleResponse.data.device_spec.wlan;
   var deviceSerial = sampleResponse.data.serial;
   var deviceTac = sampleResponse.data.tac;
-  var deviceImei = sampleResponse.query;
+  var deviceImei = sampleResponse.query || sampleResponse.deviceImei;
   var deviceBluetooth1 = sampleResponse.data.device_spec.bluetooth;
   var deviceBluetooth;
   var deviceNettech1 = sampleResponse.data.device_spec.nettech;
