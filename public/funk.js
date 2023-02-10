@@ -228,7 +228,7 @@ export function processImeiActual(response1, type) {
     let scoreDump_nill = `
 
 
-    <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
+    <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE: ${deviceImei}</h1>
     <h1 class="text-center" style="color: #000;">Need to check manually : model : ${deviceModel}</h1>
    
    
