@@ -12,7 +12,8 @@ router.get("/api/imei1F/:imei", async (req, res) => {
   console.log(imei);
   
   try {
-    let imei1 = await Imei1.findOne({ "requests.deviceImei": imei });
+    let imei1 = await Imei1.findOne({ "deviceImei": imei });
+    // let imei1 = await Imei1.findOne({ "requests.deviceImei": imei });
     // console.log("find one")
     // let imei2 = await Imei1.findOne({ deviceImei:353283075129556 });
     // console.log (req.body );
