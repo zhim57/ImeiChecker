@@ -87,7 +87,9 @@ router.post("/api/createmodel2", async (req, res) => {
   try {
     let imei2 = await Imei1.findOne({ "requests.deviceImei": req.body.requests.deviceImei });
     // let imei2 = await Imei1.findOne({ deviceImei:353283075129556 });
+    console.log("looking for the imei in local DB");
 console.log (req.body.requests.deviceImei );
+
 console.log(imei2);
     if (imei2) {
       return res.status(400).send({"message":"a record already exists with that imei"});
@@ -188,7 +190,7 @@ router.get("/result1/:imei", (req, res) => {
   console.log("222")
 
   let imei = req.params.imei;
-  console.log("imei");
+  console.log("calling the api for this imei");
   console.log(imei);
  
   request('https://imeidb.xyz/api/imei/' + imei + '?token='+process.env.IMEI_API_TOKEN +'&format=json', (error, response, body) => {
