@@ -230,6 +230,7 @@ export function processImeiActual(response1, type) {
 
     <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE: ${deviceImei}</h1>
     <h1 class="text-center" style="color: #000;">Need to check manually : model : ${deviceModel}</h1>
+    <h1 class="text-center" style="color: #000;"> chaeck manually<a  href="https://www.gsmarena.com/search-json.php3?sSearch=" target="_blank" /> ${deviceModel}</h1>
    
    
    `;
