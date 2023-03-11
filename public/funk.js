@@ -232,7 +232,7 @@ export function processImeiActual(response1, type) {
     <h1 class="text-center" style="color: #000;">For USA your phone needs one or more of these 4G bands: 2, 4, 12, 17
     <br> model: ${deviceName}</h1>
     <h1 class="text-center" style="color: #B22222;"> 
-    <button>
+    <button style="color: #B22222, margin-left:50%">
     <a  href="https://www.gsmarena.com/res.php3?sSearch=${deviceModel}" target="_blank" > Check manually</a>
    </button>
     </h1>
