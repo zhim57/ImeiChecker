@@ -229,7 +229,7 @@ export function processImeiActual(response1, type) {
 
 
     <h1 class="text-center" style="color: #000;">NO INFO FOR THE DEVICE BANDS IN DATABASE: ${deviceImei}</h1>
-    <h1 class="text-center" style="color: #000;">To work in USA your phone needs to have at last one or more of the following 4G frequencies: 2,4,12,17: model : ${deviceModel}</h1>
+    <h1 class="text-center" style="color: #000;">To work in USA your phone needs to have at last one or more of the following 4G bands: 2, 4, 12, 17: model: ${deviceName}</h1>
     <h1 class="text-center" style="color: #B22222;"> 
     <a  href="https://www.gsmarena.com/res.php3?sSearch=${deviceModel}" target="_blank" > Check manually</a>
    
