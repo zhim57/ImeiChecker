@@ -63,9 +63,9 @@ export function processImeiActual(response1, type) {
   let u = 0;
   let y = 0;
   let z = 0;
-  var attLteArray = ["2", "4", "12", "17", "66"];
+  var attLteArray = ["2", "4", "5", "14", "30","12", "66"];
   var tmobileLteArray = ["2", "4", "5", "66", "12", "71"];
-  var verizonLteArray = ["2", "5", "4", "13", "66"];
+  var verizonLteArray = ["2", "5", "4", "13", "48","66"];
 
   var ukLteArray = ["1", "3", "7", "20", "40"];
   var europeLteArray = ["1", "3", "7", "20"];
