@@ -54,8 +54,7 @@ export function processImeiActual(response1, type) {
   ) {
     deviceModel = sampleResponse.data.model;
   }
-  // var deviceModel = sampleResponse.data.model;
-  // var bluetooth  = sampleResponse.data.device_spec.blootooth;
+
   var frequencyArray2g = [];
   var frequencyArrayLte = [];
   var frequencyArrayTdd = [];
@@ -65,8 +64,8 @@ export function processImeiActual(response1, type) {
   let y = 0;
   let z = 0;
   var attLteArray = ["2", "4", "12", "17", "66"];
-  var tmobileLteArray = ["2",  "4", "5", "66","12", "71"];
-  var verizonLteArray = ["2","5", "4", "13", "66"];
+  var tmobileLteArray = ["2", "4", "5", "66", "12", "71"];
+  var verizonLteArray = ["2", "5", "4", "13", "66"];
 
   var ukLteArray = ["1", "3", "7", "20", "40"];
   var europeLteArray = ["1", "3", "7", "20"];
@@ -147,9 +146,17 @@ export function processImeiActual(response1, type) {
     }
 
     var attScore = ((attScoreNumber / attLteArray.length) * 100).toFixed(0);
-    var tmobileScore = ((tmobileScoreNumber / tmobileLteArray.length) * 100).toFixed(0);
-    var verizonScore = ((verizonScoreNumber / verizonLteArray.length) * 100).toFixed(0);
-    var overallScore = ((attScore + tmobileScore + verizonScore) / 3).toFixed(0);
+    var tmobileScore = (
+      (tmobileScoreNumber / tmobileLteArray.length) *
+      100
+    ).toFixed(0);
+    var verizonScore = (
+      (verizonScoreNumber / verizonLteArray.length) *
+      100
+    ).toFixed(0);
+    var overallScore = ((attScore + tmobileScore + verizonScore) / 3).toFixed(
+      0
+    );
 
     if (deviceBluetooth1 !== null) {
       deviceBluetooth =
@@ -237,13 +244,13 @@ export function processImeiActual(response1, type) {
    </button>
     </h1>
    `;
-   
-     // <tr>
-     // <th class="${score3Class}">Overall Score</th>
-     // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-     // </tr>
-   
-     let sampleDump_nill = `
+
+    // <tr>
+    // <th class="${score3Class}">Overall Score</th>
+    // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
+    // </tr>
+
+    let sampleDump_nill = `
     <h1 class="text-center" style="color: #aaa;"></h1>
     <div class=" device">
     <div class="text-center"  >  
@@ -265,10 +272,10 @@ export function processImeiActual(response1, type) {
     <td>${deviceSpeed}</td>
     </tr>
     </table>`;
-     $("#score-dump").html("");
-     $("#main-dump").html("");
-     $("#score-dump").append(scoreDump_nill);
-     $("#main-dump").append(sampleDump_nill);
+    $("#score-dump").html("");
+    $("#main-dump").html("");
+    $("#score-dump").append(scoreDump_nill);
+    $("#main-dump").append(sampleDump_nill);
 
     // displayNoInfo();
   }
@@ -545,46 +552,5 @@ async function saveTodatabase(passObject) {
   console.log(model);
   console.log(modelDataSave);
 
-  //   let scoreDump_nill = `
-
-  //  <h3 class="text-center" style="color: #000;">Saving   to the  Database</h3>
-
-  //  ${modelDataSave.requests.deviceImei} <br>
-  //  ${modelDataSave.requests.deviceName} <br>
-  //  ${modelDataSave.requests.deviceSerial} <br>
-  //  ${modelDataSave.requests.deviceSpeed} <br>
-
-  // `;
-
-  // <tr>
-  // <th class="${score3Class}">Overall Score</th>
-  // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-  // </tr>
-
-  //   let sampleDump_nill = `
-  //  <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
-  //  <div class=" device">
-  //  <div class="text-center"  >
-  //  <img src= ${deviceImage} alt="">
-  //  </div>
-  //  <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
-  //  </div>
-  //  <table id="w1" class="table table-striped table-bordered detail-view">
-  //  <tbody>  <tr>
-
-  //  <tr>
-  //  <th>Net tech</th>
-  //  <td>${deviceNettech}</td>
-  //  </tr>
-
-  //  <tr>
-  //  <th>Connection Speed</th>
-  //  <td>${deviceSpeed}</td>
-  //  </tr>
-  //  </table>`;
-  // $("#score-dump").html("");
-  // // $("#main-dump").html("");
-  // $("#score-dump").append(scoreDump_nill);
-  // $("#main-dump").append(sampleDump_nill);
-  // }
+ 
 }
