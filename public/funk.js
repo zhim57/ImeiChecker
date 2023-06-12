@@ -146,10 +146,10 @@ export function processImeiActual(response1, type) {
       }
     }
 
-    var attScore = (attScoreNumber / attLteArray.length) * 100;
-    var tmobileScore = (tmobileScoreNumber / tmobileLteArray.length) * 100;
-    var verizonScore = (verizonScoreNumber / verizonLteArray.length) * 100;
-    var overallScore = (attScore + tmobileScore + verizonScore) / 3;
+    var attScore = ((attScoreNumber / attLteArray.length) * 100).toFixed(0);
+    var tmobileScore = ((tmobileScoreNumber / tmobileLteArray.length) * 100).toFixed(0);
+    var verizonScore = ((verizonScoreNumber / verizonLteArray.length) * 100).toFixed(0);
+    var overallScore = ((attScore + tmobileScore + verizonScore) / 3).toFixed(0);
 
     if (deviceBluetooth1 !== null) {
       deviceBluetooth =
