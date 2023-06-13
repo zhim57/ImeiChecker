@@ -207,6 +207,7 @@ export function processImeiActual(response1, type) {
       attScore: attScore,
       frequencyArray2g: frequencyArray2g,
       frequencyArrayLte: frequencyArrayLte,
+      frequencyArray5g: frequencyArray5g,
       frequencyArrayTdd: frequencyArrayTdd,
       frequencyArrayWcdma: frequencyArrayWcdma,
       overallScore: overallScore,
@@ -302,6 +303,7 @@ function renderResults(passObject) {
   let attScore = passObject.attScore;
   let frequencyArray2g = passObject.frequencyArray2g;
   let frequencyArrayLte = passObject.frequencyArrayLte;
+  let frequencyArray5g = passObject.frequencyArray5g;
   // let frequencyArrayTdd = passObject.frequencyArrayTdd;
   let frequencyArrayWcdma = passObject.frequencyArrayWcdma;
   let overallScore = passObject.overallScore;
@@ -545,6 +547,7 @@ async function saveTodatabase(passObject) {
       models: passObject.models,
       frequencyArray2g: passObject.frequencyArray2g,
       frequencyArrayLte: passObject.frequencyArrayLte,
+      frequencyArray5g: passObject.frequencyArray5g,
       frequencyArrayTdd: passObject.frequencyArrayTdd,
       frequencyArrayWcdma: passObject.frequencyArrayWcdma,
       deviceTac: passObject.deviceTac,
