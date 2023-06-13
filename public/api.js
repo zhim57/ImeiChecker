@@ -6,7 +6,7 @@ export const API = {
     try {
       res = await fetch("/api/imei1F/" + imei);
     } catch (err) {
-      console.log(err);
+      console.log("error api/imei1F/  " +err);
     }
     // const json = await res.json();
     // return json;

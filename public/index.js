@@ -138,13 +138,9 @@ if (completeButton) {
       console.log("result from DB ");
 
       if (result1 != undefined) {
-
-
         let type = "api_result1";
-        
-        let data=  { data:result1};
-        
-        console.log(data);
+                let data=  { data:result1};
+                console.log(data);
               processImeiActual(data, type);
       }
 
