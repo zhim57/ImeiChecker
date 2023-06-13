@@ -131,11 +131,11 @@ if (completeButton) {
     let imei = imeiNameInput.value.trim();
     username = emailInput.value.trim() || "safety-net";
     currentImei = imei;
-    console.log(imei);
+    console.log(imei + " imei 1");
 
     API.oneImeiDb(imei, function (result1){
       console.log(result1);
-      console.log("result1");
+      console.log("result from DB ");
 
       if (result1 != undefined) {
 
@@ -151,7 +151,7 @@ if (completeButton) {
       else{
         API.getImei(imei, (result) => {
           let result2 = JSON.parse(result);
-          console.log("result : ");
+          console.log("result from API : ");
           console.log(result2);
     
              let type = "api_result";

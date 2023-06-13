@@ -12,8 +12,6 @@ export const API = {
     // return json;
     const json = await res.json();
     result(json.requests);
-   
-
   },
 
   async getLastImei() {
