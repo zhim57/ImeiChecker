@@ -462,10 +462,7 @@ function renderResults(passObject) {
              <th>Net 4g</th>
              <td>${frequencyArrayLte}</td>
              </tr>
-             <tr>
-             <th>Net 4g</th>
-             <td>${frequencyArray5g}</td>
-             </tr>
+           
              <tr>
                  <th>Model</th>
                  <td>${deviceModel}</td>
