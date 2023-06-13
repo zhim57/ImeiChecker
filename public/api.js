@@ -9,7 +9,7 @@ export const API = {
       console.log("error api/imei1F/  " +err);
       result("error");
     }
-    console.log(res);
+    console.log(res.status);
     // const json = await res.json();
     // return json;
     const json = await res.json();
