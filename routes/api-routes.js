@@ -11,7 +11,7 @@ router.get("/api/imei1F/:imei", async (req, res) => {
 
   try {
     let imei1 = await Imei1.findOne({ "requests.deviceImei": imei });
-    console.log (imei1);
+    console.log (imei1.status);
 
     if (imei1 != null) {
       return res.json(imei1);
