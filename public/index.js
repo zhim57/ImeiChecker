@@ -137,7 +137,7 @@ if (completeButton) {
       console.log(result1);
       console.log("result from DB ");
 
-      if (result1 != undefined) {
+      if (result1 != "error") {
         let type = "api_result1";
                 let data=  { data:result1};
                 console.log(data);
