@@ -59,6 +59,7 @@ export function processImeiActual(response1, type) {
   var frequencyArrayLte = [];
   var frequencyArrayTdd = [];
   var frequencyArrayWcdma = [];
+  var frequencyArray5g = [];
   let i = 0;
   let u = 0;
   let y = 0;
@@ -125,7 +126,9 @@ export function processImeiActual(response1, type) {
         let band2 = frequencyArrayRaw[i];
         frequencyArray2g.push(band2);
       } else {
-        console.log("frequency error : read : " + frequencyArrayRaw[i]);
+        let band5g = frequencyArrayRaw[i];
+        frequencyArray5g.push(band5g)
+        // console.log("frequency error : read : " + frequencyArrayRaw[i]);
       }
     }
 
@@ -456,6 +459,10 @@ function renderResults(passObject) {
              <tr>
              <th>Net 4g</th>
              <td>${frequencyArrayLte}</td>
+             </tr>
+             <tr>
+             <th>Net 4g</th>
+             <td>${frequencyArray5g}</td>
              </tr>
              <tr>
                  <th>Model</th>
