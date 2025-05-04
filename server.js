@@ -1,10 +1,13 @@
+require('dotenv').config({ path: './.env' });
+
 const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const bodyParser=require("body-parser")
 const path = require("path");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
+const MONGODB_URI= process.env.MONGODB_URI;
 
 const app = express();
 
@@ -20,9 +23,9 @@ app.use(express.static("public"));
 app.use(logger("dev"))
 
 
+// || "mongodb://localhost/mongodb"
 
-
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mongodb", {
+mongoose.connect(MONGODB_URI , {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
