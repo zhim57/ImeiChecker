@@ -1,7 +1,7 @@
 // Refactored JavaScript Function for IMEI Processing
 // Focus: Optimized readability, modularity, and HTML templating
 
-// Assume necessary DOM elements and imports are already defined
+//  Assume necessary DOM elements and imports are already defined
 import { API } from "/api.js";
 console.log("this is the optimized funk from th second batch ");
 export function processImeiActual(response, type) {
