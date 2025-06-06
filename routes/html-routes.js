@@ -2,7 +2,7 @@ const path = require("path");
 const router = require("express").Router();
 const bodyParser= require("body-parser");
 // const { redirect } = require("express/lib/response");
-const request = require("request");
+const fetch = global.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
 
 
   router.get("/result", (req, res) => {
@@ -53,19 +53,25 @@ const request = require("request");
     res.render("test1.ejs");
   // res.render("test1.ejs");
   });
-  router.get("/result1", (req, res)=>{
-    let imei= req.query.search;
+  router.get("/result1", async (req, res) => {
+    let imei = req.query.search;
     console.log(imei);
     // let imei= "353283075129556";
-    request('https://imeidb.xyz/api/imei/' + imei + '?token=' + process.env.IMEI_API_TOKEN + '&format=json', (error,response,body) => {
+    try {
+      const response = await fetch(
+        "https://imeidb.xyz/api/imei/" +
+          imei +
+          "?token=" +
+          process.env.IMEI_API_TOKEN +
+          "&format=json"
+      );
+      const data = await response.json();
+      res.render("imeis.ejs", { data });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: "Failed to fetch IMEI" });
+    }
 
-      if (error){
-        console.log(error);
-      }
-      let data= JSON.parse(body);
-      res.render("imeis.ejs",{data:data});
-    });
-    
   // res.render("test1.ejs");
   });
   
