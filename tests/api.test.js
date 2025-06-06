@@ -1,10 +1,60 @@
 const request = require('supertest');
+
+// Mock database models before requiring the server
+jest.mock('../models/imei1.js', () => ({
+  findOne: jest.fn(),
+  create: jest.fn(),
+}));
+
+const Imei1 = require('../models/imei1.js');
+
+global.fetch = jest.fn();
+
 const app = require('../server');
 
+const IMEI = '123456789012345';
+
 describe('GET /api/imei1F/:imei', () => {
-  it('responds with 200', async () => {
-    const imei = '123456789012345';
-    const res = await request(app).get(`/api/imei1F/${imei}`);
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('returns cached record when present', async () => {
+    const cached = { requests: { deviceImei: Number(IMEI) } };
+    Imei1.findOne.mockResolvedValue(cached);
+
+    const res = await request(app).get(`/api/imei1F/${IMEI}`);
     expect(res.status).toBe(200);
+    expect(res.body).toEqual(cached);
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('fetches from API when not cached', async () => {
+    Imei1.findOne.mockResolvedValue(null);
+    const apiData = { deviceImei: Number(IMEI) };
+    global.fetch.mockResolvedValue({ ok: true, json: () => Promise.resolve(apiData) });
+    Imei1.create.mockResolvedValue({ requests: apiData });
+
+    const res = await request(app).get(`/api/imei1F/${IMEI}`);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ requests: apiData });
+    expect(global.fetch).toHaveBeenCalled();
+    expect(Imei1.create).toHaveBeenCalledWith({ requests: apiData });
+  });
+});
+
+describe('GET /result1/:imei', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('proxies response from external API', async () => {
+    const body = 'body text';
+    global.fetch.mockResolvedValue({ ok: true, text: () => Promise.resolve(body) });
+
+    const res = await request(app).get(`/result1/${IMEI}`);
+    expect(res.status).toBe(200);
+    expect(res.text).toBe(body);
+    expect(global.fetch).toHaveBeenCalled();
   });
 });
