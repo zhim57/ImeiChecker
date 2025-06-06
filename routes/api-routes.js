@@ -115,6 +115,15 @@ router.get("/api/imeis", (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
+// return a range of imei request logs (most recent first)
+router.get("/api/imeis/range", (req, res) => {
+  Imei.find()
+    .sort({ day: -1 })
+    .limit(7)
+    .then((dbImeis) => res.json(dbImeis))
+    .catch((err) => res.status(400).json(err));
+});
+
 // return all imei results stored in the secondary collection
 router.get("/api/imei1", (req, res) => {
   Imei1.find()
