@@ -45,7 +45,10 @@ export const API = {
     const json = await res.json();
     result(JSON.stringify(json));
 
-    return json[json.length - 1];
+    // `/result1/:imei` returns a single object, not an array. Returning
+    // `json[json.length - 1]` results in `undefined` which breaks callers.
+    // Return the parsed object directly instead.
+    return json;
   },
 
   async getAllImei(imei, result) {
