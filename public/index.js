@@ -3,7 +3,6 @@ const imeiNameInput = document.querySelector("#imei-name");
 const emailInput = document.querySelector("#email-name");
 var currentImei = "";
 const completeButton = document.querySelector("button.complete");
-// const fillButton = document.querySelector("button.fillDatabase");
 const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
@@ -14,7 +13,7 @@ import { API } from "/api.js";
 var username = "dummy string";
 var lastImei;
 
-let workoutType = null; // to be reviewed by 5-19-22
+let workoutType = null;
 let shouldNavigateAway = false;
 
 function processImei(response) {
@@ -25,39 +24,13 @@ function processImei(response) {
 }
 
 async function initialFillDatabase() {
-  // let allImei = await API.getAllImei1();
-  // console.log("allImei :");
-  // console.log(allImei[0].requests[0]);
-  // console.log("allImei[0].requests[0]");
-  // console.log(allImei[0].requests[0].value);
-  // console.log("allImei[0].requests[0]");
 
-  // let response1 = JSON.parse(allImei[0].requests[0].response);
-  // let response2 = JSON.parse(response1);
-  // console.log(allImei);
-// let allImei1 = allImei;
   console.log("this function is disabled");
-  // console.log(response2.data);
-  // let type = "save_request";
-
-//  for ( let i=1000; i<1289; i++) {
 
 
-//   if (allImei1[i].requests.length != 0) {
 
 
-//     let data1 = allImei1[i].requests[0].response;
-//     let data2 = JSON.parse(data1);
-//     let data =JSON.parse(data2)
-//     // console.log(JSON.parse(data2));
-//     processImeiActual(data, type);
-//     console.log(i);
 
-//   }
-//   else {
-//     console.log ("bad record : "+ i )
-//   }
-//  }
 
 
 }
@@ -75,13 +48,11 @@ async function initRequest(imeiDataSave) {
     console.log("id=" + imei._id);
     location.search = "?id=" + imei._id;
     await API.addRequest(imeiDataSave, imei._id);
-    // initImei();
   }
 
   console.log("2 going to : http://localhost:3000/?id=" + currentImei);
 }
 
-// to work on this prior 5-17-22
 function validateInputs() {
   let isValid = true;
 
@@ -104,25 +75,13 @@ async function saveImei(data) {
   initRequest(imeiDataSave);
 }
 
-// to play with this by 5-17-22
 
-// function handleToastAnimationEnd() {
-//   toast.removeAttribute("class");
-//   if (shouldNavigateAway) {
-//     location.href = "/result";
-//   }
-// }
 
 function clearInputs() {
   imeiNameInput.value = "";
   countryInput.value = "";
 }
 
-// fillButton.addEventListener("click", function (event) {
-//   event.preventDefault();
-//   console.log("initial fill data base clicked");
-//   initialFillDatabase();
-// });
 
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
@@ -155,7 +114,7 @@ if (completeButton) {
           
           clearInputs();
     
-          saveImei(result2); //- old path disabled
+          saveImei(result2);
         });
 
 
@@ -164,10 +123,8 @@ if (completeButton) {
       }
     });
 
-//================good working function - testing
  
 
-    //=================================================
   });
 }
 
@@ -182,7 +139,6 @@ async function initImei() {
   }
 
   if (lastImei) {
-    // have to review this by 5-17-22
     document
       .querySelector(".complete")
       .setAttribute("href", `/result?id=${lastImei._id}`);
@@ -271,5 +227,3 @@ function renderNoImeiText() {
   container.appendChild(p);
 }
 
-// old path disabled
-// initImei();
