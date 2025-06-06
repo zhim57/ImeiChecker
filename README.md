@@ -14,7 +14,7 @@ A Node.js and Express application for looking up mobile device information by IM
    ```bash
    npm install
    ```
-2. Create a `.env` file in the project root with the following variables:
+2. Copy `.env.example` to `.env` in the project root and update the values:
    ```ini
    MONGODB_URI=<your MongoDB connection string>
    IMEI_API_TOKEN=<token from imeidb.xyz>
@@ -43,6 +43,8 @@ A Node.js and Express application for looking up mobile device information by IM
 
 - **MONGODB_URI** – MongoDB connection URI used by the server.
 - **IMEI_API_TOKEN** – Authentication token for imeidb.xyz API requests.
+
+See `.env.example` for the full set of variables required by the application.
 
 ## License
 

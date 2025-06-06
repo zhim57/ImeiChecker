@@ -57,7 +57,7 @@ const request = require("request");
     let imei= req.query.search;
     console.log(imei);
     // let imei= "353283075129556";
-    request('https://imeidb.xyz/api/imei/'+ imei+'?token=hLXML4jCI-ekWSoSBq4F&format=json', (error,response,body) => {
+    request('https://imeidb.xyz/api/imei/' + imei + '?token=' + process.env.IMEI_API_TOKEN + '&format=json', (error,response,body) => {
 
       if (error){
         console.log(error);
