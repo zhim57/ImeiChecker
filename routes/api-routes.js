@@ -107,6 +107,22 @@ router.put("/api/imeis/:id", ({ body, params }, res) => {
     });
 });
 
+// return all imei request logs sorted by creation date
+router.get("/api/imeis", (req, res) => {
+  Imei.find()
+    .sort({ day: -1 })
+    .then((dbImeis) => res.json(dbImeis))
+    .catch((err) => res.status(400).json(err));
+});
+
+// return all imei results stored in the secondary collection
+router.get("/api/imei1", (req, res) => {
+  Imei1.find()
+    .sort({ day: -1 })
+    .then((dbImei1) => res.json(dbImei1))
+    .catch((err) => res.status(400).json(err));
+});
+
 // router.get("/api/imeis", (req, res) => {
 //   console.log("111");
 //   Imei.find()
