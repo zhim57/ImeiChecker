@@ -73,7 +73,7 @@ async function initRequest(imeiDataSave) {
   }
   if (imei) {
     console.log("id=" + imei._id);
-    location.search = "?id=" + imei._id;
+    // location.search = "?id=" + imei._id;
     await API.addRequest(imeiDataSave, imei._id);
     // initImei();
   }
