@@ -36,6 +36,11 @@ mongoose.connect(MONGODB_URI , {
 app.use(require("./routes/api-routes.js"));
 app.use(require("./routes/html-routes.js"));
 
-app.listen(PORT, () => {
-  console.log(`App running on port http://localhost:${PORT}`);
-});
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`App running on port http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
