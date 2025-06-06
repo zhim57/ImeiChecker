@@ -4,25 +4,43 @@ const Imei1 = require("../models/imei1.js");
 const request = require("request");
 require("dotenv").config();
 
+
 router.get("/api/imei1F/:imei", async (req, res) => {
-  let imei = parseInt(req.params.imei);
-  console.log("imei");
-  console.log(imei);
-
+  const imei = req.params.imei;
   try {
-    let imei1 = await Imei1.findOne({ "requests.deviceImei": imei });
-    console.log (imei1.status);
-
-    if (imei1 != null) {
+    const imei1 = await Imei1.findOne({ "requests.deviceImei": parseInt(imei) });
+    if (imei1) {
       return res.json(imei1);
-    } else if (imei1 === null) {
-      console.log("need to make api request - no record in localdatabase");
     }
-    // if document not in our database to execute the api to get the info
-  } catch (err) {
-    console.log("err");
-    console.log(err);
 
+    // If not found locally, fetch from external API using the configured token
+    const url =
+      "https://imeidb.xyz/api/imei/" +
+      imei +
+      "?token=" +
+      process.env.IMEI_API_TOKEN +
+      "&format=json";
+
+    request(url, async (error, response, body) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send({ message: "Failed to fetch IMEI" });
+      }
+
+      try {
+        const apiData = JSON.parse(body);
+        const saved = await Imei1.create({ requests: apiData });
+        res.json(saved);
+      } catch (dbErr) {
+        console.log(dbErr);
+        if (dbErr.name === "ValidationError") {
+          return res.status(400).send(dbErr.errors);
+        }
+        res.status(500).send({ message: "Something went wrong" });
+      }
+    });
+  } catch (err) {
+    console.log(err);
     if (err.name === "ValidationError") {
       return res.status(400).send(err.errors);
     }
