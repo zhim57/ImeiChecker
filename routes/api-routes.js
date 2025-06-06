@@ -46,14 +46,6 @@ router.get("/api/imei1F/:imei", async (req, res) => {
     res.status(500).send({ message: "Something went wrong" });
   }
 
-  // Imei.find()
-  //   .sort({ date: -1 })
-  //   .then((dbImei) => {
-  //     res.json(dbImei);
-  //   })
-  //   .catch((err) => {
-  //     res.status(400).json(err);
-  //   });
 });
 
 router.post("/api/requests1", ({ body }, res) => {
@@ -149,28 +141,6 @@ router.get("/api/imei1", (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-// router.get("/api/imeis", (req, res) => {
-//   console.log("111");
-//   Imei.find()
-//     .sort({ date: -1 })
-//     .then((dbImei) => {
-//       res.json(dbImei);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// });
-// router.get("/api/imei1", (req, res) => {
-//   console.log("222");
-//   Imei1.find()
-//     .sort({ date: -1 })
-//     .then((dbImei) => {
-//       res.json(dbImei);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// });
 router.delete("/api/requests", ({ body }, res) => {
   Imei.findByIdAndDelete(body.id)
     .then(() => {
