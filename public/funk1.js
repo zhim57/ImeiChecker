@@ -13,13 +13,11 @@ var sampleDump;
 var lastImei;
 var deviceModel = "";
 
-let workoutType = null; // to be reviewed by 5-19-22
+let workoutType = null;
 let shouldNavigateAway = false;
 
-// development test variables for  country USA
 
 export function processImeiActual(response1, type) {
-  //===============
   var sampleResponse = response1;
   console.log(sampleResponse.message + "dodu!");
   console.log(sampleResponse);
@@ -32,10 +30,6 @@ export function processImeiActual(response1, type) {
       <h1 class="text-center red1" ;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>        
      `;
 
-    // <tr>
-    // <th class="${score3Class}">Overall Score</th>
-    // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-    // </tr>
 
     let sampleDump_nill = `
       <h1 class="text-center red1" ;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>`;
@@ -128,7 +122,6 @@ export function processImeiActual(response1, type) {
       } else {
         let band5g = frequencyArrayRaw[i];
         frequencyArray5g.push(band5g)
-        // console.log("frequency error : read : " + frequencyArrayRaw[i]);
       }
     }
 
@@ -231,7 +224,6 @@ export function processImeiActual(response1, type) {
     }
     if (type === "api_result1") {
       renderResults(passObject);
-      // saveTodatabase(passObject);
     }
   } else {
     console.log("no info");
@@ -249,10 +241,6 @@ export function processImeiActual(response1, type) {
     </h1>
    `;
 
-    // <tr>
-    // <th class="${score3Class}">Overall Score</th>
-    // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-    // </tr>
 
     let sampleDump_nill = `
     <h1 class="text-center" style="color: #aaa;"></h1>
@@ -281,7 +269,6 @@ export function processImeiActual(response1, type) {
     $("#score-dump").append(scoreDump_nill);
     $("#main-dump").append(sampleDump_nill);
 
-    // displayNoInfo();
   }
 }
 
@@ -295,7 +282,6 @@ function renderResults(passObject) {
   var score3Class = "dudu";
   var score4Class = "dudu";
   let deviceSpeed = passObject.deviceSpeed;
-  // let deviceBluetooth = passObject.deviceBluetooth;
   let deviceNettech = passObject.deviceNettech;
   let tmobileScore = passObject.tmobileScore;
   let verizonScore = passObject.verizonScore;
@@ -304,7 +290,6 @@ function renderResults(passObject) {
   let frequencyArray2g = passObject.frequencyArray2g;
   let frequencyArrayLte = passObject.frequencyArrayLte;
   let frequencyArray5g = passObject.frequencyArray5g;
-  // let frequencyArrayTdd = passObject.frequencyArrayTdd;
   let frequencyArrayWcdma = passObject.frequencyArrayWcdma;
   let overallScore = passObject.overallScore;
   let deviceImei = passObject.deviceImei;
@@ -320,7 +305,6 @@ function renderResults(passObject) {
     score1Class = "green-score";
     remarks1 =
       " expecting your phone to have workable signal in most areas where there is cell phone reception of this carrier";
-    // console.log("fired1");
   } else if (attScore < 75 && attScore > 45) {
     score1Class = "yellow-score";
     remarks1 =
@@ -422,10 +406,6 @@ function renderResults(passObject) {
               </tbody>
             </table>`;
 
-  // <tr>
-  // <th class="${score3Class}">Overall Score</th>
-  // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-  // </tr>
 
   sampleDump =
     `<div class=" device">
@@ -434,7 +414,6 @@ function renderResults(passObject) {
              > 
              </div>
              <h1 class="text-center" style="color: #fff;">${brand}  ${deviceName}</h1>` +
-    //  <h3 class="text-center" style="color: #fff;">For back to the previous page click <a href="/device">here</a></h3>
 
     `</div><table id="w1" class="table table-striped table-bordered detail-view"><tbody>  <tr>
              
@@ -469,14 +448,12 @@ function renderResults(passObject) {
                  </tr>
               
                  </table>`;
-  //=========================
 
   $("#score-dump").html("");
   $("#main-dump").html("");
   $("#score-dump").append(scoreDump);
   $("#main-dump").append(sampleDump);
 
-  // formImei.classList.add("d-none");
 }
 
 function displayNoInfo() {
@@ -488,10 +465,6 @@ function displayNoInfo() {
 
 `;
 
-  // <tr>
-  // <th class="${score3Class}">Overall Score</th>
-  // <td id="score3" class="${score3Class}">${overallScore} % - ${remarks3}</td>
-  // </tr>
 
   let sampleDump_nill = `
  <h1 class="text-center" style="color: #aaa;">NO INFO FOR THE DEVICE BANDS IN DATABASE</h1>
