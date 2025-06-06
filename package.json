@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js",
     "watch": "nodemon server.js",
     "seed": "node seeders/seed.js"
@@ -22,7 +22,10 @@
     "seeder": "^0.2.4"
   },
   "keywords": [],
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.0.0"
+  },
   "description": "simple imei checker",
   "repository": {
     "type": "git",
