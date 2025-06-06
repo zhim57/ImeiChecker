@@ -18,7 +18,7 @@
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
-    "request": "^2.88.2",
+    "node-fetch": "^2.6.7",
     "seeder": "^0.2.4"
   },
   "keywords": [],

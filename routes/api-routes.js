@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Imei = require("../models/imei.js");
 const Imei1 = require("../models/imei1.js");
-const request = require("request");
+const fetch = global.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
 require("dotenv").config();
 
 
@@ -21,24 +21,23 @@ router.get("/api/imei1F/:imei", async (req, res) => {
       process.env.IMEI_API_TOKEN +
       "&format=json";
 
-    request(url, async (error, response, body) => {
-      if (error) {
-        console.log(error);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        console.log(await response.text());
         return res.status(500).send({ message: "Failed to fetch IMEI" });
       }
 
-      try {
-        const apiData = JSON.parse(body);
-        const saved = await Imei1.create({ requests: apiData });
-        res.json(saved);
-      } catch (dbErr) {
-        console.log(dbErr);
-        if (dbErr.name === "ValidationError") {
-          return res.status(400).send(dbErr.errors);
-        }
-        res.status(500).send({ message: "Something went wrong" });
+      const apiData = await response.json();
+      const saved = await Imei1.create({ requests: apiData });
+      res.json(saved);
+    } catch (dbErr) {
+      console.log(dbErr);
+      if (dbErr.name === "ValidationError") {
+        return res.status(400).send(dbErr.errors);
       }
-    });
+      res.status(500).send({ message: "Something went wrong" });
+    }
   } catch (err) {
     console.log(err);
     if (err.name === "ValidationError") {
@@ -182,26 +181,27 @@ router.delete("/api/requests", ({ body }, res) => {
     });
 });
 
-router.get("/result1/:imei", (req, res) => {
+router.get("/result1/:imei", async (req, res) => {
   console.log("222");
 
   let imei = req.params.imei;
   console.log("calling the api for this imei");
   console.log(imei);
 
-  request(
-    "https://imeidb.xyz/api/imei/" +
-      imei +
-      "?token=" +
-      process.env.IMEI_API_TOKEN +
-      "&format=json",
-    (error, response, body) => {
-      if (error) {
-        console.log(error);
-      }
-      res.send(response.body);
-    }
-  );
+  try {
+    const response = await fetch(
+      "https://imeidb.xyz/api/imei/" +
+        imei +
+        "?token=" +
+        process.env.IMEI_API_TOKEN +
+        "&format=json"
+    );
+    const body = await response.text();
+    res.send(body);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Failed to fetch IMEI" });
+  }
 });
 
 module.exports = router;
