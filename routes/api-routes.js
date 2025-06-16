@@ -151,6 +151,12 @@ router.delete("/api/requests", ({ body }, res) => {
     });
 });
 
+
+router.get("/emailresearch", (req, res) => {
+  res.render("emailresearch");
+});
+
+
 router.get("/result1/:imei", async (req, res) => {
   console.log("222");
 
