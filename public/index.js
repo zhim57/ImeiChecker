@@ -98,9 +98,7 @@ if (completeButton) {
 
       if (result1 != "error") {
         let type = "api_result1";
-                let data=  { data:result1};
-                console.log(data);
-              processImeiActual(data, type);
+        processImeiActual(result1, type);
       }
 
       else{
