@@ -87,6 +87,7 @@ renderResults(deviceInfo);
 }
 
 function renderResults(info) {
+const display = val => (val === undefined || val === null || val === '' ? 'N/A' : val);
 const getClassRemark = score => {
 if (score > 74) return ["green-score", "expecting good signal."];
 if (score > 45) return ["yellow-score", "intermittent connection expected."];
@@ -99,27 +100,27 @@ const [score2Class, remarks2] = getClassRemark(info.tmobileScore);
 const [score4Class, remarks4] = getClassRemark(info.verizonScore);
 const [score3Class, remarks3] = getClassRemark(info.overallScore);
 
-const scoreDump = 
+const scoreDump =
    ` <div class="text-center"><h2>Results</h2></div>
     <table class="table table-striped">
-      <tr><th class="${score3Class}">Scores_for_IMEI</th><td>${info.deviceImei}</td></tr>
-      <tr><th class="${score1Class}">AT&T 4G</th><td>${info.attScore}% - ${remarks1}</td></tr>
-      <tr><th class="${score2Class}">T-Mobile 4G</th><td>${info.tmobileScore}% - ${remarks2}</td></tr>
-      <tr><th class="${score4Class}">Verizon 4G</th><td>${info.verizonScore}% - ${remarks4}</td></tr>
+      <tr><th class="${score3Class}">Scores_for_IMEI</th><td>${display(info.deviceImei)}</td></tr>
+      <tr><th class="${score1Class}">AT&T 4G</th><td>${display(info.attScore)}% - ${remarks1}</td></tr>
+      <tr><th class="${score2Class}">T-Mobile 4G</th><td>${display(info.tmobileScore)}% - ${remarks2}</td></tr>
+      <tr><th class="${score4Class}">Verizon 4G</th><td>${display(info.verizonScore)}% - ${remarks4}</td></tr>
     </table>`;
 
-const sampleDump = 
+const sampleDump =
     `<div class="device text-center">
-      <img src="${info.deviceImage}" alt="Device Image"/>
-      <h1 style="color:#fff;">${info.brand} ${info.deviceName}</h1>
+      <img src="${display(info.deviceImage)}" alt="Device Image"/>
+      <h1 style="color:#fff;">${display(info.brand)} ${display(info.deviceName)}</h1>
     </div>
     <table class="table table-striped">
-      <tr><th>Net Tech</th><td>${info.nettech}</td></tr>
-      <tr><th>Speed</th><td>${info.speed}</td></tr>
-      <tr><th>2G Bands</th><td>${info.frequencyArray2g}</td></tr>
-      <tr><th>WCDMA</th><td>${info.frequencyArrayWcdma}</td></tr>
-      <tr><th>LTE</th><td>${info.frequencyArrayLte}</td></tr>
-      <tr><th>Model</th><td>${info.model}</td></tr>
+      <tr><th>Net Tech</th><td>${display(info.nettech)}</td></tr>
+      <tr><th>Speed</th><td>${display(info.speed)}</td></tr>
+      <tr><th>2G Bands</th><td>${display(info.frequencyArray2g)}</td></tr>
+      <tr><th>WCDMA</th><td>${display(info.frequencyArrayWcdma)}</td></tr>
+      <tr><th>LTE</th><td>${display(info.frequencyArrayLte)}</td></tr>
+      <tr><th>Model</th><td>${display(info.model)}</td></tr>
     </table>`;
 
 $("#score-dump").html(scoreDump);
