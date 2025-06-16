@@ -39,6 +39,11 @@ A Node.js and Express application for looking up mobile device information by IM
 - `npm run seed` – populate the database with sample data.
 - `npm test` – run the Jest test suite.
 
+## Continuous Integration
+
+Automated tests run on every push and pull request via a GitHub Actions
+workflow defined in `.github/workflows/nodejs.yml`.
+
 ## Environment Variables
 
 - **MONGODB_URI** – MongoDB connection URI used by the server.
