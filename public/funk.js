@@ -4,7 +4,7 @@
 //  Assume necessary DOM elements and imports are already defined
 import { API } from "/api.js";
 console.log("this is the optimized funk from th second batch ");
-export function processImeiActual(response, type) {
+export async function processImeiActual(response, type) {
 const sampleResponse = response;
 console.log(sampleResponse.message + "dodu!");
 
@@ -83,10 +83,10 @@ overallScore,
 if (type === "api_result") {
 saveTodatabase(deviceInfo);
 }
-renderResults(deviceInfo);
+await renderResults(deviceInfo);
 }
 
-function renderResults(info) {
+async function renderResults(info) {
 const display = val => (val === undefined || val === null || val === '' ? 'N/A' : val);
 const getClassRemark = score => {
 if (score > 74) return ["green-score", "expecting good signal."];
@@ -125,6 +125,27 @@ const sampleDump =
 
 $("#score-dump").html(scoreDump);
 $("#main-dump").html(sampleDump);
+
+  $("#model-dump").html("");
+  if (info.model) {
+    const modelInfo = await API.getPhoneModel(info.model);
+    if (modelInfo) {
+      const bands = Array.isArray(modelInfo.bands)
+        ? modelInfo.bands.join(", ")
+        : typeof modelInfo.bands === "object"
+        ? Object.values(modelInfo.bands).join(", ")
+        : modelInfo.bands;
+      const compat = (modelInfo.compatibleModels || []).join(", ");
+      const modelDump = `
+        <table class="table table-striped">
+          <tr><th colspan="2">Stored Model Info</th></tr>
+          <tr><th>Model</th><td>${display(modelInfo.model)}</td></tr>
+          <tr><th>Bands</th><td>${display(bands)}</td></tr>
+          <tr><th>Compatible Models</th><td>${display(compat)}</td></tr>
+        </table>`;
+      $("#model-dump").html(modelDump);
+    }
+  }
 }
 
 async function saveTodatabase(info) {
