@@ -126,7 +126,16 @@ const sampleDump =
 $("#score-dump").html(scoreDump);
 $("#main-dump").html(sampleDump);
 
-  $("#model-dump").html("");
+  // Always render the model table so the labels remain visible
+  const placeholderDump = `
+    <table class="table table-striped">
+      <tr><th colspan="2">Stored Model Info</th></tr>
+      <tr><th>Model</th><td>${display(info.model)}</td></tr>
+      <tr><th>Bands</th><td>N/A</td></tr>
+      <tr><th>Compatible Models</th><td>N/A</td></tr>
+    </table>`;
+  $("#model-dump").html(placeholderDump);
+
   if (info.model) {
     const modelInfo = await API.getPhoneModel(info.model);
     if (modelInfo) {
