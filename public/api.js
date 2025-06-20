@@ -170,4 +170,19 @@ export const API = {
       return null;
     }
   },
+
+  async createPhoneModel(data) {
+    try {
+      const res = await fetch('/api/phone-model', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
 };

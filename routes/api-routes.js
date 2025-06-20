@@ -194,6 +194,27 @@ router.get("/api/phone-model/:model", async (req, res) => {
   }
 });
 
+router.post("/api/phone-model", async (req, res) => {
+  try {
+    const { model } = req.body;
+    if (!model) {
+      return res.status(400).send({ message: "Model is required" });
+    }
+    let record = await PhoneModel.findOne({ model });
+    if (record) {
+      return res.json(record);
+    }
+    record = await PhoneModel.create(req.body);
+    res.json(record);
+  } catch (err) {
+    console.log(err);
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.errors);
+    }
+    res.status(500).send({ message: "Something went wrong" });
+  }
+});
+
 //=====
 
 router.put("/api/imeis/:id", ({ body, params }, res) => {

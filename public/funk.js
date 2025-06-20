@@ -82,6 +82,7 @@ overallScore,
 
 if (type === "api_result") {
 saveTodatabase(deviceInfo);
+await ensurePhoneModel(deviceInfo);
 }
 await renderResults(deviceInfo);
 }
@@ -162,6 +163,34 @@ const modelData = { requests: { ...info, type: "imei1" } };
 const result = await API.createModel2(modelData);
 console.log("Saved model:", result);
 };
+
+async function ensurePhoneModel(info) {
+  if (!info.model) return;
+  const existing = await API.getPhoneModel(info.model);
+  if (existing) return;
+  const record = {
+    deviceName: info.deviceName,
+    deviceImage: info.deviceImage,
+    brand: info.brand,
+    model: info.model,
+    controlNumber: info.controlNumber,
+    simSlots: info.simSlots,
+    usb: info.usb,
+    nettech: info.nettech,
+    speed: info.speed,
+    frequency: info.frequency,
+    frequencyArray2g: info.frequencyArray2g,
+    frequencyArrayLte: info.frequencyArrayLte,
+    frequencyArray5g: info.frequencyArray5g,
+    frequencyArrayTdd: info.frequencyArrayTdd,
+    frequencyArrayWcdma: info.frequencyArrayWcdma,
+    attScore: info.attScore,
+    tmobileScore: info.tmobileScore,
+    verizonScore: info.verizonScore,
+    overallScore: info.overallScore,
+  };
+  await API.createPhoneModel(record);
+}
 export function displayResult(result) {
   console.log(" displayresult activated");
 };
