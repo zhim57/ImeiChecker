@@ -132,7 +132,15 @@ $("#main-dump").html(sampleDump);
     <table class="table table-striped">
       <tr><th colspan="2">Stored Model Info</th></tr>
       <tr><th>Model</th><td>${display(info.model)}</td></tr>
-      <tr><th>Bands</th><td>N/A</td></tr>
+      <tr><th>Name</th><td>N/A</td></tr>
+      <tr><th>Net Tech</th><td>N/A</td></tr>
+      <tr><th>Speed</th><td>N/A</td></tr>
+      <tr><th>2G Bands</th><td>N/A</td></tr>
+      <tr><th>WCDMA Bands</th><td>N/A</td></tr>
+      <tr><th>LTE Bands</th><td>N/A</td></tr>
+      <tr><th>AT&T 4G</th><td>N/A</td></tr>
+      <tr><th>T-Mobile 4G</th><td>N/A</td></tr>
+      <tr><th>Verizon 4G</th><td>N/A</td></tr>
       <tr><th>Compatible Models</th><td>N/A</td></tr>
     </table>`;
   $("#model-dump").html(placeholderDump);
@@ -140,17 +148,23 @@ $("#main-dump").html(sampleDump);
   if (info.model) {
     const modelInfo = await API.getPhoneModel(info.model);
     if (modelInfo) {
-      const bands = Array.isArray(modelInfo.bands)
-        ? modelInfo.bands.join(", ")
-        : typeof modelInfo.bands === "object"
-        ? Object.values(modelInfo.bands).join(", ")
-        : modelInfo.bands;
-      const compat = (modelInfo.compatibleModels || []).join(", ");
+      const twoG = (modelInfo.bands?.twoG || []).join(', ');
+      const wcdma = (modelInfo.bands?.wcdma || []).join(', ');
+      const lte = (modelInfo.bands?.lte || []).join(', ');
+      const compat = (modelInfo.compatibleModels || []).join(', ');
       const modelDump = `
         <table class="table table-striped">
           <tr><th colspan="2">Stored Model Info</th></tr>
           <tr><th>Model</th><td>${display(modelInfo.model)}</td></tr>
-          <tr><th>Bands</th><td>${display(bands)}</td></tr>
+          <tr><th>Name</th><td>${display(modelInfo.modelName)}</td></tr>
+          <tr><th>Net Tech</th><td>${display(modelInfo.netTech)}</td></tr>
+          <tr><th>Speed</th><td>${display(modelInfo.speed)}</td></tr>
+          <tr><th>2G Bands</th><td>${display(twoG)}</td></tr>
+          <tr><th>WCDMA Bands</th><td>${display(wcdma)}</td></tr>
+          <tr><th>LTE Bands</th><td>${display(lte)}</td></tr>
+          <tr><th>AT&T 4G</th><td>${display(modelInfo.scores?.att4g)}</td></tr>
+          <tr><th>T-Mobile 4G</th><td>${display(modelInfo.scores?.tmobile4g)}</td></tr>
+          <tr><th>Verizon 4G</th><td>${display(modelInfo.scores?.verizon4g)}</td></tr>
           <tr><th>Compatible Models</th><td>${display(compat)}</td></tr>
         </table>`;
       $("#model-dump").html(modelDump);
