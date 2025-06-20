@@ -6,22 +6,80 @@ const fetch = global.fetch || ((...args) => import('node-fetch').then(({default:
 require("dotenv").config();
 
 
-async function updatePhoneModel(data) {
+async function updatePhoneModel(raw) {
+  // The API returns the payload under a `data` key. Support both shapes.
+  const data = raw.data || raw;
+
   const model = data.models?.[0] || data.model;
   if (!model) return;
-  const bands = data.frequency;
-  const compatible = data.models || [];
+
+  // Extract informational fields for persistence
+  const modelName = data.name || data.deviceName || null;
+  const deviceImage = data.device_image || data.deviceImage || null;
+  const netTech = Array.isArray(data.device_spec?.nettech)
+    ? data.device_spec.nettech.join(', ')
+    : data.device_spec?.nettech || null;
+  const speed = Array.isArray(data.device_spec?.speed)
+    ? data.device_spec.speed.join(', ')
+    : data.device_spec?.speed || null;
+
+  const freq = data.frequency || [];
+  const categories = { lte: [], wcdma: [], twoG: [] };
+  freq.forEach((f) => {
+    const up = f.toUpperCase();
+    if (up.includes('LTE FDD BAND')) categories.lte.push(f.slice(13));
+    else if (up.includes('WCDMA FDD BAND')) categories.wcdma.push(f.slice(15));
+    else if (up.includes('GSM')) categories.twoG.push(f);
+  });
+
+  const providers = {
+    att: ['2', '4', '14', '30', '17', '12', '66'],
+    tmobile: ['2', '4', '5', '66', '12', '71'],
+    verizon: ['2', '5', '4'],
+  };
+  const score = (name) => {
+    const list = providers[name];
+    const bands = name === 'verizon' ? categories.wcdma : categories.lte;
+    return (
+      (list.filter((b) => bands.includes(b)).length / list.length) *
+      100
+    ).toFixed(0);
+  };
+
+  const recordData = {
+    model,
+    modelName,
+    deviceImage,
+    netTech,
+    speed,
+    bands: {
+      twoG: categories.twoG,
+      wcdma: categories.wcdma,
+      lte: categories.lte,
+    },
+    scores: {
+      att4g: Number(score('att')),
+      tmobile4g: Number(score('tmobile')),
+      verizon4g: Number(score('verizon')),
+    },
+    compatibleModels: data.models || [],
+  };
 
   const existing = await PhoneModel.findOne({ model });
   if (!existing) {
-    await PhoneModel.create({ model, bands, compatibleModels: compatible });
+    await PhoneModel.create(recordData);
   } else {
-    const diffBands = JSON.stringify(existing.bands) !== JSON.stringify(bands);
-    const diffModels =
-      JSON.stringify(existing.compatibleModels) !== JSON.stringify(compatible);
-    if (diffBands || diffModels) {
-      existing.bands = bands;
-      existing.compatibleModels = compatible;
+    const changed =
+      existing.modelName !== recordData.modelName ||
+      existing.deviceImage !== recordData.deviceImage ||
+      existing.netTech !== recordData.netTech ||
+      existing.speed !== recordData.speed ||
+      JSON.stringify(existing.bands) !== JSON.stringify(recordData.bands) ||
+      JSON.stringify(existing.scores) !== JSON.stringify(recordData.scores) ||
+      JSON.stringify(existing.compatibleModels) !==
+        JSON.stringify(recordData.compatibleModels);
+    if (changed) {
+      Object.assign(existing, recordData);
       await existing.save();
     }
   }
