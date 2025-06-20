@@ -1,19 +1,41 @@
 const router = require("express").Router();
 const Imei = require("../models/imei.js");
 const Imei1 = require("../models/imei1.js");
+const PhoneModel = require("../models/phoneModel.js");
 const fetch = global.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
 require("dotenv").config();
 
 
+async function updatePhoneModel(data) {
+  const model = data.models?.[0] || data.model;
+  if (!model) return;
+  const bands = data.frequency;
+  const compatible = data.models || [];
+
+  const existing = await PhoneModel.findOne({ model });
+  if (!existing) {
+    await PhoneModel.create({ model, bands, compatibleModels: compatible });
+  } else {
+    const diffBands = JSON.stringify(existing.bands) !== JSON.stringify(bands);
+    const diffModels =
+      JSON.stringify(existing.compatibleModels) !== JSON.stringify(compatible);
+    if (diffBands || diffModels) {
+      existing.bands = bands;
+      existing.compatibleModels = compatible;
+      await existing.save();
+    }
+  }
+}
+
 router.get("/api/imei1F/:imei", async (req, res) => {
   const imei = req.params.imei;
   try {
-    const imei1 = await Imei1.findOne({ "requests.deviceImei": parseInt(imei) });
+    let imei1 = await Imei1.findOne({ "requests.deviceImei": parseInt(imei) });
     if (imei1) {
+      await updatePhoneModel(imei1.requests);
       return res.json(imei1);
     }
 
-    // If not found locally, fetch from external API using the configured token
     const url =
       "https://imeidb.xyz/api/imei/" +
       imei +
@@ -29,8 +51,9 @@ router.get("/api/imei1F/:imei", async (req, res) => {
       }
 
       const apiData = await response.json();
-      const saved = await Imei1.create({ requests: apiData });
-      res.json(saved);
+      imei1 = await Imei1.create({ requests: apiData });
+      await updatePhoneModel(apiData);
+      res.json(imei1);
     } catch (dbErr) {
       console.log(dbErr);
       if (dbErr.name === "ValidationError") {
@@ -45,7 +68,6 @@ router.get("/api/imei1F/:imei", async (req, res) => {
     }
     res.status(500).send({ message: "Something went wrong" });
   }
-
 });
 
 router.post("/api/requests1", ({ body }, res) => {
