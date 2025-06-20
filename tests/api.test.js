@@ -8,7 +8,11 @@ jest.mock('../models/imei1.js', () => ({
 jest.mock('../models/phoneModel.js', () => ({
   findOne: jest.fn(),
   create: jest.fn(),
+  findOneAndUpdate: jest.fn(),
 }));
+
+process.env.MONGODB_URI = 'mongodb://localhost/test';
+process.env.IMEI_API_TOKEN = 'token';
 
 const Imei1 = require('../models/imei1.js');
 const PhoneModel = require('../models/phoneModel.js');
@@ -65,5 +69,39 @@ describe('GET /result1/:imei', () => {
     expect(res.status).toBe(200);
     expect(res.text).toBe(body);
     expect(global.fetch).toHaveBeenCalled();
+  });
+});
+
+describe('PUT /api/phone-model/:model', () => {
+  const model = 'M1';
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('updates an existing phone model', async () => {
+    const updated = { model, modelName: 'Model 1', note: 'test' };
+    PhoneModel.findOneAndUpdate.mockResolvedValue(updated);
+
+    const res = await request(app)
+      .put(`/api/phone-model/${model}`)
+      .send(updated);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(updated);
+    expect(PhoneModel.findOneAndUpdate).toHaveBeenCalledWith(
+      { model },
+      updated,
+      expect.any(Object)
+    );
+  });
+
+  it('returns 404 when model does not exist', async () => {
+    PhoneModel.findOneAndUpdate.mockResolvedValue(null);
+
+    const res = await request(app)
+      .put(`/api/phone-model/${model}`)
+      .send({});
+
+    expect(res.status).toBe(404);
   });
 });

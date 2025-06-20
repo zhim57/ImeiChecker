@@ -21,6 +21,8 @@ const phoneModelSchema = new Schema({
     verizon4g: Number,
   },
   compatibleModels: [String],
+  // Optional user supplied note
+  note: String,
 });
 
 const PhoneModel = mongoose.model("PhoneModel", phoneModelSchema);
