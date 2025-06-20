@@ -7,6 +7,8 @@ const viewButton = document.querySelector("button.view");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const formImei = document.querySelector("#form-imei");
+const updateBtn = document.querySelector("#update-model-btn");
+const updateForm = document.querySelector("#update-model-form");
 import { processImeiActual, displayResult } from "/funk.js";
 import { API } from "/api.js";
 
@@ -223,5 +225,26 @@ function renderNoImeiText() {
 
   p.appendChild(strong);
   container.appendChild(p);
+}
+
+if (updateBtn) {
+  updateBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const payload = {
+      model: document.querySelector("#update-model").value.trim(),
+      modelName: document.querySelector("#update-model-name").value.trim(),
+      netTech: document.querySelector("#update-net-tech").value.trim(),
+      speed: document.querySelector("#update-speed").value.trim(),
+      note: document.querySelector("#update-note").value.trim(),
+    };
+    if (!payload.model) return;
+    const res = await API.updatePhoneModel(payload.model, payload);
+    if (res) {
+      alert("Model updated");
+      updateForm.reset();
+    } else {
+      alert("Failed to update model");
+    }
+  });
 }
 

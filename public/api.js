@@ -185,4 +185,19 @@ export const API = {
       return null;
     }
   },
+
+  async updatePhoneModel(model, data) {
+    try {
+      const res = await fetch(`/api/phone-model/${encodeURIComponent(model)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
 };

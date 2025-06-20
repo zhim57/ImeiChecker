@@ -215,6 +215,28 @@ router.post("/api/phone-model", async (req, res) => {
   }
 });
 
+// Update existing phone model details
+router.put("/api/phone-model/:model", async (req, res) => {
+  try {
+    const model = req.params.model;
+    const update = req.body;
+    const record = await PhoneModel.findOneAndUpdate({ model }, update, {
+      new: true,
+      runValidators: true,
+    });
+    if (!record) {
+      return res.status(404).send({ message: "Model not found" });
+    }
+    res.json(record);
+  } catch (err) {
+    console.log(err);
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.errors);
+    }
+    res.status(500).send({ message: "Something went wrong" });
+  }
+});
+
 //=====
 
 router.put("/api/imeis/:id", ({ body, params }, res) => {
