@@ -230,11 +230,30 @@ function renderNoImeiText() {
 if (updateBtn) {
   updateBtn.addEventListener("click", async (e) => {
     e.preventDefault();
+    const wcdmaBands = document
+      .querySelector("#update-wcdma-bands")
+      .value.split(",")
+      .map((b) => b.trim())
+      .filter((b) => b);
+    const lteBands = document
+      .querySelector("#update-lte-bands")
+      .value.split(",")
+      .map((b) => b.trim())
+      .filter((b) => b);
     const payload = {
       model: document.querySelector("#update-model").value.trim(),
       modelName: document.querySelector("#update-model-name").value.trim(),
       netTech: document.querySelector("#update-net-tech").value.trim(),
       speed: document.querySelector("#update-speed").value.trim(),
+      bands: {
+        wcdma: wcdmaBands,
+        lte: lteBands,
+      },
+      scores: {
+        att4g: Number(document.querySelector("#update-att4g").value) || 0,
+        tmobile4g: Number(document.querySelector("#update-tmobile4g").value) || 0,
+        verizon4g: Number(document.querySelector("#update-verizon4g").value) || 0,
+      },
       note: document.querySelector("#update-note").value.trim(),
     };
     if (!payload.model) return;
