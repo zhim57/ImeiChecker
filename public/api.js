@@ -159,4 +159,15 @@ export const API = {
 
     return json;
   },
+
+  async getPhoneModel(model) {
+    try {
+      const res = await fetch(`/api/phone-model/${encodeURIComponent(model)}`);
+      if (res.status !== 200) return null;
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
 };

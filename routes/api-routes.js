@@ -121,6 +121,21 @@ router.post("/api/createmodel2", async (req, res) => {
   }
 });
 
+// Fetch stored phone model details
+router.get("/api/phone-model/:model", async (req, res) => {
+  try {
+    const model = req.params.model;
+    const record = await PhoneModel.findOne({ model });
+    if (!record) {
+      return res.status(404).send({ message: "Model not found" });
+    }
+    res.json(record);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: "Something went wrong" });
+  }
+});
+
 //=====
 
 router.put("/api/imeis/:id", ({ body, params }, res) => {
