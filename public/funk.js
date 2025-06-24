@@ -19,7 +19,10 @@ $("#main-dump").html(noInfoHtml);
 return;
 }
 
-const data = sampleResponse.data;
+// Support both the raw API payload (with `data` property) and the
+// simplified object we store locally which already contains the
+// desired fields.  Fallback to the root object when `data` is absent.
+const data = sampleResponse.data || sampleResponse;
 const frequencyArrayRaw = data.frequency || [];
 const deviceModel = data.models?.[0] || data.model || null;
 const frequencyCategories = {
@@ -45,6 +48,16 @@ else if (entry.includes("GSM")) frequencyCategories.g2.push(f);
 else frequencyCategories.g5.push(f);
 });
 
+// When no raw frequency list is present (e.g. for cached records),
+// use the already parsed band arrays if available.
+if (frequencyArrayRaw.length === 0) {
+  frequencyCategories.lte = data.frequencyArrayLte || [];
+  frequencyCategories.wcdma = data.frequencyArrayWcdma || [];
+  frequencyCategories.tdd = data.frequencyArrayTdd || [];
+  frequencyCategories.g2 = data.frequencyArray2g || [];
+  frequencyCategories.g5 = data.frequencyArray5g || [];
+}
+
 const score = name => providers[name].filter(b => frequencyCategories[name === "verizon" ? "wcdma" : "lte"].includes(b)).length / providers[name].length * 100;
 const attScore = score("att").toFixed(0);
 const tmobileScore = score("tmobile").toFixed(0);
@@ -54,21 +67,36 @@ const overallScore = ((+attScore + +tmobileScore) / 2).toFixed(0);
 const deviceInfo = {
 deviceName: data.name || data.deviceName,
 deviceImage: data.device_image || data.deviceImage || defaultImage,
-deviceImei: sampleResponse.query || data.deviceImei,
-brand: data.brand,
+deviceImei: sampleResponse.query || data.deviceImei || sampleResponse.deviceImei,
+brand: data.brand || sampleResponse.brand,
 model: deviceModel,
-serial: data.serial,
-tac: data.tac,
-blacklist: data.blacklist,
-device_id: data.device_id,
-controlNumber: data.device_spec?.controlNumber,
-simSlots: data.device_spec?.sim_slots,
-usb: data.device_spec?.usb,
-wlan: data.device_spec?.wlan,
-bluetooth: data.device_spec?.bluetooth?.join(", ") || null,
-nettech: data.device_spec?.nettech?.join(", ") || null,
-speed: data.device_spec?.speed?.join(", ") || null,
-frequency: frequencyArrayRaw,
+serial: data.serial || sampleResponse.serial,
+tac: data.tac || sampleResponse.tac,
+blacklist: data.blacklist || sampleResponse.blacklist,
+device_id: data.device_id || sampleResponse.device_id,
+controlNumber: data.device_spec?.controlNumber || data.controlNumber,
+simSlots: data.device_spec?.sim_slots || data.simSlots,
+usb: data.device_spec?.usb || data.usb,
+wlan: data.device_spec?.wlan || data.wlan,
+bluetooth: Array.isArray(data.device_spec?.bluetooth)
+  ? data.device_spec.bluetooth.join(", ")
+  : data.bluetooth || data.device_spec?.bluetooth || null,
+nettech: Array.isArray(data.device_spec?.nettech)
+  ? data.device_spec.nettech.join(", ")
+  : data.nettech || null,
+speed: Array.isArray(data.device_spec?.speed)
+  ? data.device_spec.speed.join(", ")
+  : data.speed || null,
+frequency:
+  frequencyArrayRaw.length
+    ? frequencyArrayRaw
+    : [
+        ...frequencyCategories.g2,
+        ...frequencyCategories.wcdma,
+        ...frequencyCategories.lte,
+        ...frequencyCategories.tdd,
+        ...frequencyCategories.g5,
+      ],
 frequencyArray2g: frequencyCategories.g2,
 frequencyArrayLte: frequencyCategories.lte,
 frequencyArray5g: frequencyCategories.g5,
