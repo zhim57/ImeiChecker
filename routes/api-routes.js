@@ -18,10 +18,14 @@ async function updatePhoneModel(raw) {
   const deviceImage = data.device_image || data.deviceImage || null;
   const netTech = Array.isArray(data.device_spec?.nettech)
     ? data.device_spec.nettech.join(', ')
-    : data.device_spec?.nettech || null;
+    : Array.isArray(data.nettech)
+    ? data.nettech.join(', ')
+    : data.device_spec?.nettech || data.nettech || null;
   const speed = Array.isArray(data.device_spec?.speed)
     ? data.device_spec.speed.join(', ')
-    : data.device_spec?.speed || null;
+    : Array.isArray(data.speed)
+    ? data.speed.join(', ')
+    : data.device_spec?.speed || data.speed || null;
 
   const freq = data.frequency || [];
   const categories = { lte: [], wcdma: [], twoG: [] };
@@ -31,6 +35,12 @@ async function updatePhoneModel(raw) {
     else if (up.includes('WCDMA FDD BAND')) categories.wcdma.push(f.slice(15));
     else if (up.includes('GSM')) categories.twoG.push(f);
   });
+
+  if (freq.length === 0) {
+    categories.lte = data.frequencyArrayLte || [];
+    categories.wcdma = data.frequencyArrayWcdma || [];
+    categories.twoG = data.frequencyArray2g || [];
+  }
 
   const providers = {
     att: ['2', '4', '14', '30', '17', '12', '66'],
