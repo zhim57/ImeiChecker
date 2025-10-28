@@ -1,43 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <title>Fitness Chart</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="description" content="IMEI Statistics Dashboard - IMEI DJAJA" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <title>Dashboard - IMEI DJAJA</title>
+</head>
+
+<body>
+  <!-- Navigation -->
   <nav>
-    <a href="/">Fitness Tracker</a>
+    <div class="nav-container">
+      <a href="/">IMEI DJAJA</a>
+      <a href="/imei_stats">Dashboard</a>
+    </div>
   </nav>
-  <body>
-    <div class="container mt">
-      <h1 class="text-center">Workout Dashboard</h1>
-      <div class="row mt">
-        <div class="col-md-6">
-          <canvas id="canvas"></canvas>
-        </div>
-        <div class="col-md-6">
-          <canvas id="canvas2"></canvas>
-        </div>
+
+  <!-- Stats Container -->
+  <div class="stats-container">
+    <!-- Header -->
+    <div class="stats-header fade-in">
+      <h1>IMEI Statistics Dashboard</h1>
+      <p style="margin-top: 1rem; opacity: 0.95; font-size: 1.1rem;">
+        Comprehensive analytics and insights from IMEI check data
+      </p>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="stats-grid">
+      <!-- Chart 1 -->
+      <div class="chart-card fade-in" style="animation-delay: 0.1s;">
+        <h3>Device Checks Over Time</h3>
+        <canvas id="canvas"></canvas>
       </div>
-      <div class="row mt">
-        <div class="col-md-6">
-          <canvas id="canvas3"></canvas>
-        </div>
-        <div class="col-md-6">
-          <canvas id="canvas4"></canvas>
-        </div>
+
+      <!-- Chart 2 -->
+      <div class="chart-card fade-in" style="animation-delay: 0.2s;">
+        <h3>Network Compatibility</h3>
+        <canvas id="canvas2"></canvas>
+      </div>
+
+      <!-- Chart 3 -->
+      <div class="chart-card fade-in" style="animation-delay: 0.3s;">
+        <h3>Device Brands Distribution</h3>
+        <canvas id="canvas3"></canvas>
+      </div>
+
+      <!-- Chart 4 -->
+      <div class="chart-card fade-in" style="animation-delay: 0.4s;">
+        <h3>Score Distribution</h3>
+        <canvas id="canvas4"></canvas>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="/api.js"></script>
-    <script src="/stats.js"></script>
-  </body>
+
+    <!-- Additional Stats Info -->
+    <div class="card fade-in" style="animation-delay: 0.5s; margin-top: 2rem;">
+      <h3>About These Statistics</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 1rem;">
+        This dashboard provides real-time analytics of IMEI checks performed through our system.
+        The data helps identify trends in device compatibility, popular brands, and network coverage patterns.
+        All statistics are anonymized and aggregated to protect user privacy.
+      </p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="/api.js"></script>
+  <script src="/stats.js"></script>
+</body>
 </html>
