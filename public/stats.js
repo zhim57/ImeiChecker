@@ -1,18 +1,18 @@
-// get all workout data from back-end
+// Get all IMEI data from back-end
 
-fetch("/api/workouts/range")
+fetch("/api/imeis/range")
   .then(response => {
     return response.json();
   })
   .then(data => {
     populateChart(data);
+  })
+  .catch(err => {
+    console.error("Error fetching IMEI data:", err);
   });
 
-
-API.getWorkoutsInRange()
-
-  function generatePalette() {
-    const arr = [
+function generatePalette() {
+  const arr = [
     "#003f5c",
     "#2f4b7c",
     "#665191",
@@ -20,7 +20,7 @@ API.getWorkoutsInRange()
     "#d45087",
     "#f95d6a",
     "#ff7c43",
-    "ffa600",
+    "#ffa600",
     "#003f5c",
     "#2f4b7c",
     "#665191",
@@ -28,15 +28,18 @@ API.getWorkoutsInRange()
     "#d45087",
     "#f95d6a",
     "#ff7c43",
-    "ffa600"
-  ]
+    "#ffa600"
+  ];
 
   return arr;
-  }
+}
+
 function populateChart(data) {
-  let durations = duration(data);
-  let pounds = calculateTotalWeight(data);
-  let workouts = workoutNames(data);
+  // Extract data for charts
+  let checkCounts = getCheckCounts(data);
+  let dates = getDates(data);
+  let imeiCount = data.length;
+
   const colors = generatePalette();
 
   let line = document.querySelector("#canvas").getContext("2d");
@@ -47,21 +50,13 @@ function populateChart(data) {
   let lineChart = new Chart(line, {
     type: "line",
     data: {
-      labels: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
+      labels: dates,
       datasets: [
         {
-          label: "Workout Duration In Minutes",
+          label: "IMEI Checks Over Time",
           backgroundColor: "red",
           borderColor: "red",
-          data: durations,
+          data: checkCounts,
           fill: false
         }
       ]
@@ -69,14 +64,16 @@ function populateChart(data) {
     options: {
       responsive: true,
       title: {
-        display: true
+        display: true,
+        text: "IMEI Check Activity"
       },
       scales: {
         xAxes: [
           {
             display: true,
             scaleLabel: {
-              display: true
+              display: true,
+              labelString: "Date"
             }
           }
         ],
@@ -84,7 +81,8 @@ function populateChart(data) {
           {
             display: true,
             scaleLabel: {
-              display: true
+              display: true,
+              labelString: "Number of Checks"
             }
           }
         ]
@@ -95,26 +93,19 @@ function populateChart(data) {
   let barChart = new Chart(bar, {
     type: "bar",
     data: {
-      labels: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ],
+      labels: dates,
       datasets: [
         {
-          label: "Pounds",
-          data: pounds,
+          label: "Requests per Day",
+          data: checkCounts,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
             "rgba(255, 206, 86, 0.2)",
             "rgba(75, 192, 192, 0.2)",
             "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)"
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(255, 99, 132, 0.2)"
           ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
@@ -122,7 +113,8 @@ function populateChart(data) {
             "rgba(255, 206, 86, 1)",
             "rgba(75, 192, 192, 1)",
             "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)"
+            "rgba(255, 159, 64, 1)",
+            "rgba(255, 99, 132, 1)"
           ],
           borderWidth: 1
         }
@@ -131,7 +123,7 @@ function populateChart(data) {
     options: {
       title: {
         display: true,
-        text: "Pounds Lifted"
+        text: "Daily IMEI Check Volume"
       },
       scales: {
         yAxes: [
@@ -148,19 +140,19 @@ function populateChart(data) {
   let pieChart = new Chart(pie, {
     type: "pie",
     data: {
-      labels: workouts,
+      labels: ["Total IMEI Checks"],
       datasets: [
         {
-          label: "Excercises Performed",
+          label: "IMEI Checks",
           backgroundColor: colors,
-          data: durations
+          data: [imeiCount]
         }
       ]
     },
     options: {
       title: {
         display: true,
-        text: "Excercises Performed"
+        text: "Total IMEI Checks"
       }
     }
   });
@@ -168,56 +160,47 @@ function populateChart(data) {
   let donutChart = new Chart(pie2, {
     type: "doughnut",
     data: {
-      labels: workouts,
+      labels: dates,
       datasets: [
         {
-          label: "Excercises Performed",
+          label: "Daily Distribution",
           backgroundColor: colors,
-          data: pounds
+          data: checkCounts
         }
       ]
     },
     options: {
       title: {
         display: true,
-        text: "Excercises Performed"
+        text: "Check Distribution"
       }
     }
   });
 }
 
-function duration(data) {
-  let durations = [];
+function getCheckCounts(data) {
+  let counts = [];
 
-  data.forEach(workout => {
-    workout.exercises.forEach(exercise => {
-      durations.push(exercise.duration);
-    });
+  data.forEach(imei => {
+    // Count the number of requests in each IMEI record
+    let count = imei.requests ? imei.requests.length : 1;
+    counts.push(count);
   });
 
-  return durations;
+  return counts;
 }
 
-function calculateTotalWeight(data) {
-  let total = [];
+function getDates(data) {
+  let dates = [];
 
-  data.forEach(workout => {
-    workout.exercises.forEach(exercise => {
-      total.push(exercise.weight);
-    });
+  data.forEach(imei => {
+    if (imei.day) {
+      let date = new Date(imei.day);
+      dates.push(date.toLocaleDateString());
+    } else {
+      dates.push("Unknown");
+    }
   });
 
-  return total;
-}
-
-function workoutNames(data) {
-  let workouts = [];
-
-  data.forEach(workout => {
-    workout.exercises.forEach(exercise => {
-      workouts.push(exercise.name);
-    });
-  });
-  
-  return workouts;
+  return dates;
 }

@@ -10,6 +10,9 @@ const fetch = global.fetch || ((...args) => import('node-fetch').then(({default:
   router.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/exercise.html"));
   });
+  router.get("/imei_stats", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/imei_stats.html"));
+  });
 
   router.get("/index", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));

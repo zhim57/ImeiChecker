@@ -428,8 +428,19 @@ async function handleBandUpdate(model) {
 // Backward compatibility: keep the old function name
 export async function processImeiActual(response, type) {
   // If called with response object, extract IMEI and process
-  if (typeof response === 'object' && response.query) {
-    await processImeiEnhanced(response.query);
+  if (typeof response === 'object') {
+    // Try different possible IMEI field names from various API responses
+    const imei = response.query || response.deviceImei || response.imei;
+    if (imei) {
+      await processImeiEnhanced(String(imei));
+    } else {
+      console.error('Could not extract IMEI from response:', response);
+      $("#score-dump").html(`
+        <div class="alert alert-danger">
+          <strong>Error:</strong> Could not extract IMEI from response
+        </div>
+      `);
+    }
   } else if (typeof response === 'string') {
     await processImeiEnhanced(response);
   }
