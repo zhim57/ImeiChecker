@@ -1,70 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+  <meta name="description" content="Check IMEI information instantly - IMEI DJAJA" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
   <link rel="stylesheet" href="/assets/css/style.css" />
-  <title>IMEI DJAJA</title>
+
+  <title>IMEI DJAJA - IMEI Checker</title>
 </head>
 
 <body>
+  <!-- Navigation -->
   <nav>
-    <a href="/">imei djaja</a>
-    <a href="/imei_stats">Dashboard</a>
+    <div class="nav-container">
+      <a href="/">IMEI DJAJA</a>
+      <a href="/imei_stats">Dashboard</a>
+    </div>
   </nav>
-  <Div>
-    <div class="prev-workout">
-      <div class="ui container exercise">
-        <div class="ui raised ml-5 mr- 5  ">
-          <div class="row">
-            <div class="col-md-7 col-sm-7">
-            </div>
-            <div class="col-md-2 col-sm-2">
-              <label for="countries"></label>
-              <p>
-                <select id="countries">
-                  <option value="USA">USA</option>
-                </select>
-              </p>
-            </div>
-          </div>
-          <form action="POST">
-            <div id="form-imei" class="workout-type">
-              <input name="imei-name" id="imei-name" placeholder="Enter the Imei here">
-              <input name="email-name" id="email-name" placeholder="Your email here">
-              </input>
-              <button disabled class=" complete ui  blue button">
-                Check
-              </button>
-            </div>
-          </form>
-          <form action="POST">
-            <div id="score-dump">
-            </div>
-            <div id="main-dump">
-            </div>
-            <div id="model-dump">
-            </div>
-          </form>
 
-          <!-- Manual Band Update Form Container (populated by funk-enhanced.js) -->
-          <div id="update-form-container"></div>
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Main Card -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <h1 class="card-title">IMEI Checker</h1>
+        <p class="card-subtitle">Enter your IMEI number to get detailed device information and network compatibility</p>
+      </div>
+
+      <!-- IMEI Check Form -->
+      <form class="imei-form" id="form-imei" action="POST">
+        <div class="form-group">
+          <label for="imei-name">IMEI Number</label>
+          <input
+            type="text"
+            name="imei-name"
+            id="imei-name"
+            placeholder="Enter 15-digit IMEI number"
+            maxlength="15"
+            pattern="[0-9]{15}"
+            required
+          />
         </div>
-      </div>
-      <div id="toast"> ...
-      </div>
-      <div>
-        <div class="workout-stats"></div>
-      </div>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script type="module" src="/api.js"></script>
-      <script type="module" src="/index.js"></script>
-      <!-- <script type="module" src="/funk.js"></script> -->
-       <script type="module" src="/funk-enhanced.js"></script>
+        <div class="form-group">
+          <label for="email-name">Email Address</label>
+          <input
+            type="email"
+            name="email-name"
+            id="email-name"
+            placeholder="your.email@example.com"
+            required
+          />
+        </div>
 
+        <div class="form-group">
+          <label for="countries">Country</label>
+          <select id="countries" name="countries">
+            <option value="USA">United States</option>
+          </select>
+        </div>
+
+        <button type="submit" class="complete btn-primary btn-block" disabled>
+          Check IMEI
+        </button>
+      </form>
+
+      <!-- Results Section -->
+      <div class="result-section">
+        <!-- Score Display -->
+        <div id="score-dump"></div>
+
+        <!-- Main Information Display -->
+        <div id="main-dump"></div>
+
+        <!-- Model Information Display -->
+        <div id="model-dump"></div>
+
+        <!-- Manual Band Update Form -->
+        <div id="update-form-container"></div>
+      </div>
+    </div>
+
+    <!-- Info Card -->
+    <div class="card fade-in" style="animation-delay: 0.1s;">
+      <h3>How to Find Your IMEI</h3>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        <strong>For iPhone:</strong> Dial *#06# or go to Settings → General → About<br>
+        <strong>For Android:</strong> Dial *#06# or go to Settings → About Phone<br>
+        <strong>Physical Device:</strong> Check the back of your device or SIM tray
+      </p>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="module" src="/api.js"></script>
+  <script type="module" src="/index.js"></script>
+  <script type="module" src="/funk-enhanced.js"></script>
 </body>
 </html>
