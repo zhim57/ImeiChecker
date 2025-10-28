@@ -19,33 +19,55 @@ class DeviceComparison {
 
   // Load device database
   async loadDeviceDatabase() {
+    console.log('📦 Loading device database...');
     try {
       const response = await fetch('/data/device-database.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
       this.devices = data.devices;
       this.screenTechRankings = data.screenTechRankings;
       this.screenQualityNotes = data.screenQualityNotes;
+      console.log(`✅ Loaded ${this.devices.length} devices from database`);
       return true;
     } catch (error) {
-      console.error('Error loading device database:', error);
+      console.error('❌ Error loading device database:', error);
       return false;
     }
   }
 
   // Find device by model name or partial match
   findDevice(searchTerm) {
-    if (!searchTerm) return null;
+    if (!searchTerm) {
+      console.warn('⚠️ No search term provided to findDevice');
+      return null;
+    }
 
+    console.log(`🔎 Searching for device: "${searchTerm}"`);
     const normalized = searchTerm.toLowerCase().trim();
 
-    return this.devices.find(device => {
+    const found = this.devices.find(device => {
       const modelLower = device.model.toLowerCase();
       const brandLower = device.brand.toLowerCase();
 
-      return modelLower.includes(normalized) ||
+      const matches = modelLower.includes(normalized) ||
              normalized.includes(modelLower) ||
              `${brandLower} ${modelLower}`.includes(normalized);
+
+      if (matches) {
+        console.log(`✅ Found match: ${device.brand} ${device.model}`);
+      }
+
+      return matches;
     });
+
+    if (!found) {
+      console.warn(`⚠️ No device found matching "${searchTerm}"`);
+      console.log('Available devices:', this.devices.map(d => `${d.brand} ${d.model}`).slice(0, 5).join(', '), '...');
+    }
+
+    return found;
   }
 
   // Calculate price-to-value ratio
