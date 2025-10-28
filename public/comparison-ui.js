@@ -24,11 +24,21 @@ class ComparisonUI {
   // Show basic overview after IMEI check
   showOverview(deviceModel, targetElementId = 'model-dump') {
     console.log(`📊 showOverview called with device: "${deviceModel}", target: "${targetElementId}"`);
+    console.log('🔍 Comparison engine state:', {
+      devicesLoaded: this.comparison.devices ? this.comparison.devices.length : 0,
+      engineExists: !!this.comparison,
+      hasGetOverview: typeof this.comparison.getDeviceOverview === 'function'
+    });
 
     const overview = this.comparison.getDeviceOverview(deviceModel);
+    console.log('📦 getDeviceOverview result:', overview ? 'Found' : 'NULL', overview);
 
     if (!overview) {
       console.warn(`⚠️ Device "${deviceModel}" not found in comparison database`);
+      console.log('Available devices sample:',
+        this.comparison.devices ?
+        this.comparison.devices.slice(0, 10).map(d => `${d.brand} ${d.model}`) :
+        'No devices loaded');
       return;
     }
 
@@ -43,6 +53,7 @@ class ComparisonUI {
     }
 
     console.log('✅ Target element found, rendering overview...');
+    console.log('📄 Target element current content length:', targetElement.innerHTML.length);
 
     const percentileClass = this.getPercentileClass(overview.rankDescription);
 
@@ -91,7 +102,12 @@ class ComparisonUI {
     `;
 
     // Append to target element
+    console.log('📝 About to insert HTML (length:', overviewHTML.length, ')');
+    console.log('📝 HTML preview:', overviewHTML.substring(0, 200) + '...');
     targetElement.insertAdjacentHTML('beforeend', overviewHTML);
+    console.log('✅ HTML inserted! New content length:', targetElement.innerHTML.length);
+    console.log('📄 Target element classes:', targetElement.className);
+    console.log('📍 Target element in DOM:', document.body.contains(targetElement));
   }
 
   // Get percentile class for styling
