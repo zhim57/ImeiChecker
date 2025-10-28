@@ -33,24 +33,49 @@ class ComparisonUI {
     const overview = this.comparison.getDeviceOverview(deviceModel);
     console.log('📦 getDeviceOverview result:', overview ? 'Found' : 'NULL', overview);
 
+    const targetElement = document.getElementById(targetElementId);
+    if (!targetElement) {
+      console.error(`❌ Target element "${targetElementId}" not found in DOM`);
+      return;
+    }
+
     if (!overview) {
       console.warn(`⚠️ Device "${deviceModel}" not found in comparison database`);
       console.log('Available devices sample:',
         this.comparison.devices ?
         this.comparison.devices.slice(0, 10).map(d => `${d.brand} ${d.model}`) :
         'No devices loaded');
+
+      // Show helpful message when device not found
+      const notFoundHTML = `
+        <div class="comparison-overview fade-in" style="background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%); border: 1px solid #667eea40; padding: 1.5rem; border-radius: 0.5rem; margin-top: 1rem;">
+          <h3 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.5rem;">📊</span>
+            Comparison Data Not Available
+          </h3>
+          <p style="margin: 0.75rem 0;">
+            The <strong>${deviceModel}</strong> is not yet in our comparison database. We're continuously expanding our device database with popular models.
+          </p>
+          <p style="margin: 0.75rem 0; font-size: 0.9rem; color: var(--text-secondary);">
+            Our comparison database currently includes ${this.comparison.devices.length} devices with detailed market analysis, pricing, and recommendations.
+          </p>
+          <details style="margin-top: 1rem;">
+            <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 0.25rem;">
+              View Available Devices
+            </summary>
+            <div style="margin-top: 0.5rem; max-height: 200px; overflow-y: auto; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 0.25rem;">
+              ${this.comparison.devices.map(d => `<div style="padding: 0.25rem 0;">${d.brand} ${d.model} (${d.year})</div>`).join('')}
+            </div>
+          </details>
+        </div>
+      `;
+      targetElement.insertAdjacentHTML('beforeend', notFoundHTML);
       return;
     }
 
     console.log('✅ Device overview generated:', overview);
 
     this.currentDeviceModel = deviceModel;
-    const targetElement = document.getElementById(targetElementId);
-
-    if (!targetElement) {
-      console.error(`❌ Target element "${targetElementId}" not found in DOM`);
-      return;
-    }
 
     console.log('✅ Target element found, rendering overview...');
     console.log('📄 Target element current content length:', targetElement.innerHTML.length);
