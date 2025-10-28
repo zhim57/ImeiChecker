@@ -200,4 +200,53 @@ export const API = {
       return null;
     }
   },
+
+  // NEW: Intelligent IMEI checking with caching
+  async checkImei(imei, userId = null) {
+    try {
+      const url = userId
+        ? `/api/imei/${imei}?userId=${encodeURIComponent(userId)}`
+        : `/api/imei/${imei}`;
+      const res = await fetch(url);
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Failed to check IMEI');
+      }
+      return await res.json();
+    } catch (err) {
+      console.error('Error checking IMEI:', err);
+      throw err;
+    }
+  },
+
+  // NEW: Update phone model bands manually
+  async updateBands(model, bandsData) {
+    try {
+      const res = await fetch(`/api/phone-model/${encodeURIComponent(model)}/bands`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bandsData),
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Failed to update bands');
+      }
+      return await res.json();
+    } catch (err) {
+      console.error('Error updating bands:', err);
+      throw err;
+    }
+  },
+
+  // NEW: Get system statistics
+  async getStats() {
+    try {
+      const res = await fetch('/api/stats');
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (err) {
+      console.error('Error fetching stats:', err);
+      return null;
+    }
+  },
 };
