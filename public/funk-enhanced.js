@@ -136,59 +136,92 @@ async function renderEnhancedResults(data) {
 }
 
 /**
- * Render the manual band update form
+ * Render the manual band update form - Only shows fields for missing data
+ * Prioritizes LTE/4G bands as they're critical for compatibility
  */
 function renderUpdateForm(data) {
   const missingWcdma = !data.bands?.wcdma || data.bands.wcdma.length === 0;
   const missingLte = !data.bands?.lte || data.bands.lte.length === 0;
   const missing2G = !data.bands?.twoG || data.bands.twoG.length === 0;
 
+  // Count how many fields are missing
+  const missingCount = [missingLte, missingWcdma, missing2G].filter(Boolean).length;
+
+  // If nothing is missing, don't show the form
+  if (missingCount === 0) {
+    $("#update-form-container").hide();
+    return;
+  }
+
+  // Create header based on what's missing - prioritize LTE
+  let headerText = 'Help Complete This Model\'s Data';
+  let descriptionText = '';
+
+  if (missingLte) {
+    headerText = '4G/LTE Bands Needed - Critical for Compatibility!';
+    descriptionText = `<p class="alert alert-warning"><strong>⚠️ Missing LTE bands</strong> - These are essential for accurate carrier compatibility scores.</p>`;
+  } else if (missingWcdma) {
+    headerText = 'WCDMA Bands Needed';
+    descriptionText = `<p class="text-muted">Help complete the 3G band information for <strong>${data.model}</strong>.</p>`;
+  } else {
+    descriptionText = `<p class="text-muted">Help complete the band information for <strong>${data.model}</strong>.</p>`;
+  }
+
   const formHtml = `
-    <div class="card mt-4">
-      <div class="card-header bg-info text-white">
-        <h4>Help Complete This Model's Data</h4>
+    <div class="card mt-4 shadow">
+      <div class="card-header ${missingLte ? 'bg-warning text-dark' : 'bg-info text-white'}">
+        <h4 class="mb-0">${headerText}</h4>
       </div>
       <div class="card-body">
-        <p>Some band information is missing for <strong>${data.model}</strong>.
-           You can help by filling it in! Your contribution will help other users.</p>
+        ${descriptionText}
 
         <form id="bands-update-form">
-          ${missing2G ? `
-            <div class="form-group">
-              <label for="input-2g">2G Bands (comma separated)</label>
-              <input type="text" class="form-control" id="input-2g"
-                     placeholder="GSM 850, GSM 900, GSM 1800, GSM 1900">
-              <small class="form-text text-muted">Example: GSM 850, GSM 1900</small>
+          ${missingLte ? `
+            <div class="form-group mb-4">
+              <label for="input-lte" class="font-weight-bold text-danger">
+                📶 LTE/4G Bands (comma separated) <span class="badge badge-danger">Required</span>
+              </label>
+              <input type="text" class="form-control form-control-lg" id="input-lte"
+                     placeholder="e.g., 2, 4, 5, 12, 13, 17, 25, 26, 66, 71"
+                     style="border: 2px solid #ffc107;">
+              <small class="form-text text-muted">
+                <strong>Most important!</strong> Enter the 4G LTE bands - Example: 2, 4, 5, 12, 66, 71
+                <br>Common US bands: 2, 4, 5, 12, 13, 17, 25, 26, 66, 71
+              </small>
             </div>
           ` : ''}
 
           ${missingWcdma ? `
-            <div class="form-group">
-              <label for="input-wcdma">WCDMA Bands (comma separated)</label>
+            <div class="form-group mb-3">
+              <label for="input-wcdma" class="font-weight-bold">
+                📡 WCDMA/3G Bands (comma separated) ${missingLte ? '<span class="badge badge-secondary">Optional</span>' : ''}
+              </label>
               <input type="text" class="form-control" id="input-wcdma"
-                     placeholder="1, 2, 4, 5, 8">
+                     placeholder="e.g., 1, 2, 4, 5, 8">
               <small class="form-text text-muted">Example: 2, 4, 5, 8</small>
             </div>
           ` : ''}
 
-          ${missingLte ? `
-            <div class="form-group">
-              <label for="input-lte">LTE/4G Bands (comma separated)</label>
-              <input type="text" class="form-control" id="input-lte"
-                     placeholder="1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 25, 26, 66">
-              <small class="form-text text-muted">Example: 2, 4, 5, 12, 66, 71</small>
+          ${missing2G ? `
+            <div class="form-group mb-3">
+              <label for="input-2g" class="font-weight-bold">
+                📻 2G Bands (comma separated) ${(missingLte || missingWcdma) ? '<span class="badge badge-secondary">Optional</span>' : ''}
+              </label>
+              <input type="text" class="form-control" id="input-2g"
+                     placeholder="e.g., GSM 850, GSM 1900">
+              <small class="form-text text-muted">Example: GSM 850, GSM 1900, GSM 1800</small>
             </div>
           ` : ''}
 
-          <div class="form-group">
+          <div class="form-group mb-4">
             <label for="input-userid">Your Name/Email (optional)</label>
             <input type="text" class="form-control" id="input-userid"
                    placeholder="user@example.com">
             <small class="form-text text-muted">Optional: Help us track contributions</small>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-lg btn-block">
-            Update & Save Bands
+          <button type="submit" class="btn ${missingLte ? 'btn-warning' : 'btn-primary'} btn-lg btn-block">
+            ${missingLte ? '🚀 Update LTE Bands & Save' : '✓ Update & Save'}
           </button>
         </form>
 
@@ -241,13 +274,27 @@ async function handleBandUpdate(model) {
       return;
     }
 
+    // If LTE field is visible but empty, warn user
+    if ($("#input-lte").length > 0 && !bandsData.lte) {
+      $("#update-result").html(
+        '<div class="alert alert-warning"><strong>LTE bands are critical!</strong> ' +
+        'Please fill in the LTE/4G bands field for accurate compatibility scores.</div>'
+      );
+      return;
+    }
+
     // Call API to update bands
     const result = await API.updateBands(model, bandsData);
 
-    // Show success message
+    // Show success message with emphasis on LTE if updated
+    const lteUpdated = bandsData.lte && bandsData.lte.length > 0;
+    const successMessage = lteUpdated
+      ? '<strong>Excellent!</strong> LTE bands updated - compatibility scores will now be accurate! 🎉'
+      : '<strong>Success!</strong> Bands updated successfully. Thank you for your contribution!';
+
     $("#update-result").html(`
       <div class="alert alert-success">
-        <strong>Success!</strong> Bands updated successfully. Thank you for your contribution!
+        ${successMessage}
         <br>
         <small>Data completeness: ${result.dataCompleteness}%</small>
       </div>
