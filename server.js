@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use(logger("dev"))
 
 
