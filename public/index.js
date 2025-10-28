@@ -1,6 +1,4 @@
-const countryInput = document.querySelector("#countries");
 const imeiNameInput = document.querySelector("#imei-name");
-const emailInput = document.querySelector("#email-name");
 var currentImei = "";
 const completeButton = document.querySelector("button.complete");
 const viewButton = document.querySelector("button.view");
@@ -81,7 +79,6 @@ async function saveImei(data) {
 
 function clearInputs() {
   imeiNameInput.value = "";
-  countryInput.value = "";
 }
 
 
@@ -90,9 +87,15 @@ if (completeButton) {
     event.preventDefault();
 
     let imei = imeiNameInput.value.trim();
-    username = emailInput.value.trim() || "safety-net";
+    username = "anonymous";
     currentImei = imei;
     console.log(imei + " imei 1");
+
+    // Hide IMEI instructions once user has submitted
+    const imeiInstructions = document.getElementById('imei-instructions');
+    if (imeiInstructions) {
+      imeiInstructions.style.display = 'none';
+    }
 
     API.oneImeiDb(imei, function (result1){
       console.log(result1);

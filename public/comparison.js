@@ -224,6 +224,17 @@ class DeviceComparison {
     };
   }
 
+  // Check if device is old and should have a warning
+  isOldDevice(device) {
+    // Devices from 2015 or earlier are considered old
+    return device.year <= 2015;
+  }
+
+  // Get warning message for old devices
+  getOldDeviceWarning(device) {
+    return `⚠️ Note: ${device.model} (${device.year}) is an older device. Consider: limited/no iOS updates, reduced app compatibility, aging hardware, and limited resale value. While the price is low, newer budget options may offer better long-term value.`;
+  }
+
   // Generate recommendations
   generateRecommendations(currentDevice, alternatives, budget) {
     const recommendations = [];
@@ -235,12 +246,20 @@ class DeviceComparison {
     );
 
     if (betterValue.length > 0) {
-      recommendations.push({
+      const bestValueDevice = betterValue[0];
+      const recommendation = {
         type: 'better-value',
         title: 'Better Value Option',
-        device: betterValue[0],
-        reason: `${betterValue[0].model} offers ${((betterValue[0].valueRatio / currentRatio - 1) * 100).toFixed(0)}% better value for money`
-      });
+        device: bestValueDevice,
+        reason: `${bestValueDevice.model} offers ${((bestValueDevice.valueRatio / currentRatio - 1) * 100).toFixed(0)}% better value for money`
+      };
+
+      // Add warning if device is old
+      if (this.isOldDevice(bestValueDevice)) {
+        recommendation.warning = this.getOldDeviceWarning(bestValueDevice);
+      }
+
+      recommendations.push(recommendation);
     }
 
     // Find screen quality upgrade

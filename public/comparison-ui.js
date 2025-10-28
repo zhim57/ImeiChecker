@@ -445,6 +445,13 @@ class ComparisonUI {
         <span class="recommendation-type">${rec.title}</span>
         ${this.renderDeviceCard(rec.device, false)}
         <p class="recommendation-reason">${rec.reason}</p>
+        ${rec.warning ? `
+          <div class="alert" style="background: rgba(255, 193, 7, 0.2); border-left: 4px solid #ffc107; padding: 0.75rem; margin-top: 0.75rem; border-radius: 0.25rem;">
+            <p style="margin: 0; color: var(--text-primary); font-size: 0.9rem; line-height: 1.5;">
+              ${rec.warning}
+            </p>
+          </div>
+        ` : ''}
       </div>
     `;
   }

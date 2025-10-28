@@ -70,6 +70,9 @@ async function renderEnhancedResults(data) {
   const scoreDump = `
     <div class="text-center">
       <h2>Carrier Compatibility Results ${sourcebadge}</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+        <strong>Note:</strong> Compatibility scores are based on USA carrier bands. Other countries may use different frequency bands.
+      </p>
     </div>
     <table class="table table-striped">
       <tr><th>IMEI</th><td>${display(data.imei)}</td></tr>
@@ -133,6 +136,14 @@ async function renderEnhancedResults(data) {
   } else {
     $("#update-form-container").hide();
   }
+
+  // Auto-scroll to results
+  setTimeout(() => {
+    const resultsSection = document.querySelector('.result-section');
+    if (resultsSection) {
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 300);
 
   // Show device comparison overview if available
   console.log('🔍 Checking for comparison tool integration...', {

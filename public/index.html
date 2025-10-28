@@ -53,24 +53,6 @@
           />
         </div>
 
-        <div class="form-group">
-          <label for="email-name">Email Address</label>
-          <input
-            type="email"
-            name="email-name"
-            id="email-name"
-            placeholder="your.email@example.com"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="countries">Country</label>
-          <select id="countries" name="countries">
-            <option value="USA">United States</option>
-          </select>
-        </div>
-
         <button type="submit" class="complete btn-primary btn-block" disabled>
           Check IMEI
         </button>
@@ -93,7 +75,7 @@
     </div>
 
     <!-- Info Card -->
-    <div class="card fade-in" style="animation-delay: 0.1s;">
+    <div id="imei-instructions" class="card fade-in" style="animation-delay: 0.1s;">
       <h3>How to Find Your IMEI</h3>
       <p style="color: var(--text-secondary); line-height: 1.8;">
         <strong>For iPhone:</strong> Dial *#06# or go to Settings → General → About<br>
