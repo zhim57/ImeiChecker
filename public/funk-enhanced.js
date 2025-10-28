@@ -135,18 +135,34 @@ async function renderEnhancedResults(data) {
   }
 
   // Show device comparison overview if available
+  console.log('🔍 Checking for comparison tool integration...', {
+    modelName: data.modelName,
+    hasComparisonUI: !!window.comparisonUI,
+    hasDeviceComparison: !!window.DeviceComparison,
+    targetElement: document.getElementById('model-dump')
+  });
+
   if (data.modelName) {
     console.log('📱 Device model detected:', data.modelName);
 
     // Function to show comparison when ready
     const showComparison = () => {
+      console.log('🎯 showComparison() called', {
+        comparisonUIExists: !!window.comparisonUI,
+        modelName: data.modelName,
+        targetExists: !!document.getElementById('model-dump')
+      });
+
       if (window.comparisonUI) {
         console.log('🔍 Attempting to show comparison overview...');
+        console.log('📊 Calling comparisonUI.showOverview with:', data.modelName, 'model-dump');
         try {
-          window.comparisonUI.showOverview(data.modelName, 'model-dump');
-          console.log('✅ Comparison overview displayed');
+          const result = window.comparisonUI.showOverview(data.modelName, 'model-dump');
+          console.log('✅ showOverview returned:', result);
+          console.log('📄 model-dump innerHTML length:', document.getElementById('model-dump').innerHTML.length);
         } catch (error) {
           console.error('❌ Error showing comparison:', error);
+          console.error('Stack trace:', error.stack);
         }
       } else {
         console.warn('⚠️ Comparison tool not yet initialized, waiting...');
@@ -157,15 +173,26 @@ async function renderEnhancedResults(data) {
 
     // Check if comparison is ready, or wait for the event
     if (window.comparisonUI) {
+      console.log('✅ Comparison UI already initialized, showing immediately');
       showComparison();
     } else {
       console.log('⏳ Waiting for comparison tool to initialize...');
-      window.addEventListener('comparisonReady', showComparison, { once: true });
+      window.addEventListener('comparisonReady', () => {
+        console.log('🎉 comparisonReady event fired!');
+        showComparison();
+      }, { once: true });
       // Fallback timeout
-      setTimeout(showComparison, 2000);
+      setTimeout(() => {
+        console.log('⏰ Fallback timeout triggered after 2s');
+        showComparison();
+      }, 2000);
     }
   } else {
-    console.log('ℹ️ No model name available for comparison');
+    console.log('ℹ️ No model name available for comparison', {
+      dataKeys: Object.keys(data),
+      model: data.model,
+      modelName: data.modelName
+    });
   }
 }
 

@@ -45,7 +45,13 @@ class DeviceComparison {
     }
 
     console.log(`🔎 Searching for device: "${searchTerm}"`);
+    console.log(`📊 Database has ${this.devices ? this.devices.length : 0} devices`);
     const normalized = searchTerm.toLowerCase().trim();
+
+    if (!this.devices || this.devices.length === 0) {
+      console.error('❌ Device database is empty or not loaded!');
+      return null;
+    }
 
     const found = this.devices.find(device => {
       const modelLower = device.model.toLowerCase();
@@ -64,7 +70,8 @@ class DeviceComparison {
 
     if (!found) {
       console.warn(`⚠️ No device found matching "${searchTerm}"`);
-      console.log('Available devices:', this.devices.map(d => `${d.brand} ${d.model}`).slice(0, 5).join(', '), '...');
+      console.log('🔍 Search term normalized:', normalized);
+      console.log('📋 First 10 available devices:', this.devices.slice(0, 10).map(d => `"${d.brand} ${d.model}"`).join(', '));
     }
 
     return found;
