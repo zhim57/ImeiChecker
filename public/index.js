@@ -9,7 +9,7 @@ const toast = document.querySelector("#toast");
 const formImei = document.querySelector("#form-imei");
 const updateBtn = document.querySelector("#update-model-btn");
 const updateForm = document.querySelector("#update-model-form");
-import { processImeiActual, displayResult } from "/funk.js";
+import { processImeiActual } from "/funk-enhanced.js";
 import { API } from "/api.js";
 
 var username = "dummy string";
