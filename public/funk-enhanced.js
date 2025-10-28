@@ -135,11 +135,37 @@ async function renderEnhancedResults(data) {
   }
 
   // Show device comparison overview if available
-  if (data.modelName && window.comparisonUI) {
-    // Wait a bit for the comparison engine to be ready
-    setTimeout(() => {
-      window.comparisonUI.showOverview(data.modelName, 'model-dump');
-    }, 500);
+  if (data.modelName) {
+    console.log('📱 Device model detected:', data.modelName);
+
+    // Function to show comparison when ready
+    const showComparison = () => {
+      if (window.comparisonUI) {
+        console.log('🔍 Attempting to show comparison overview...');
+        try {
+          window.comparisonUI.showOverview(data.modelName, 'model-dump');
+          console.log('✅ Comparison overview displayed');
+        } catch (error) {
+          console.error('❌ Error showing comparison:', error);
+        }
+      } else {
+        console.warn('⚠️ Comparison tool not yet initialized, waiting...');
+        // Wait for comparison tool to initialize
+        setTimeout(showComparison, 300);
+      }
+    };
+
+    // Check if comparison is ready, or wait for the event
+    if (window.comparisonUI) {
+      showComparison();
+    } else {
+      console.log('⏳ Waiting for comparison tool to initialize...');
+      window.addEventListener('comparisonReady', showComparison, { once: true });
+      // Fallback timeout
+      setTimeout(showComparison, 2000);
+    }
+  } else {
+    console.log('ℹ️ No model name available for comparison');
   }
 }
 

@@ -23,17 +23,26 @@ class ComparisonUI {
 
   // Show basic overview after IMEI check
   showOverview(deviceModel, targetElementId = 'model-dump') {
+    console.log(`📊 showOverview called with device: "${deviceModel}", target: "${targetElementId}"`);
+
     const overview = this.comparison.getDeviceOverview(deviceModel);
 
     if (!overview) {
-      console.log('Device not found in comparison database');
+      console.warn(`⚠️ Device "${deviceModel}" not found in comparison database`);
       return;
     }
+
+    console.log('✅ Device overview generated:', overview);
 
     this.currentDeviceModel = deviceModel;
     const targetElement = document.getElementById(targetElementId);
 
-    if (!targetElement) return;
+    if (!targetElement) {
+      console.error(`❌ Target element "${targetElementId}" not found in DOM`);
+      return;
+    }
+
+    console.log('✅ Target element found, rendering overview...');
 
     const percentileClass = this.getPercentileClass(overview.rankDescription);
 
@@ -403,21 +412,36 @@ class ComparisonUI {
 // Initialize globally
 let comparisonUI;
 
-// Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+// Initialize function
+async function initializeComparison() {
+  console.log('🔧 Initializing comparison tool...');
+  try {
     const comparison = new DeviceComparison();
     comparisonUI = new ComparisonUI(comparison);
-    comparisonUI.init();
-  });
-} else {
-  const comparison = new DeviceComparison();
-  comparisonUI = new ComparisonUI(comparison);
-  comparisonUI.init();
+    await comparisonUI.init();
+
+    // Make available globally
+    if (typeof window !== 'undefined') {
+      window.comparisonUI = comparisonUI;
+      window.ComparisonUI = ComparisonUI;
+      window.DeviceComparison = DeviceComparison;
+    }
+
+    console.log('✅ Comparison tool initialized successfully');
+
+    // Dispatch event to notify other scripts
+    window.dispatchEvent(new CustomEvent('comparisonReady'));
+
+    return comparisonUI;
+  } catch (error) {
+    console.error('❌ Failed to initialize comparison tool:', error);
+    return null;
+  }
 }
 
-// Make available globally
-if (typeof window !== 'undefined') {
-  window.comparisonUI = comparisonUI;
-  window.ComparisonUI = ComparisonUI;
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeComparison);
+} else {
+  initializeComparison();
 }
