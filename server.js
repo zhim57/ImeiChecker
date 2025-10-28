@@ -25,12 +25,7 @@ app.use(logger("dev"))
 
 // || "mongodb://localhost/mongodb"
 
-mongoose.connect(MONGODB_URI , {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
+mongoose.connect(MONGODB_URI);
 
 // routes
 app.use(require("./routes/api-routes.js"));
