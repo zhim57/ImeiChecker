@@ -133,6 +133,14 @@ async function renderEnhancedResults(data) {
   } else {
     $("#update-form-container").hide();
   }
+
+  // Show device comparison overview if available
+  if (data.modelName && window.comparisonUI) {
+    // Wait a bit for the comparison engine to be ready
+    setTimeout(() => {
+      window.comparisonUI.showOverview(data.modelName, 'model-dump');
+    }, 500);
+  }
 }
 
 /**
