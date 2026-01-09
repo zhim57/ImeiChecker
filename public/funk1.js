@@ -248,7 +248,7 @@ export function processImeiActual(response1, type) {
     <div class="text-center"  >  
     <img src= ${deviceImage} alt=""> 
     </div>
-    <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
+    <h1 class="text-center" style="color: #1e293b;">${deviceName}</h1>
     </div>
     <table id="w1" class="table table-striped table-bordered detail-view">
     <tbody>  <tr>
@@ -413,7 +413,7 @@ function renderResults(passObject) {
              <img src= ${deviceImage} alt="" 
              > 
              </div>
-             <h1 class="text-center" style="color: #fff;">${brand}  ${deviceName}</h1>` +
+             <h1 class="text-center" style="color: #1e293b;">${brand}  ${deviceName}</h1>` +
 
     `</div><table id="w1" class="table table-striped table-bordered detail-view"><tbody>  <tr>
              
@@ -472,7 +472,7 @@ function displayNoInfo() {
  <div class="text-center"  >  
  <img src= ${deviceImage} alt=""> 
  </div>
- <h1 class="text-center" style="color: #aaa;">${deviceName}</h1>
+ <h1 class="text-center" style="color: #1e293b;">${deviceName}</h1>
  </div>
  <table id="w1" class="table table-striped table-bordered detail-view">
  <tbody>  <tr>

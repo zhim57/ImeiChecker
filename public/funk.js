@@ -141,7 +141,7 @@ const scoreDump =
 const sampleDump =
     `<div class="device text-center">
       <img src="${display(info.deviceImage)}" alt="Device Image"/>
-      <h1 style="color:#fff;">${display(info.brand)} ${display(info.deviceName)}</h1>
+      <h1 style="color:#1e293b;">${display(info.brand)} ${display(info.deviceName)}</h1>
     </div>
     <table class="table table-striped">
       <tr><th>Net Tech</th><td>${display(info.nettech)}</td></tr>

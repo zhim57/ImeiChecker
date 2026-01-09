@@ -95,8 +95,8 @@ async function renderEnhancedResults(data) {
   const mainDump = `
     <div class="device text-center">
       <img src="${display(data.deviceImage)}" alt="Device Image" style="max-width: 300px;"/>
-      <h1 style="color:#fff;">${display(data.modelName)}</h1>
-      <p style="color:#ccc;">Model: ${display(data.model)}</p>
+      <h1 style="color:#1e293b;">${display(data.modelName)}</h1>
+      <p style="color:#64748b;">Model: ${display(data.model)}</p>
     </div>
     <table class="table table-striped">
       <tr><th>Net Tech</th><td>${display(data.netTech)}</td></tr>
